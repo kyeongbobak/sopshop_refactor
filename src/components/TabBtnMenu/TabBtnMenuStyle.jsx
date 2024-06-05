@@ -3,7 +3,8 @@ import styled, { css } from "styled-components";
 export const Tabs = styled.ul`
   display: table;
   width: 100%;
-  font-size: var(--font-lg-size);
+  font-family: "Pretendard";
+  font-size: var(--font-md-size);
   text-align: center;
 `;
 

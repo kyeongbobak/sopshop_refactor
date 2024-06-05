@@ -33,7 +33,7 @@ export default function SignUp() {
             <S.PhoneNumberInput />
             <S.PhoneNumberInput />
           </S.Wrapper>
-          <LS.StyledButton>회원가입</LS.StyledButton>
+          <LS.StyledButton>SIGN IN</LS.StyledButton>
         </LS.Form>
       </LS.Wrapper>
     </>

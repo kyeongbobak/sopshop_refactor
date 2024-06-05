@@ -22,7 +22,7 @@ export default function Login() {
             비밀번호
           </L.Label>
           <L.Input id="userPassword" type="password" placeholder="비밀번호" />
-          <L.StyledButton>로그인</L.StyledButton>
+          <L.StyledButton>LOG IN</L.StyledButton>
         </L.Form>
       </L.Wrapper>
     </>

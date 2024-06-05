@@ -22,6 +22,7 @@ export const Form = styled.form`
   padding: 35px;
   margin-top: -1px;
   box-sizing: border-box;
+  font-family: "Pretendard";
 `;
 
 export const Label = styled.label``;
@@ -38,5 +39,6 @@ export const StyledButton = styled.button`
   background-color: var(--black-color);
   color: white;
   font-family: "GmarketSans";
-  font-size: var(--font-sm-size);
+  font-size: var(--font-min-size);
+  font-weight: var(--font-bold);
 `;
