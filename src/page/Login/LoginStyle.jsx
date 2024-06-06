@@ -33,6 +33,15 @@ export const Input = styled.input`
   font-size: var(--font-md-size);
 `;
 
+export const ValidMessage = styled.p`
+  color: red;
+  text-align: left;
+  padding-top: 25px;
+  font-family: "Pretendard";
+  font-weight: var(--font-medium);
+  font-size: var(--font-sm-size);
+`;
+
 export const StyledButton = styled.button`
   margin-top: 36px;
   padding: 19px 213px;

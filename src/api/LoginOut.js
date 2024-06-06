@@ -1,17 +1,12 @@
 import axios from "axios";
+import { Instance } from "./Instance/Instance";
 
 // 로그인
 export const login = async (body) => {
+  console.log(body);
   try {
-    const res = await fetch("https://openmarket.weniv.co.kr/accounts/login/", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-
-    return res.json();
+    const res = await Instance.post(`/accounts/login/`, body);
+    return res.data;
   } catch (error) {
     console.log("error");
   }
