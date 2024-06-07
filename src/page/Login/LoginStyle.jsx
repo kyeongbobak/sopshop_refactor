@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   margin: 200px auto;
 `;
 
-export const Img = styled(Link)`
+export const LogoImg = styled(Link)`
   display: block;
   text-align: center;
   margin-bottom: 70px;
@@ -27,23 +27,23 @@ export const Form = styled.form`
 
 export const Label = styled.label``;
 
-export const Input = styled.input`
+export const LoginInput = styled.input`
   border-bottom: 1px solid var(--gray-color);
   padding: 20px 0;
   font-size: var(--font-md-size);
 `;
 
-export const ValidMessage = styled.p`
+export const ErrorMessage = styled.p`
   color: red;
   text-align: left;
-  padding-top: 25px;
+  padding-top: 13px;
   font-family: "Pretendard";
   font-weight: var(--font-medium);
   font-size: var(--font-sm-size);
 `;
 
-export const StyledButton = styled.button`
-  margin-top: 36px;
+export const SubmitButton = styled.button`
+  margin-top: 20px;
   padding: 19px 213px;
   background-color: var(--black-color);
   color: white;

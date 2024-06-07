@@ -8,3 +8,15 @@ export const userToken = atom({
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
+
+export const isLogin = atom({
+  key: "isLogin",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const userType = atom({
+  key: "userType",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
