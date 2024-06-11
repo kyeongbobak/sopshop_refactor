@@ -25,6 +25,8 @@ export default function Login() {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
+  // console.log(errors);
+
   const LoginMutation = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
@@ -62,6 +64,7 @@ export default function Login() {
           placeholder="아이디"
           {...register("username", {
             required: "아이디를 입력해주세요",
+            onChange: () => setWarningMessage(""),
           })}
         />
         {errors.username && <L.ErrorMessage>{errors.username.message}</L.ErrorMessage>}
@@ -74,6 +77,7 @@ export default function Login() {
           placeholder="비밀번호"
           {...register("password", {
             required: "비밀번호를 입력해주세요",
+            onChange: () => setWarningMessage(""),
           })}
         />
         {errors.password && <L.ErrorMessage>{errors.password.message}</L.ErrorMessage>}

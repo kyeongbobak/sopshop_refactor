@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
 import * as LS from "../Login/LoginStyle";
-import * as L from "../Login/LoginStyle";
+
 import * as S from "../SignUp/SignUpStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 import { validateAccount } from "../../api/Account";
@@ -32,9 +32,9 @@ export default function SignUp() {
   return (
     <>
       <LS.Wrapper>
-        <L.LogoImg to={`/login`}>
+        <LS.LogoImg to={`/login`}>
           <img src={logo} alt="logo" />
-        </L.LogoImg>
+        </LS.LogoImg>
         <TabBtnMenu IsBuyer={IsBuyer} setIsBuyer={setIsBuyer} content={"가입"} />
         <LS.Form onSubmit={handleSubmit}>
           <S.Label htmlFor="id">아이디</S.Label>

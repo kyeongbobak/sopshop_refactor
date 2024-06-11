@@ -6,6 +6,7 @@ export const login = async (body) => {
   console.log(body);
   try {
     const res = await Instance.post(`/accounts/login/`, body);
+    console.log(res);
     return res.data;
   } catch (error) {
     console.log("error");
