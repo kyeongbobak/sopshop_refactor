@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
 import * as LS from "../Login/LoginStyle";
-
 import * as S from "../SignUp/SignUpStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 import { validateAccount } from "../../api/Account";
@@ -16,6 +15,7 @@ export default function SignUp() {
   const verifyUsernameMutation = useMutation({
     mutationFn: validateAccount,
     onSuccess: (data) => {
+      console.log(data);
       setDuplicateMessage(data.Success);
     },
     onError: (data) => {
@@ -25,8 +25,21 @@ export default function SignUp() {
 
   const verifyUserName = async () => {
     const { userId } = getValues();
-    console.log(userId);
     await verifyUsernameMutation.mutate(userId);
+  };
+
+  // const SignUpMutation = useMutation({
+  //   mutationFn: signUp,
+  //   onSuccess: (data) => {
+  //     console.log(data);
+  //   },
+  // });
+
+  const handleOnSignUp = (data) => {
+    console.log(data);
+    const { FrontNumber, SecondNumber, LastNumber } = getValues();
+    const phoneNumber = FrontNumber.concat(SecondNumber).concat(LastNumber);
+    console.log(phoneNumber);
   };
 
   return (
@@ -36,7 +49,7 @@ export default function SignUp() {
           <img src={logo} alt="logo" />
         </LS.LogoImg>
         <TabBtnMenu IsBuyer={IsBuyer} setIsBuyer={setIsBuyer} content={"가입"} />
-        <LS.Form onSubmit={handleSubmit}>
+        <LS.Form onSubmit={handleSubmit(handleOnSignUp)}>
           <S.Label htmlFor="id">아이디</S.Label>
           <S.Wrapper>
             <S.SignUpInput id="id" type="text" {...register("userId")} onFocus={() => setDuplicateMessage("")} />
@@ -45,17 +58,19 @@ export default function SignUp() {
             </S.Button>
           </S.Wrapper>
           <LS.ErrorMessage>{DuplicateMessage}</LS.ErrorMessage>
-          <S.Label>비밀번호</S.Label>
-          <S.SignUpInput />
-          <S.Label>비밀번호</S.Label>
-          <S.SignUpInput />
+          <S.PasswordWrapper>
+            <S.Label>비밀번호</S.Label>
+            <S.SignUpInput type="password" />
+            <S.Label>비밀번호</S.Label>
+            <S.SignUpInput type="password" />
+          </S.PasswordWrapper>
           <S.Label>이름</S.Label>
           <S.SignUpInput />
           <S.Label>휴대폰 번호</S.Label>
           <S.Wrapper>
-            <S.PhoneNumberInput />
-            <S.PhoneNumberInput />
-            <S.PhoneNumberInput />
+            <S.PhoneNumberInput {...register("FrontNumber")} />
+            <S.PhoneNumberInput {...register("SecondNumber")} />
+            <S.PhoneNumberInput {...register("LastNumber")} />
           </S.Wrapper>
           <S.Section>
             <S.CheckBox type="checkbox" required />

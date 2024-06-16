@@ -20,11 +20,13 @@ export const CommonIntputStyle = css`
   border-radius: 5px;
 `;
 
-export const SignUpInput = styled.input`
+export const InputStyle = styled.input`
   ${CommonIntputStyle}
   flex-grow: 1;
   font-size: var(--font-md-size);
 `;
+
+export const PasswordInput = styled.div``;
 
 export const PhoneNumberInput = styled.input`
   ${CommonIntputStyle}
