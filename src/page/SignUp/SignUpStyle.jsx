@@ -20,20 +20,27 @@ export const CommonIntputStyle = css`
   border-radius: 5px;
 `;
 
-export const InputStyle = styled.input`
+export const Input = styled.input`
   ${CommonIntputStyle}
   flex-grow: 1;
   font-size: var(--font-md-size);
 `;
 
-export const PasswordInput = styled.div``;
+export const PasswordInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  img {
+    width: 28px;
+  }
+`;
 
 export const PhoneNumberInput = styled.input`
   ${CommonIntputStyle}
   width: 152px;
 `;
 
-export const Button = styled.button`
+export const ConfirmButton = styled.button`
   padding: 17px 37px;
   border-radius: 5px;
   background-color: var(--main-color);

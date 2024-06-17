@@ -1,23 +1,17 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { userToken, isLogin, userType } from "../../atom/Atom";
-import { useSetRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { userToken, isLogin, userType } from "../../atom/Atom";
 import { useMutation } from "@tanstack/react-query";
+import { login } from "../../api/LoginOut";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
 import * as L from "./LoginStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
-import { login } from "../../api/LoginOut";
 
 export default function Login() {
   const [IsBuyer, setIsBuyer] = useState(true);
   const [warningMessage, setWarningMessage] = useState("");
-
-  const navigate = useNavigate();
-
-  const setUserToken = useSetRecoilState(userToken);
-  const setIsLogin = useSetRecoilState(isLogin);
-  const setUserType = useSetRecoilState(userType);
 
   const {
     register,
@@ -25,7 +19,17 @@ export default function Login() {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
-  // console.log(errors);
+  const onSubmitHandler = (data) => {
+    console.log(data);
+    data.login_type = IsBuyer ? "BUYER" : "SELLER";
+    LoginMutation.mutate(data);
+  };
+
+  const setUserToken = useSetRecoilState(userToken);
+  const setIsLogin = useSetRecoilState(isLogin);
+  const setUserType = useSetRecoilState(userType);
+
+  const navigate = useNavigate();
 
   const LoginMutation = useMutation({
     mutationFn: login,
@@ -42,12 +46,6 @@ export default function Login() {
     },
   });
 
-  const onSubmitHandler = (data) => {
-    console.log(data);
-    data.login_type = IsBuyer ? "BUYER" : "SELLER";
-    LoginMutation.mutate(data);
-  };
-
   return (
     <L.Wrapper>
       <L.LogoImg to={`/signup`}>
@@ -58,7 +56,7 @@ export default function Login() {
         <L.Label htmlFor="userId" className="a11y-hidden">
           아이디
         </L.Label>
-        <L.LoginInput
+        <L.Input
           id="userId"
           type="text"
           placeholder="아이디"
@@ -71,7 +69,7 @@ export default function Login() {
         <L.Label htmlFor="userPassword" className="a11y-hidden">
           비밀번호
         </L.Label>
-        <L.LoginInput
+        <L.Input
           id="userPassword"
           type="password"
           placeholder="비밀번호"

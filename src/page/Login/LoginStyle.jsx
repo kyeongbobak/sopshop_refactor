@@ -27,7 +27,7 @@ export const Form = styled.form`
 
 export const Label = styled.label``;
 
-export const LoginInput = styled.input`
+export const Input = styled.input`
   border-bottom: 1px solid var(--gray-color);
   padding: 20px 0;
   font-size: var(--font-md-size);
