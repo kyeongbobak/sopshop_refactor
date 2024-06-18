@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
@@ -6,26 +6,51 @@ import * as LS from "../Login/LoginStyle";
 import * as S from "../SignUp/SignUpStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 import { validateAccount } from "../../api/Account";
-import checkIcon from "../../assets/img/icon-check-off.png";
+import checkOffIcon from "../../assets/img/icon-check-off.png";
+import checkOnIcon from "../../assets/img/icon-check-on.png";
 
 export default function SignUp() {
   const [IsBuyer, setIsBuyer] = useState(true);
   const [DuplicateMessage, setDuplicateMessage] = useState("");
 
-  const { register, handleSubmit, getValues, watch } = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setError,
+    clearErrors,
+    getValues,
+    formState: { errors },
+  } = useForm();
 
-  // watch 함수를 활용하여 실시간으로 비밀번호 일치 여부 확인하여 사용자 경험 개선
   const password = watch("Password", "");
   const passwordConfirm = watch("PasswordConfirm", "");
+
+  // watch 함수를 활용하여 실시간으로 비밀번호 일치 여부 확인하여 사용자 경험 개선
+  // setError를 사용한 이유는 컴포넌트 전체를 다시 렌더링할 필요없이 해당 부분만 업데이트가 가능하기 때문에
+  useEffect(() => {
+    if (password !== passwordConfirm && passwordConfirm) {
+      setError("PasswordConfirm", {
+        type: "password-mismatch",
+        message: "비밀번호가 일치하지 않습니다",
+      });
+    } else {
+      clearErrors("PasswordConfirm");
+    }
+  }, [setError, clearErrors, password, passwordConfirm]);
 
   const verifyUsernameMutation = useMutation({
     mutationFn: validateAccount,
     onSuccess: (data) => {
       console.log(data);
-      setDuplicateMessage(data.Success);
+      if (data.Success) {
+        setDuplicateMessage(data.Success);
+      } else if (data.FAIL_Message) {
+        setDuplicateMessage(data.FAIL_Message);
+      }
     },
-    onError: (data) => {
-      setDuplicateMessage(data.response.data.FAIL_Message);
+    onError: () => {
+      setDuplicateMessage("아이디를 입력하세요.");
     },
   });
 
@@ -60,10 +85,11 @@ export default function SignUp() {
           <S.PasswordInputWrapper>
             <S.Label>비밀번호</S.Label>
             <S.Input type="password" {...register("Password")} />
-            <img src={checkIcon} alt="password" />
+            {password ? <S.PasswordCheckIcon src={checkOnIcon} alt="checkIcon" /> : <S.PasswordCheckIcon src={checkOffIcon} alt="checkIcon" />}
             <S.Label>비밀번호 확인</S.Label>
             <S.Input type="password" {...register("PasswordConfirm")} />
-            {password !== passwordConfirm && <LS.ErrorMessage>비밀번호가 일치하지 않습니다.</LS.ErrorMessage>}
+            {password === passwordConfirm && passwordConfirm ? <S.PasswordConfirmIcon src={checkOnIcon} alt="checkOn" /> : <S.PasswordConfirmIcon src={checkOffIcon} alt="checkIcon" />}
+            {password !== passwordConfirm && <LS.ErrorMessage>{errors.PasswordConfirm?.message}</LS.ErrorMessage>}
           </S.PasswordInputWrapper>
           <S.Label>이름</S.Label>
           <S.Input />

@@ -29,10 +29,20 @@ export const Input = styled.input`
 export const PasswordInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
 
   img {
     width: 28px;
+    position: absolute;
   }
+`;
+
+export const PasswordCheckIcon = styled.img`
+  margin: 55px 0 0 430px;
+`;
+
+export const PasswordConfirmIcon = styled.img`
+  margin: 153px 0 0 430px;
 `;
 
 export const PhoneNumberInput = styled.input`
