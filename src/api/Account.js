@@ -13,6 +13,7 @@ export const signUp = async (body) => {
 
 // 계정 검증하기
 export const validateAccount = async (userId) => {
+  console.log(userId);
   const res = await Instance.post(`/accounts/signup/valid/username/`, { username: userId });
   return res.data;
 };

@@ -1,17 +1,22 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import { userType } from "../../atom/Atom";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
 import * as LS from "../Login/LoginStyle";
 import * as S from "../SignUp/SignUpStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
-import { validateAccount } from "../../api/Account";
+import { signUp, validateAccount } from "../../api/Account";
 import checkOffIcon from "../../assets/img/icon-check-off.png";
 import checkOnIcon from "../../assets/img/icon-check-on.png";
+import { useSetRecoilState } from "recoil";
 
 export default function SignUp() {
   const [IsBuyer, setIsBuyer] = useState(true);
   const [DuplicateMessage, setDuplicateMessage] = useState("");
+  const setUserType = useSetRecoilState(userType);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -23,10 +28,35 @@ export default function SignUp() {
     formState: { errors },
   } = useForm();
 
-  const password = watch("Password", "");
-  const passwordConfirm = watch("PasswordConfirm", "");
+  console.log(errors);
 
   // watch 함수를 활용하여 실시간으로 비밀번호 일치 여부 확인하여 사용자 경험 개선
+  const password = watch("password", "");
+  const passwordConfirm = watch("password2", "");
+
+  const verifyUsernameMutation = useMutation({
+    mutationFn: validateAccount,
+    onSuccess: (data) => {
+      if (data.Success) {
+        setDuplicateMessage(data.Success);
+      } else if (data.FAIL_Message) {
+        setDuplicateMessage(data.FAIL_Message);
+      }
+    },
+    // 불필요한 api 호흡을 줄이자
+    // useFormHook 사용시 errors라는 객체는 각 필드의 유효성 검사 결과를 담는데, 이 에러 객체를 활용
+    onError: (error) => {
+      console.log(error);
+      if (error.response.data.errors.Username[0] === "UsernameMaxLength") {
+        setDuplicateMessage("ID는 20자 이내여야 합니다.");
+      } else if (error.response.data.errors.Username[0] === "UsernamePattern") {
+        setDuplicateMessage("ID는 영어 소문자, 대문자, 숫자만 가능합니다.");
+      } else {
+        setDuplicateMessage("아이디를 입력하세요.");
+      }
+    },
+  });
+
   // setError를 사용한 이유는 컴포넌트 전체를 다시 렌더링할 필요없이 해당 부분만 업데이트가 가능하기 때문에
   useEffect(() => {
     if (password !== passwordConfirm && passwordConfirm) {
@@ -39,31 +69,29 @@ export default function SignUp() {
     }
   }, [setError, clearErrors, password, passwordConfirm]);
 
-  const verifyUsernameMutation = useMutation({
-    mutationFn: validateAccount,
+  const SingUpMutation = useMutation({
+    mutationFn: signUp,
     onSuccess: (data) => {
       console.log(data);
-      if (data.Success) {
-        setDuplicateMessage(data.Success);
-      } else if (data.FAIL_Message) {
-        setDuplicateMessage(data.FAIL_Message);
-      }
+      setUserType(data.type);
+      alert("회원가입에 성공하셨습니다.");
+      navigate(`/login`);
     },
-    onError: () => {
-      setDuplicateMessage("아이디를 입력하세요.");
+    onError: (errors) => {
+      console.log(errors);
     },
   });
 
   const verifyUserName = async () => {
-    const { Id } = getValues();
-    await verifyUsernameMutation.mutate(Id);
+    const { username } = getValues();
+    console.log(username);
+    await verifyUsernameMutation.mutate(username);
   };
 
   const handleOnSignUp = (data) => {
-    console.log(data);
-    const { FrontNumber, SecondNumber, LastNumber } = getValues();
-    const phoneNumber = FrontNumber.concat(SecondNumber).concat(LastNumber);
-    console.log(phoneNumber);
+    const { frontNumber, secondNumber, lastNumber } = getValues();
+    data.phone_number = [frontNumber, secondNumber, lastNumber].join("");
+    SingUpMutation.mutate(data);
   };
 
   return (
@@ -76,28 +104,43 @@ export default function SignUp() {
         <LS.Form onSubmit={handleSubmit(handleOnSignUp)}>
           <S.Label htmlFor="id">아이디</S.Label>
           <S.Wrapper>
-            <S.Input id="id" type="text" {...register("Id")} onFocus={() => setDuplicateMessage("")} />
+            <S.Input
+              id="username"
+              type="text"
+              {...register("username", {
+                required: "아이디를 입력해주세요",
+              })}
+              onFocus={() => setDuplicateMessage("")}
+            />
             <S.ConfirmButton type="button" onClick={verifyUserName}>
               중복확인
             </S.ConfirmButton>
           </S.Wrapper>
+          {errors.username && <LS.ErrorMessage>{errors.username.message}</LS.ErrorMessage>}
           <LS.ErrorMessage>{DuplicateMessage}</LS.ErrorMessage>
           <S.PasswordInputWrapper>
             <S.Label>비밀번호</S.Label>
-            <S.Input type="password" {...register("Password")} />
+            <S.Input
+              type="password"
+              {...register("password", {
+                required: "비밀번호를 입력해주세요",
+              })}
+            />
             {password ? <S.PasswordCheckIcon src={checkOnIcon} alt="checkIcon" /> : <S.PasswordCheckIcon src={checkOffIcon} alt="checkIcon" />}
+            {errors.password && <LS.ErrorMessage>{errors.password.message}</LS.ErrorMessage>}
             <S.Label>비밀번호 확인</S.Label>
-            <S.Input type="password" {...register("PasswordConfirm")} />
+            <S.Input type="password" {...register("password2")} />
             {password === passwordConfirm && passwordConfirm ? <S.PasswordConfirmIcon src={checkOnIcon} alt="checkOn" /> : <S.PasswordConfirmIcon src={checkOffIcon} alt="checkIcon" />}
             {password !== passwordConfirm && <LS.ErrorMessage>{errors.PasswordConfirm?.message}</LS.ErrorMessage>}
           </S.PasswordInputWrapper>
+          {errors.password && <LS.ErrorMessage>{errors.password.message}</LS.ErrorMessage>}
           <S.Label>이름</S.Label>
-          <S.Input />
+          <S.Input {...register("name")} />
           <S.Label>휴대폰 번호</S.Label>
           <S.Wrapper>
-            <S.PhoneNumberInput {...register("FrontNumber")} />
-            <S.PhoneNumberInput {...register("SecondNumber")} />
-            <S.PhoneNumberInput {...register("LastNumber")} />
+            <S.PhoneNumberInput {...register("frontNumber")} />
+            <S.PhoneNumberInput {...register("secondNumber")} />
+            <S.PhoneNumberInput {...register("lastNumber")} />
           </S.Wrapper>
           <S.Section>
             <S.CheckBox type="checkbox" required />

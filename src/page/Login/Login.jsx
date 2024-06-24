@@ -12,24 +12,16 @@ import logo from "../../assets/img/Logo-SopShop.png";
 export default function Login() {
   const [IsBuyer, setIsBuyer] = useState(true);
   const [warningMessage, setWarningMessage] = useState("");
+  const setUserToken = useSetRecoilState(userToken);
+  const setIsLogin = useSetRecoilState(isLogin);
+  const setUserType = useSetRecoilState(userType);
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onChange" });
-
-  const onSubmitHandler = (data) => {
-    console.log(data);
-    data.login_type = IsBuyer ? "BUYER" : "SELLER";
-    LoginMutation.mutate(data);
-  };
-
-  const setUserToken = useSetRecoilState(userToken);
-  const setIsLogin = useSetRecoilState(isLogin);
-  const setUserType = useSetRecoilState(userType);
-
-  const navigate = useNavigate();
 
   const LoginMutation = useMutation({
     mutationFn: login,
@@ -38,7 +30,7 @@ export default function Login() {
       setUserToken(data.token);
       setIsLogin(true);
       setUserType(data.user_type);
-      navigate(`/signup`);
+      navigate(`/`);
     },
     onError: (error) => {
       console.log(error);
@@ -46,13 +38,19 @@ export default function Login() {
     },
   });
 
+  const handleOnLogin = (data) => {
+    console.log(data);
+    data.login_type = IsBuyer ? "BUYER" : "SELLER";
+    LoginMutation.mutate(data);
+  };
+
   return (
     <L.Wrapper>
       <L.LogoImg to={`/signup`}>
         <img src={logo} alt="logo" />
       </L.LogoImg>
       <TabBtnMenu IsBuyer={IsBuyer} setIsBuyer={setIsBuyer} content={"로그인"} />
-      <L.Form onSubmit={handleSubmit(onSubmitHandler)}>
+      <L.Form onSubmit={handleSubmit(handleOnLogin)}>
         <L.Label htmlFor="userId" className="a11y-hidden">
           아이디
         </L.Label>
