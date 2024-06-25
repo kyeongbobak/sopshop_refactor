@@ -2,19 +2,25 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import { useSetRecoilState } from "recoil";
 import { userType } from "../../atom/Atom";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
 import * as LS from "../Login/LoginStyle";
 import * as S from "../SignUp/SignUpStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
+import upArrow from "../../assets/img/icon-up-arrow.png";
+import downArrow from "../../assets/img/icon-down-arrow.png";
 import { signUp, validateAccount } from "../../api/Account";
 import checkOffIcon from "../../assets/img/icon-check-off.png";
 import checkOnIcon from "../../assets/img/icon-check-on.png";
-import { useSetRecoilState } from "recoil";
 
 export default function SignUp() {
   const [IsBuyer, setIsBuyer] = useState(true);
   const [DuplicateMessage, setDuplicateMessage] = useState("");
+  const [activeOption, setActiveOption] = useState(false);
+
+  const frontNumberList = ["010", "011", "016", "017", "018", "019"];
+
   const setUserType = useSetRecoilState(userType);
   const navigate = useNavigate();
 
@@ -25,15 +31,15 @@ export default function SignUp() {
     setError,
     clearErrors,
     getValues,
+    setValue,
     formState: { errors },
   } = useForm();
-
-  console.log(errors);
 
   // watch 함수를 활용하여 실시간으로 비밀번호 일치 여부 확인하여 사용자 경험 개선
   const password = watch("password", "");
   const passwordConfirm = watch("password2", "");
 
+  // 계정 검증하기
   const verifyUsernameMutation = useMutation({
     mutationFn: validateAccount,
     onSuccess: (data) => {
@@ -43,8 +49,7 @@ export default function SignUp() {
         setDuplicateMessage(data.FAIL_Message);
       }
     },
-    // 불필요한 api 호흡을 줄이자
-    // useFormHook 사용시 errors라는 객체는 각 필드의 유효성 검사 결과를 담는데, 이 에러 객체를 활용
+
     onError: (error) => {
       console.log(error);
       if (error.response.data.errors.Username[0] === "UsernameMaxLength") {
@@ -57,15 +62,31 @@ export default function SignUp() {
     },
   });
 
-  // setError를 사용한 이유는 컴포넌트 전체를 다시 렌더링할 필요없이 해당 부분만 업데이트가 가능하기 때문에
+  // 비밀번호 유효성검사
   useEffect(() => {
     if (password !== passwordConfirm && passwordConfirm) {
-      setError("PasswordConfirm", {
+      // setError를 사용한 이유는 컴포넌트 전체를 다시 렌더링할 필요없이 해당 부분만 업데이트가 가능하기 때문에
+      setError("passwordConfirm", {
         type: "password-mismatch",
         message: "비밀번호가 일치하지 않습니다",
       });
+    } else if (password.length < 8) {
+      setError("passwordConfirm", {
+        type: "password-maxlength",
+        message: "비밀번호는 8자 이상이어야 합니다.",
+      });
+    } else if (password.search(/[a-z]/gi) < 0) {
+      setError("passwordConfirm", {
+        type: "password-Pattern",
+        message: "비밀번호는 한개 이상의 영소문자가 필수적으로 들어가야 합니다.",
+      });
+    } else if (password.search(/[0-9]/gi) < 0) {
+      setError("passwordConfirm", {
+        type: "password-Pattern",
+        message: "비밀번호는 한개 이상의 숫자가 필수적으로 들어가야 합니다.",
+      });
     } else {
-      clearErrors("PasswordConfirm");
+      clearErrors();
     }
   }, [setError, clearErrors, password, passwordConfirm]);
 
@@ -131,16 +152,36 @@ export default function SignUp() {
             <S.Label>비밀번호 확인</S.Label>
             <S.Input type="password" {...register("password2")} />
             {password === passwordConfirm && passwordConfirm ? <S.PasswordConfirmIcon src={checkOnIcon} alt="checkOn" /> : <S.PasswordConfirmIcon src={checkOffIcon} alt="checkIcon" />}
-            {password !== passwordConfirm && <LS.ErrorMessage>{errors.PasswordConfirm?.message}</LS.ErrorMessage>}
+            {password !== passwordConfirm && <LS.ErrorMessage>{errors.passwordConfirm?.message}</LS.ErrorMessage>}
           </S.PasswordInputWrapper>
           {errors.password && <LS.ErrorMessage>{errors.password.message}</LS.ErrorMessage>}
           <S.Label>이름</S.Label>
           <S.Input {...register("name")} />
           <S.Label>휴대폰 번호</S.Label>
           <S.Wrapper>
-            <S.PhoneNumberInput {...register("frontNumber")} />
-            <S.PhoneNumberInput {...register("secondNumber")} />
-            <S.PhoneNumberInput {...register("lastNumber")} />
+            <S.PhoneInputWrapper>
+              <div>
+                <S.FrontNumberInput {...register("frontNumber")} defaultValue={"010"} />
+                <button onClick={() => setActiveOption(!activeOption)}>{activeOption ? <img src={downArrow} alt="upArrow" /> : <img src={upArrow} alt="upArrow" />}</button>
+                {activeOption && (
+                  <ul>
+                    {frontNumberList.map((value, index) => (
+                      <li
+                        key={index}
+                        onClick={() => {
+                          setValue("frontNumber", value);
+                          setActiveOption(false);
+                        }}
+                      >
+                        {value}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <S.PhoneNumberInput {...register("secondNumber")} />
+              <S.PhoneNumberInput {...register("lastNumber")} />
+            </S.PhoneInputWrapper>
           </S.Wrapper>
           <S.Section>
             <S.CheckBox type="checkbox" required />

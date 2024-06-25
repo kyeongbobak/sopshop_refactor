@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
   display: flex;
-  gap: 12px;
+  gap: 8px;
 `;
 
 export const Label = styled.label`
@@ -17,7 +17,7 @@ export const Label = styled.label`
 export const CommonIntputStyle = css`
   height: 54px;
   border: 1px solid var(--gray-color);
-  border-radius: 5px;
+  border-radius: 2px;
 `;
 
 export const Input = styled.input`
@@ -45,9 +45,65 @@ export const PasswordConfirmIcon = styled.img`
   margin: 153px 0 0 430px;
 `;
 
+export const PhoneInputWrapper = styled.div`
+  display: flex;
+  gap: 8px;
+
+  img {
+    width: 18px;
+    position: absolute;
+    margin-left: -27px;
+    margin-top: -15px;
+  }
+
+  input {
+    width: 150px;
+    text-align: center;
+    font-size: var(--font-md-size);
+  }
+
+  ul {
+    width: 155px;
+    height: 150px;
+    border: 1px solid var(--gray-color);
+    border-radius: 5px;
+    font-size: var(--font-md-size);
+    margin-top: 10px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: white;
+  }
+
+  ul::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ul::-webkit-scrollbar-track {
+    background: var(--light-gray-color);
+  }
+
+  ul::-webkit-scrollbar-thumb {
+    background: var(--gray-color);
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 3px solid transparent;
+  }
+
+  li {
+    text-align: center;
+    cursor: pointer;
+    padding: 10px 0px;
+    margin-left: 10px;
+  }
+`;
+
+export const FrontNumberInput = styled.input`
+  ${CommonIntputStyle}
+  position: relative;
+`;
+
 export const PhoneNumberInput = styled.input`
   ${CommonIntputStyle}
-  width: 152px;
 `;
 
 export const ConfirmButton = styled.button`

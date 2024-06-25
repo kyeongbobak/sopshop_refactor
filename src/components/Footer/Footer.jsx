@@ -1,7 +1,7 @@
 import * as F from "./FooterStyle";
-import Insta from "../../assets/img/icon-insta.png";
-import FB from "../../assets/img/icon-fb.png";
-import YT from "../../assets/img/icon-yt.png";
+import insta from "../../assets/img/icon-insta.png";
+import fb from "../../assets/img/icon-fb.png";
+import yt from "../../assets/img/icon-yt.png";
 
 export default function Footer() {
   return (
@@ -30,13 +30,13 @@ export default function Footer() {
           </F.Ul>
           <F.Ul>
             <F.SnSLink>
-              <F.SnSLogoImage src={Insta} />
+              <F.SnSLogoImage src={insta} />
             </F.SnSLink>
             <F.SnSLink>
-              <F.SnSLogoImage src={FB} />
+              <F.SnSLogoImage src={fb} />
             </F.SnSLink>
             <F.SnSLink>
-              <F.SnSLogoImage src={YT} />
+              <F.SnSLogoImage src={yt} />
             </F.SnSLink>
           </F.Ul>
         </F.TopSection>

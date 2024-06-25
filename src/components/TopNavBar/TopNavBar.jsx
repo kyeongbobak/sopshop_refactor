@@ -1,6 +1,6 @@
 import * as H from "./TopNavBarStyle";
-import LogoImage from "../../assets/img/Logo-SopShop.png";
-import MenuIcon from "../../assets/img/menu_icon.png";
+import logo from "../../assets/img/Logo-SopShop.png";
+import menuIcon from "../../assets/img/menu_icon.png";
 import { useState } from "react";
 
 export default function Header() {
@@ -10,7 +10,7 @@ export default function Header() {
     <>
       <H.Wrapper>
         <H.StyledLink to="/">
-          <H.LogoImage src={LogoImage} alt="SopShop Logo" />
+          <H.LogoImage src={logo} alt="SopShop Logo" />
         </H.StyledLink>
         <H.NavBar>
           <li>
@@ -22,7 +22,7 @@ export default function Header() {
                 setSideBarState("slideIn");
               }}
             >
-              <img src={MenuIcon} alt="open-menu" />
+              <img src={menuIcon} alt="open-menu" />
             </H.MenuButton>
           </li>
         </H.NavBar>

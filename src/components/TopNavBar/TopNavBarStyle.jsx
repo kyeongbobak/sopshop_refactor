@@ -57,14 +57,14 @@ export const SideNavBarOverlay = styled.div`
   bottom: 0;
   left: 0;
   z-index: 9998;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.1);
 
   &.slideIn {
-    animation: ${slideIn} 0.5s forwards;
+    animation: ${slideIn} 0.6s forwards;
   }
 
   &.slideOut {
-    animation: ${slideOut} 0.5s forwards;
+    animation: ${slideOut} 0.6s forwards;
   }
 `;
 
@@ -78,11 +78,11 @@ export const SideNavBar = styled.div`
   z-index: 9999;
 
   &.slideIn {
-    animation: ${slideIn} 0.5s forwards;
+    animation: ${slideIn} 0.6s forwards;
   }
 
   &.slideOut {
-    animation: ${slideOut} 0.5s forwards;
+    animation: ${slideOut} 0.6s forwards;
   }
 
   ul {
