@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+
 import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
@@ -23,13 +24,13 @@ export const NavBar = styled.ul`
   display: flex;
   gap: 30px;
   align-items: center;
-  font-size: var(--font-max-size);
+  font-size: var(--font-lg-size);
   font-weight: var(--font-light);
 `;
 
 export const MenuButton = styled.button`
   img {
-    width: 35px;
+    width: 32px;
   }
 `;
 
@@ -56,31 +57,41 @@ export const SideNavBarOverlay = styled.div`
   bottom: 0;
   left: 0;
   z-index: 9998;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
 
   &.slideIn {
-    animation: ${slideIn} 0.3s forwards;
+    animation: ${slideIn} 0.5s forwards;
   }
 
   &.slideOut {
-    animation: ${slideOut} 0.3s forwards;
+    animation: ${slideOut} 0.5s forwards;
   }
 `;
 
-export const SideNavBar = styled.ul`
+export const SideNavBar = styled.div`
   position: fixed;
   top: 0;
   right: 0;
-  width: 320px;
+  width: 335px;
   height: 100%;
   background: #ffffff;
   z-index: 9999;
 
   &.slideIn {
-    animation: ${slideIn} 0.3s forwards;
+    animation: ${slideIn} 0.5s forwards;
   }
 
   &.slideOut {
-    animation: ${slideOut} 0.3s forwards;
+    animation: ${slideOut} 0.5s forwards;
+  }
+
+  ul {
+    font-size: var(--font-lg-size);
+    font-weight: var(--font-light);
+    padding: 60px 50px;
+  }
+
+  li {
+    padding: 12px 0;
   }
 `;

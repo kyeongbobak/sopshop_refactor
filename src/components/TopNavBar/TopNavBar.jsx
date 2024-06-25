@@ -4,7 +4,7 @@ import MenuIcon from "../../assets/img/menu_icon.png";
 import { useState } from "react";
 
 export default function Header() {
-  const [sideNavBar, setSideNavBar] = useState(false);
+  const [sideBarState, setSideBarState] = useState(null);
 
   return (
     <>
@@ -17,18 +17,42 @@ export default function Header() {
             <H.StyledLink to="/cart">Cart</H.StyledLink>
           </li>
           <li>
-            <H.MenuButton onClick={() => setSideNavBar(true)}>
+            <H.MenuButton
+              onClick={() => {
+                setSideBarState("slideIn");
+              }}
+            >
               <img src={MenuIcon} alt="open-menu" />
             </H.MenuButton>
           </li>
         </H.NavBar>
-        <H.SideNavBarOverlay onClick={() => setSideNavBar(false)} className={sideNavBar ? "slideIn" : "slideOut"}></H.SideNavBarOverlay>
-        <H.SideNavBar className={sideNavBar ? "slideIn" : "slideOut"}>
-          <li>Login</li>
-          <li>Join</li>
-          <li>MyPage</li>
-          <li>Order</li>
-        </H.SideNavBar>
+
+        {sideBarState && (
+          <>
+            <H.SideNavBarOverlay
+              className={sideBarState}
+              onClick={() => {
+                setSideBarState("slideOut");
+              }}
+            ></H.SideNavBarOverlay>
+            <H.SideNavBar className={sideBarState}>
+              <ul>
+                <li>
+                  <H.StyledLink to={`/login`}>Login</H.StyledLink>
+                </li>
+                <li>
+                  <H.StyledLink to={`/signUp`}>Join</H.StyledLink>
+                </li>
+                <li>
+                  <H.StyledLink>My Page</H.StyledLink>
+                </li>
+                <li>
+                  <H.StyledLink>Order</H.StyledLink>
+                </li>
+              </ul>
+            </H.SideNavBar>
+          </>
+        )}
       </H.Wrapper>
     </>
   );
