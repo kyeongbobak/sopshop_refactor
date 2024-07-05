@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "https://sweet-worthy-wren.ngrok-free.app/api/v1";
+const URL = "https://sweet-worthy-wren.ngrok-free.app";
 
 export const Instance = axios.create({
   baseURL: URL,

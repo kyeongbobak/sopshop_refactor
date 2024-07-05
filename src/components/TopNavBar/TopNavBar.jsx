@@ -1,10 +1,39 @@
 import * as H from "./TopNavBarStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 import menuIcon from "../../assets/img/menu_icon.png";
+import { isLogin, userToken } from "../../atom/Atom";
 import { useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { logout } from "../../api/LoginOut";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Header() {
   const [sideBarState, setSideBarState] = useState(null);
+
+  const setIsLogin = useSetRecoilState(isLogin);
+  const isLoggedIn = useRecoilValue(isLogin);
+  const token = useRecoilValue(userToken);
+
+  // const logoutMutation = useMutation({
+  //   mutationFn: logout,
+  //   onSuccess: () => {
+  //     setIsLogin(false);
+  //     console.log("Logout successful");
+  //   },
+  //   onError: (error) => {
+  //     console.log("로그아웃 처리 실패:", error);
+  //   },
+  // });
+
+  const handleOnLogout = async () => {
+    // logoutMutation.mutate(token);
+    try {
+      const data = await logout(token);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -38,7 +67,15 @@ export default function Header() {
             <H.SideNavBar className={sideBarState}>
               <ul>
                 <li>
-                  <H.StyledLink to={`/login`}>Login</H.StyledLink>
+                  {isLoggedIn ? (
+                    <button onClick={handleOnLogout}>
+                      <H.StyledLink to={`/login`}>Logout</H.StyledLink>
+                    </button>
+                  ) : (
+                    <button>
+                      <H.StyledLink to={`/login`}>Login</H.StyledLink>
+                    </button>
+                  )}
                 </li>
                 <li>
                   <H.StyledLink to={`/signUp`}>Join</H.StyledLink>
