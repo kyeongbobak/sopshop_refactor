@@ -17,3 +17,11 @@ export const validateAccount = async (userId) => {
   const res = await Instance.post(`/accounts/signup/valid/username/`, { username: userId });
   return res.data;
 };
+
+// 사업자 등록번호 검증하기
+export const validateCompanyNumber = async (companyNumber) => {
+  console.log(companyNumber);
+  const res = await Instance.post(`/accounts/signup/valid/company_registration_number/`, { company_registration_number: companyNumber });
+  console.log(res);
+  return res.data;
+};

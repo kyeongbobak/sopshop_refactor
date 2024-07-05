@@ -10,7 +10,7 @@ import * as S from "../SignUp/SignUpStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 import upArrow from "../../assets/img/icon-up-arrow.png";
 import downArrow from "../../assets/img/icon-down-arrow.png";
-import { signUp, validateAccount } from "../../api/Account";
+import { signUp, validateAccount, validateCompanyNumber } from "../../api/Account";
 import checkOffIcon from "../../assets/img/icon-check-off.png";
 import checkOnIcon from "../../assets/img/icon-check-on.png";
 
@@ -62,6 +62,22 @@ export default function SignUp() {
     },
   });
 
+  // 사업자등록번호 검증하기
+  const verifyCompanyNumberMutation = useMutation({
+    mutationFn: validateCompanyNumber,
+    onSuccess: (data) => {
+      console.log(data);
+      if (data.Success) {
+        setDuplicateMessage(data.Success);
+      } else if (data.FAIL_Message) {
+        setDuplicateMessage(data.FAIL_Message);
+      }
+    },
+    onError: (error) => {
+      setDuplicateMessage("유효하지 않은 사업자 등록번호입니다. 10자리를 입력해 주세요.");
+    },
+  });
+
   // 비밀번호 유효성검사
   useEffect(() => {
     if (password !== passwordConfirm && passwordConfirm) {
@@ -109,6 +125,11 @@ export default function SignUp() {
     await verifyUsernameMutation.mutate(username);
   };
 
+  const verifyCompanyNumber = async () => {
+    const { companyNumber } = getValues();
+    await verifyCompanyNumberMutation.mutate(companyNumber);
+  };
+
   const handleOnSignUp = (data) => {
     const { frontNumber, secondNumber, lastNumber } = getValues();
     data.phone_number = [frontNumber, secondNumber, lastNumber].join("");
@@ -118,7 +139,7 @@ export default function SignUp() {
   return (
     <>
       <LS.Wrapper>
-        <LS.LogoImg to={`/login`}>
+        <LS.LogoImg to={`/`}>
           <img src={logo} alt="logo" />
         </LS.LogoImg>
         <TabBtnMenu IsBuyer={IsBuyer} setIsBuyer={setIsBuyer} content={"가입"} />
@@ -183,6 +204,28 @@ export default function SignUp() {
               <S.PhoneNumberInput {...register("lastNumber")} />
             </S.PhoneInputWrapper>
           </S.Wrapper>
+          {!IsBuyer && (
+            <S.SellerInputSection>
+              <S.Label htmlFor="id">사업자 등록번호</S.Label>
+              <S.Wrapper>
+                <S.Input
+                  id="companyNumber"
+                  type="text"
+                  {...register("companyNumber", {
+                    required: "사업자 등록번호를 추가해주세요.",
+                  })}
+                  onFocus={() => setDuplicateMessage("")}
+                />
+                <S.ConfirmButton type="button" onClick={verifyCompanyNumber}>
+                  인증
+                </S.ConfirmButton>
+              </S.Wrapper>
+              {errors.companyNumber && <LS.ErrorMessage>{errors.companyNumber.message}</LS.ErrorMessage>}
+              <LS.ErrorMessage>{DuplicateMessage}</LS.ErrorMessage>
+              <S.Label>스토어 이름</S.Label>
+              <S.Input />
+            </S.SellerInputSection>
+          )}
           <S.Section>
             <S.CheckBox type="checkbox" required />
             <S.SectionContents>

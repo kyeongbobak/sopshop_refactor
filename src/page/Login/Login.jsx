@@ -46,7 +46,7 @@ export default function Login() {
 
   return (
     <L.Wrapper>
-      <L.LogoImg to={`/signup`}>
+      <L.LogoImg to={`/`}>
         <img src={logo} alt="logo" />
       </L.LogoImg>
       <TabBtnMenu IsBuyer={IsBuyer} setIsBuyer={setIsBuyer} content={"로그인"} />

@@ -9,7 +9,7 @@ export const Label = styled.label`
   padding: 12px 0;
   font-size: var(--font-md-size);
 
-  &:nth-child(7) {
+  &:nth-child(5) {
     margin-top: 50px;
   }
 `;
@@ -123,6 +123,15 @@ export const Section = styled.div`
   font-family: "Pretendard";
   font-size: var(--font-min-size);
   font-weight: var(--font-extra-light);
+`;
+
+export const SellerInputSection = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  & label:nth-child(1) {
+    margin-top: 50px;
+  }
 `;
 
 export const CheckBox = styled.input``;
