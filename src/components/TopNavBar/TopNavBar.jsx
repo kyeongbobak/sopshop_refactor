@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { logout } from "../../api/LoginOut";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [sideBarState, setSideBarState] = useState(null);
@@ -14,14 +15,18 @@ export default function Header() {
   const isLoggedIn = useRecoilValue(isLogin);
   const token = useRecoilValue(userToken);
 
+  const navigator = useNavigate();
+
+  console.log(isLoggedIn);
+
   const logoutMutation = useMutation({
     mutationFn: logout,
     onSuccess: () => {
       setIsLogin(false);
-      console.log("Logout successful");
+      navigator(`/login`);
     },
     onError: (error) => {
-      console.log("로그아웃 처리 실패 :", error);
+      console.log(error);
     },
   });
 
