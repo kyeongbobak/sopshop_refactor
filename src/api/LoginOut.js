@@ -14,8 +14,9 @@ export const login = async (body) => {
 
 // 로그아웃
 export const logout = async (token) => {
+  console.log(token);
   try {
-    const res = await Instance.post(`/api/v1/accounts/logout`, {
+    const res = await Instance.post(`/api/v1/accounts/logout`, null, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

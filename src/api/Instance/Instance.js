@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "https://sweet-worthy-wren.ngrok-free.app";
+const URL = "https://openmarket.aroxima.dev";
 
 export const Instance = axios.create({
   baseURL: URL,

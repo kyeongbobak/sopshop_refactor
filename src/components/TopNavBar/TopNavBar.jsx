@@ -14,25 +14,19 @@ export default function Header() {
   const isLoggedIn = useRecoilValue(isLogin);
   const token = useRecoilValue(userToken);
 
-  // const logoutMutation = useMutation({
-  //   mutationFn: logout,
-  //   onSuccess: () => {
-  //     setIsLogin(false);
-  //     console.log("Logout successful");
-  //   },
-  //   onError: (error) => {
-  //     console.log("로그아웃 처리 실패:", error);
-  //   },
-  // });
+  const logoutMutation = useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      setIsLogin(false);
+      console.log("Logout successful");
+    },
+    onError: (error) => {
+      console.log("로그아웃 처리 실패 :", error);
+    },
+  });
 
   const handleOnLogout = async () => {
-    // logoutMutation.mutate(token);
-    try {
-      const data = await logout(token);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+    logoutMutation.mutate(token);
   };
 
   return (
