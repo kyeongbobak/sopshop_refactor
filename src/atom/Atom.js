@@ -11,7 +11,8 @@ export const userToken = atom({
 
 export const isLogin = atom({
   key: "isLogin",
-  default: "",
+  default: false,
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const userType = atom({

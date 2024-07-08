@@ -17,13 +17,12 @@ export default function Header() {
 
   const navigator = useNavigate();
 
-  console.log(isLoggedIn);
-
   const logoutMutation = useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      setIsLogin(false);
       navigator(`/login`);
+      setIsLogin(false);
+      localStorage.removeItem("recoil-persist");
     },
     onError: (error) => {
       console.log(error);
