@@ -15,7 +15,8 @@ export default function MainPage() {
     const getProductList = async () => {
       const res = await getProducts(token);
       console.log(res.results);
-      setProductList(res.results);
+      const mainPageProductList = res.results.slice(1, 10);
+      setProductList(mainPageProductList);
     };
 
     getProductList();
@@ -26,7 +27,7 @@ export default function MainPage() {
       <TopNavBar />
       <M.ProductList>
         {productList.map((product) => (
-          <ProductItem key={product.product_id} productImage={product.image} productStoreName={product.store_name} productName={product.product_name} productPrice={product.price} />
+          <ProductItem key={product.product_id} productId={product.product_id} productImage={product.image} productStoreName={product.store_name} productName={product.product_name} productPrice={product.price} />
         ))}
       </M.ProductList>
       <Footer />

@@ -2,9 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
-  width: 100%; // 반응형 디자인 고려
-  max-width: 1280px;
-  margin: 0px auto;
+  margin: 0 30px 0 30px;
   font-family: "Pretendard";
   font-size: var(--font-sm-size);
 
@@ -16,7 +14,7 @@ export const Wrapper = styled.div`
 export const TopSection = styled.section`
   display: flex;
   justify-content: space-between;
-  margin: 60px 0 22px;
+  margin: 200px 0 22px;
 `;
 
 export const BottomSection = styled.div`
