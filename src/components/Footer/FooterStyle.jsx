@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
-  margin: 0 30px 0 30px;
+  margin: 0 40px 0;
   font-family: "Pretendard";
   font-size: var(--font-sm-size);
 

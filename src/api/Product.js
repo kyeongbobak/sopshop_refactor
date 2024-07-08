@@ -6,7 +6,6 @@ export const getProducts = async (token) => {
     const res = await Instance.get(`/api/v1/products/`, {
       Authorization: `Bearer ${token}`,
     });
-    console.log(res);
     return res.data;
   } catch (error) {
     console.log(error);

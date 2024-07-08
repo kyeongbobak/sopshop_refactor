@@ -53,7 +53,6 @@ export default function Header() {
             </H.MenuButton>
           </li>
         </H.NavBar>
-
         {sideBarState && (
           <>
             <H.SideNavBarOverlay

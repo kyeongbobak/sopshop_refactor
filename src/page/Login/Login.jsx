@@ -6,7 +6,7 @@ import { userToken, isLogin, userType } from "../../atom/Atom";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../../api/LoginOut";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
-import * as L from "./LoginStyle";
+import * as S from "./LoginStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 
 export default function Login() {
@@ -45,16 +45,16 @@ export default function Login() {
   };
 
   return (
-    <L.Wrapper>
-      <L.LogoImg to={`/`}>
+    <S.Wrapper>
+      <S.LogoImg to={`/`}>
         <img src={logo} alt="logo" />
-      </L.LogoImg>
+      </S.LogoImg>
       <TabBtnMenu IsBuyer={IsBuyer} setIsBuyer={setIsBuyer} content={"로그인"} />
-      <L.Form onSubmit={handleSubmit(handleOnLogin)}>
-        <L.Label htmlFor="userId" className="a11y-hidden">
+      <S.Form onSubmit={handleSubmit(handleOnLogin)}>
+        <S.Label htmlFor="userId" className="a11y-hidden">
           아이디
-        </L.Label>
-        <L.Input
+        </S.Label>
+        <S.Input
           id="userId"
           type="text"
           placeholder="아이디"
@@ -63,11 +63,11 @@ export default function Login() {
             onChange: () => setWarningMessage(""),
           })}
         />
-        {errors.username && <L.ErrorMessage>{errors.username.message}</L.ErrorMessage>}
-        <L.Label htmlFor="userPassword" className="a11y-hidden">
+        {errors.username && <S.ErrorMessage>{errors.username.message}</S.ErrorMessage>}
+        <S.Label htmlFor="userPassword" className="a11y-hidden">
           비밀번호
-        </L.Label>
-        <L.Input
+        </S.Label>
+        <S.Input
           id="userPassword"
           type="password"
           placeholder="비밀번호"
@@ -76,10 +76,10 @@ export default function Login() {
             onChange: () => setWarningMessage(""),
           })}
         />
-        {errors.password && <L.ErrorMessage>{errors.password.message}</L.ErrorMessage>}
-        <L.ErrorMessage>{warningMessage}</L.ErrorMessage>
-        <L.SubmitButton type="submit">LOG IN</L.SubmitButton>
-      </L.Form>
-    </L.Wrapper>
+        {errors.password && <S.ErrorMessage>{errors.password.message}</S.ErrorMessage>}
+        <S.ErrorMessage>{warningMessage}</S.ErrorMessage>
+        <S.SubmitButton type="submit">LOG IN</S.SubmitButton>
+      </S.Form>
+    </S.Wrapper>
   );
 }

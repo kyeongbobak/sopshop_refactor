@@ -1,0 +1,45 @@
+import { useState } from "react";
+import * as S from "./SideMenuStyle";
+
+export default function SideMenu() {
+  const [selected, setSelected] = useState("FLOPS");
+
+  return (
+    <S.Wrapper>
+      <ul>
+        <li>
+          <S.StyledLink to={`/about`}>About</S.StyledLink>
+        </li>
+        <li>
+          <S.StyledLink>Shop</S.StyledLink>
+        </li>
+        <div>
+          <li>
+            <S.BrandName className={selected === "FLOPS" ? "active" : ""} onClick={() => setSelected("FLOPS")}>
+              FLOPS
+            </S.BrandName>
+          </li>
+          <li>
+            <S.BrandName className={selected === "Ditto" ? "active" : ""} onClick={() => setSelected("Ditto")}>
+              Ditto
+            </S.BrandName>
+          </li>
+          <li>
+            <S.BrandName className={selected === "Too_much_shop" ? "active" : ""} onClick={() => setSelected("Too_much_shop")}>
+              Too_much_shop
+            </S.BrandName>
+          </li>
+        </div>
+        <li>
+          <S.StyledLink to={`/notice`}>Notice</S.StyledLink>
+        </li>
+        <li>
+          <S.StyledLink to={`/q&a`}>Q & A</S.StyledLink>
+        </li>
+        <li>
+          <S.StyledLink to={`/review`}>Review</S.StyledLink>
+        </li>
+      </ul>
+    </S.Wrapper>
+  );
+}
