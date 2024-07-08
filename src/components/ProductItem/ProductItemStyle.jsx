@@ -5,7 +5,8 @@ export const Product = styled.li``;
 
 export const ProductImage = styled.img`
   width: 320px;
-  height: 330px;
+  height: 380px;
+  object-fit: cover;
 `;
 export const ProductStoreName = styled.p`
   color: var(--box-black-color);

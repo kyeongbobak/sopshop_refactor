@@ -11,21 +11,21 @@ export default function SideMenu() {
           <S.StyledLink to={`/about`}>About</S.StyledLink>
         </li>
         <li>
-          <S.StyledLink>Shop</S.StyledLink>
+          <S.StyledLink to={`/`}>Shop</S.StyledLink>
         </li>
         <div>
           <li>
-            <S.BrandName className={selected === "FLOPS" ? "active" : ""} onClick={() => setSelected("FLOPS")}>
+            <S.BrandName to={`/FLOPS`} className={selected === "FLOPS" ? "active" : ""} onClick={() => setSelected("FLOPS")}>
               FLOPS
             </S.BrandName>
           </li>
           <li>
-            <S.BrandName className={selected === "Ditto" ? "active" : ""} onClick={() => setSelected("Ditto")}>
+            <S.BrandName to={`/Ditto`} className={selected === "Ditto" ? "active" : ""} onClick={() => setSelected("Ditto")}>
               Ditto
             </S.BrandName>
           </li>
           <li>
-            <S.BrandName className={selected === "Too_much_shop" ? "active" : ""} onClick={() => setSelected("Too_much_shop")}>
+            <S.BrandName to={`/Too_much_shop`} className={selected === "Too_much_shop" ? "active" : ""} onClick={() => setSelected("Too_much_shop")}>
               Too_much_shop
             </S.BrandName>
           </li>

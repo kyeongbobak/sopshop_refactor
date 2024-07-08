@@ -15,7 +15,7 @@ export default function MainPage() {
   useEffect(() => {
     const getProductList = async () => {
       const res = await getProducts(token);
-      const mainPageProductList = res.results.slice(1, 10);
+      const mainPageProductList = res.results.slice(0, 10);
       setProductList(mainPageProductList);
     };
 

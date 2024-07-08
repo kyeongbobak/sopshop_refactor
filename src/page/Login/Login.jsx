@@ -38,6 +38,7 @@ export default function Login() {
     },
   });
 
+  // 데이터 변경이나 업데이트를 위해 useMutation 사용
   const handleOnLogin = (data) => {
     console.log(data);
     data.login_type = IsBuyer ? "BUYER" : "SELLER";
