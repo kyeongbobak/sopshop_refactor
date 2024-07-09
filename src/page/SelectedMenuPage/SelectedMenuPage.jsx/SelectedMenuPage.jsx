@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { getProducts } from "../../../api/Product";
 import * as MS from "../../MainPage/MainPageStyle";
@@ -12,19 +12,23 @@ export default function SelectedMenuPage() {
   const { selectedMenu } = useParams();
   const [productList, setProductList] = useState([]);
 
-  console.log(selectedMenu);
+  const getBrandProductList = useCallback(async () => {
+    const res = await getProducts();
+    const data = res.results;
+    const SelectedBrandProducts = data.filter((proudct) => proudct.store_name === selectedMenu);
+    setProductList(SelectedBrandProducts);
+  }, [selectedMenu]);
 
   useEffect(() => {
-    const getBrandProductList = async () => {
-      const res = await getProducts();
-      console.log(res.results);
-      const data = res.results;
-      const SelectedBrandProducts = data.filter((proudct) => proudct.store_name === selectedMenu);
-      setProductList(SelectedBrandProducts);
-    };
-
     getBrandProductList();
-  }, [selectedMenu]);
+  }, [getBrandProductList]);
+
+  const memoizedBrandProductList = useMemo(() =>
+    productList.map(
+      (product) => <ProductItem key={product.product_id} productId={product.product_id} productImage={product.image} productStoreName={product.store_name} productName={product.product_name} productPrice={product.price} />,
+      [selectedMenu]
+    )
+  );
 
   return (
     <>
@@ -33,11 +37,7 @@ export default function SelectedMenuPage() {
         <SideMenu />
         <S.MenuContentsWrapper>
           <S.MenuName>{selectedMenu}</S.MenuName>
-          <MS.ProductList>
-            {productList.map((product) => (
-              <ProductItem key={product.product_id} productId={product.product_id} productImage={product.image} productStoreName={product.store_name} productName={product.product_name} productPrice={product.price} />
-            ))}
-          </MS.ProductList>
+          <MS.ProductList>{memoizedBrandProductList}</MS.ProductList>
         </S.MenuContentsWrapper>
       </S.Wrapper>
       <Footer />

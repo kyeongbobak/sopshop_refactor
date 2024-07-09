@@ -22,7 +22,7 @@ export default function Header() {
     onSuccess: () => {
       navigator(`/login`);
       setIsLogin(false);
-      localStorage.removeItem("recoil-persist");
+      localStorage.clear();
     },
     onError: (error) => {
       console.log(error);
@@ -41,7 +41,9 @@ export default function Header() {
         </H.StyledLink>
         <H.NavBar>
           <li>
-            <H.StyledLink to="/cart">Cart</H.StyledLink>
+            <H.StyledLink to="/cart">
+              Cart <span>0</span>
+            </H.StyledLink>
           </li>
           <li>
             <H.MenuButton

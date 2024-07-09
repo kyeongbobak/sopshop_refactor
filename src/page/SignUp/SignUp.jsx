@@ -41,6 +41,7 @@ export default function SignUp() {
 
   // 계정 검증하기
   const verifyUsernameMutation = useMutation({
+    // 데이터를 서버로 전송하고, 이에 대한 성공 또는 실패 상태를 좀 더 쉽게 관리하기 위해 데이터를 검증의 목적으로 useMutation 사용
     mutationFn: validateAccount,
     onSuccess: (data) => {
       if (data.Success) {
@@ -51,7 +52,6 @@ export default function SignUp() {
     },
 
     onError: (error) => {
-      console.log(error);
       if (error.response.data.errors.Username[0] === "UsernameMaxLength") {
         setDuplicateMessage("ID는 20자 이내여야 합니다.");
       } else if (error.response.data.errors.Username[0] === "UsernamePattern") {
@@ -64,6 +64,7 @@ export default function SignUp() {
 
   // 사업자등록번호 검증하기
   const verifyCompanyNumberMutation = useMutation({
+    // 데이터를 검증의 목적으로 useMutation 사용
     mutationFn: validateCompanyNumber,
     onSuccess: (data) => {
       console.log(data);
@@ -73,7 +74,7 @@ export default function SignUp() {
         setDuplicateMessage(data.FAIL_Message);
       }
     },
-    onError: (error) => {
+    onError: () => {
       setDuplicateMessage("유효하지 않은 사업자 등록번호입니다. 10자리를 입력해 주세요.");
     },
   });
@@ -121,7 +122,6 @@ export default function SignUp() {
 
   const verifyUserName = async () => {
     const { username } = getValues();
-    console.log(username);
     await verifyUsernameMutation.mutate(username);
   };
 
