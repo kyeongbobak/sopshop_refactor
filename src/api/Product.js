@@ -13,17 +13,11 @@ export const getProducts = async (token) => {
 };
 
 // 상품 디테일
-export const getProductContents = async (productId) => {
+export const getProductDetails = async (productId) => {
   try {
-    const res = await fetch(`https://openmarket.weniv.co.kr/products/${productId}/`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
-    const data = await res.json();
-    console.log(data);
-    return data;
+    const res = await Instance.get(`/api/v1/products/${productId}/`);
+    console.log(res);
+    return res.data;
   } catch (error) {
     console.log("error", error);
   }

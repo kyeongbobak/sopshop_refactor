@@ -64,7 +64,6 @@ export default function SignUp() {
 
   // 사업자등록번호 검증하기
   const verifyCompanyNumberMutation = useMutation({
-    // 데이터를 검증의 목적으로 useMutation 사용
     mutationFn: validateCompanyNumber,
     onSuccess: (data) => {
       console.log(data);
