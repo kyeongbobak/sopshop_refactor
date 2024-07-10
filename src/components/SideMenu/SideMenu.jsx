@@ -8,7 +8,7 @@ export default function SideMenu() {
     <S.Wrapper>
       <ul>
         <li>
-          <S.StyledLink to={`/about`}>About</S.StyledLink>
+          <S.StyledLink to={`/About`}>About</S.StyledLink>
         </li>
         <li>
           <S.StyledLink to={`/`}>Shop</S.StyledLink>
@@ -31,13 +31,13 @@ export default function SideMenu() {
           </li>
         </div>
         <li>
-          <S.StyledLink to={`/notice`}>Notice</S.StyledLink>
+          <S.StyledLink to={`/Notice`}>Notice</S.StyledLink>
         </li>
         <li>
-          <S.StyledLink to={`/q&a`}>Q & A</S.StyledLink>
+          <S.StyledLink to={`/Q&A`}>Q & A</S.StyledLink>
         </li>
         <li>
-          <S.StyledLink to={`/review`}>Review</S.StyledLink>
+          <S.StyledLink to={`/Review`}>Review</S.StyledLink>
         </li>
       </ul>
     </S.Wrapper>

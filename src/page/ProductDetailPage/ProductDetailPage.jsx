@@ -1,3 +1,4 @@
+import * as S from "./ProductDetailPageStyle";
 import TopNavBar from "../../components/TopNavBar/TopNavBar";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import Footer from "../../components/Footer/Footer";
@@ -7,8 +8,12 @@ export default function ProductDetail() {
   return (
     <>
       <TopNavBar />
-      <SideMenu />
-      <ProductDetailInfo />
+      <S.Wrapper>
+        <SideMenu />
+        <S.ContentsWrapper>
+          <ProductDetailInfo />
+        </S.ContentsWrapper>
+      </S.Wrapper>
       <Footer />
     </>
   );

@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
   }
 
   div {
-    margin: 40px 0 0 50px;
+    margin: 40px 0 0 25px;
 
     &:nth-child(1) {
       color: var(--main-color);

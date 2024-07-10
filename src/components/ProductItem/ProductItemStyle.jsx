@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 export const Product = styled.li``;
 
+export const StyleLink = styled(Link)``;
+
 export const ProductImage = styled.img`
   width: 320px;
   height: 380px;
