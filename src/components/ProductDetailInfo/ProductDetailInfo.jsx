@@ -7,6 +7,7 @@ import CountControl from "../CountControl/CountControl";
 export default function ProductDetailInfo() {
   const { ProductId } = useParams();
   const [detailInfo, setDetailInfo] = useState({});
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     const getProductDetail = async () => {
@@ -17,6 +18,10 @@ export default function ProductDetailInfo() {
 
     getProductDetail();
   }, [ProductId]);
+
+  const handleCountChange = (newCount) => {
+    setCount(newCount);
+  };
 
   return (
     <>
@@ -29,8 +34,14 @@ export default function ProductDetailInfo() {
             {parseInt(detailInfo.price).toLocaleString()} <span>원</span>
           </S.ProductPrice>
           <S.ShippingInfo>{detailInfo.shipping_fee === "0" ? "무료배송" : "택배배송"}</S.ShippingInfo>
-          <CountControl isStock={detailInfo.stock} />
-          <S.ProductTotalPrice></S.ProductTotalPrice>
+          <CountControl isStock={detailInfo.stock} onCountChange={handleCountChange} />
+          <S.OrderDetail>
+            <span>Total Price</span>
+            <div>
+              <span>총 수량 {count} 개</span>
+              <strong>{detailInfo.price ? (parseInt(detailInfo.price) * count).toLocaleString() : 0}원</strong>
+            </div>
+          </S.OrderDetail>
           <S.ButtonWrapper>
             <S.BuyButton>Buy Now</S.BuyButton>
             <S.MButton>Add To Cart</S.MButton>

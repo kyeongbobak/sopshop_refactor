@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -13,6 +13,8 @@ export const ProductImage = styled.img`
 
 export const ProductDetailWrapper = styled.div`
   width: 600px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ProductBrandName = styled.p`
@@ -36,6 +38,30 @@ export const ProductPrice = styled.p`
   }
 `;
 
+export const OrderDetail = styled.div`
+  display: flex;
+  font-family: "Pretendard";
+  font-size: var(--font-lg-size);
+  justify-content: space-between;
+  padding-top: 30px;
+
+  span {
+    font-weight: var(--font-extra-light);
+  }
+
+  strong {
+    font-size: var(--font-max-size);
+    &::before {
+      display: inline-block;
+      content: "";
+      width: 2px;
+      height: 15px;
+      background-color: var(--black-color);
+      margin: 0 12px;
+    }
+  }
+`;
+
 export const ShippingInfo = styled.p`
   font-family: "Pretendard";
   font-size: var(--font-md-size);
@@ -51,8 +77,30 @@ export const ProductTotalPrice = styled.p`
   font-size: var(--font-max-size);
 `;
 
-export const ButtonWrapper = styled.div``;
+export const ButtonWrapper = styled.div`
+  display: flex;
+  margin-top: auto;
+`;
 
-export const BuyButton = styled.button``;
+export const ButtonCommonStyle = css`
+  padding: 19px 0;
+  margin-top: 22px;
+  text-align: center;
+  font-size: var(--font-sm-size);
+  font-weight: var(--font-medium);
+`;
 
-export const MButton = styled.button``;
+export const BuyButton = styled.button`
+  ${ButtonCommonStyle}
+  width: 416px;
+  background-color: var(--black-color);
+  color: var(--white-color);
+`;
+
+export const MButton = styled.button`
+  ${ButtonCommonStyle}
+  width: 200px;
+  border: 1px solid var(--black-color);
+  margin-left: 8px;
+  color: var(--black-color);
+`;

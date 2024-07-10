@@ -1,9 +1,11 @@
+// 수량 조절하는 부분 컴포넌트로 분리₩
+
 import { useState } from "react";
 import * as S from "./CountControlStyle";
 import MinusIcon from "../../assets/img/icon-minus-line.png";
 import PlusIcon from "../../assets/img/icon-plus-line.png";
 
-export default function CountControl({ isStock }) {
+export default function CountControl({ isStock, onCountChange }) {
   const [count, setCount] = useState(1);
 
   const handleOnCount = (count) => {
@@ -15,6 +17,7 @@ export default function CountControl({ isStock }) {
         alert(`이 제품의 최대 구매 가능한 수량은 ${newCount - 1}개 입니다.`);
         return isStock;
       }
+      onCountChange(newCount);
       return newCount;
     });
   };
