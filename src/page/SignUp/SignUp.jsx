@@ -231,7 +231,7 @@ export default function SignUp() {
               sopshop의 <span>이용약관</span> 및 <span>개인 정보 처리 방침</span>에 대한 내용을 확인하였고 동의합니다.
             </S.SectionContents>
           </S.Section>
-          <LS.SubmitButton type="submit">SIGN IN</LS.SubmitButton>
+          <LS.MButton type="submit">SIGN IN</LS.MButton>
         </LS.Form>
       </LS.Wrapper>
     </>

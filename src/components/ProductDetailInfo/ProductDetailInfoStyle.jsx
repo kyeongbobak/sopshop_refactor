@@ -44,6 +44,7 @@ export const OrderDetail = styled.div`
   font-size: var(--font-lg-size);
   justify-content: space-between;
   padding-top: 30px;
+  margin-top: auto;
 
   span {
     font-weight: var(--font-extra-light);
@@ -79,7 +80,6 @@ export const ProductTotalPrice = styled.p`
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  margin-top: auto;
 `;
 
 export const ButtonCommonStyle = css`

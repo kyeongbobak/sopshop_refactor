@@ -42,7 +42,7 @@ export const ErrorMessage = styled.p`
   font-size: var(--font-sm-size);
 `;
 
-export const SubmitButton = styled.button`
+export const MButton = styled.button`
   margin-top: 20px;
   padding: 19px 213px;
   background-color: var(--black-color);

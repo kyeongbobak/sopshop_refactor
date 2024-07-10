@@ -79,7 +79,7 @@ export default function Login() {
         />
         {errors.password && <S.ErrorMessage>{errors.password.message}</S.ErrorMessage>}
         <S.ErrorMessage>{warningMessage}</S.ErrorMessage>
-        <S.SubmitButton type="submit">LOG IN</S.SubmitButton>
+        <S.MButton type="submit">LOG IN</S.MButton>
       </S.Form>
     </S.Wrapper>
   );
