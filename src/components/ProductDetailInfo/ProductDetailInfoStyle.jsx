@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 
 export const ProductImage = styled.img`
   width: 600px;
-  height: 620px;
+  height: 720px;
   object-fit: cover;
 `;
 
@@ -92,7 +92,7 @@ export const ButtonCommonStyle = css`
 
 export const BuyButton = styled.button`
   ${ButtonCommonStyle}
-  width: 416px;
+  width: 516px;
   background-color: var(--black-color);
   color: var(--white-color);
 `;

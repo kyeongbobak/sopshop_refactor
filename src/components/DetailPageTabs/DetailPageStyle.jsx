@@ -24,8 +24,8 @@ export default function DetailPageTabs() {
           </S.TabItemBtn>
         </S.TabItem>
         <S.TabItem>
-          <S.TabItemBtn className={isClicked === "ReturnAndRefund" ? "active" : ""} onClick={() => handleTabClick("ReturnAndRefund")}>
-            ReturnAndRefund
+          <S.TabItemBtn className={isClicked === "Returns / Refund" ? "active" : ""} onClick={() => handleTabClick("Returns / Refund")}>
+            Returns / Refund
           </S.TabItemBtn>
         </S.TabItem>
       </S.Tabs>

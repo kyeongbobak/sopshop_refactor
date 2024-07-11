@@ -6,5 +6,5 @@ export const Wrapper = styled.div`
 
 export const ContentsWrapper = styled.div`
   margin: 0 auto;
-  width: 1280px;
+  width: 1400px;
 `;

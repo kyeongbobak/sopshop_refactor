@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Tabs = styled.ul`
   display: flex;
+  width: 1250px;
   margin-top: 141px;
 `;
 
@@ -24,6 +25,7 @@ export const TabItemBtn = styled.button`
 `;
 
 export const Contents = styled.div`
+  height: 300px;
   font-size: var(--font-md-size);
   padding: 20px;
 `;
