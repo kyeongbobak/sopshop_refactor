@@ -3,8 +3,8 @@ const { useState } = require("react");
 const useModal = () => {
   const [modalState, setModalState] = useState({
     isVisible: false,
-    text: "",
-    submitText: "",
+    text: "예",
+    submitText: "아니오",
     onCancel: () => closeModal(),
     onSubmit: () => {},
     content: "",

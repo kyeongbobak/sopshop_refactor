@@ -33,6 +33,8 @@ export const ContentsWrapper = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 10px;
   width: 220px;
   margin-top: 30px;
   z-index: 101;

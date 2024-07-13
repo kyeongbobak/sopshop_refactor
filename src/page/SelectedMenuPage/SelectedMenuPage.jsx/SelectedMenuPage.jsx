@@ -23,11 +23,9 @@ export default function SelectedMenuPage() {
     getBrandProductList();
   }, [getBrandProductList]);
 
-  const memoizedBrandProductList = useMemo(() =>
-    productList.map(
-      (product) => <ProductItem key={product.product_id} productId={product.product_id} productImage={product.image} productStoreName={product.store_name} productName={product.product_name} productPrice={product.price} />,
-      [selectedMenu]
-    )
+  const memoizedBrandProductList = useMemo(
+    () => productList.map((product) => <ProductItem key={product.product_id} productId={product.product_id} productImage={product.image} productStoreName={product.store_name} productName={product.product_name} productPrice={product.price} />),
+    [productList]
   );
 
   return (
