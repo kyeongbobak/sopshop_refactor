@@ -3,35 +3,25 @@ import { useRecoilValue } from "recoil";
 import { isLogin, userToken } from "../../atom/Atom";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getProductDetails } from "../../api/Product";
 import { addToCart } from "../../api/Cart";
 import useModal from "../../hook/useModal";
 import * as S from "../../components/ProductDetailInfo/ProductDetailInfoStyle";
 import CountControl from "../CountControl/CountControl";
 import Modal from "../Modal/Modal";
 import useCartList from "../../hook/useCartList";
+import useProductDetail from "../../hook/useProductDetail";
 
 export default function ProductDetailInfo() {
   const { ProductId } = useParams();
-  const [detailInfo, setDetailInfo] = useState({});
   const [count, setCount] = useState(1);
   const [isInCart, setIsInCart] = useState(false);
   const { modalState, showModal, closeModal } = useModal();
 
   const token = useRecoilValue(userToken);
   const { cartList } = useCartList(token);
+  const { productInfo } = useProductDetail(ProductId, token);
   const isLoggedIn = useRecoilValue(isLogin);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const getProductDetail = async () => {
-      const res = await getProductDetails(ProductId);
-      console.log(res);
-      setDetailInfo(res);
-    };
-
-    getProductDetail();
-  }, [ProductId]);
 
   const handleCountChange = (newCount) => {
     setCount(newCount);
@@ -63,20 +53,20 @@ export default function ProductDetailInfo() {
   return (
     <>
       <S.Wrapper>
-        <S.ProductImage src={`${detailInfo.image}`} />
+        <S.ProductImage src={`${productInfo.image}`} />
         <S.ProductDetailWrapper>
-          <S.ProductBrandName>{detailInfo.store_name}</S.ProductBrandName>
-          <S.ProductName>{detailInfo.product_name}</S.ProductName>
+          <S.ProductBrandName>{productInfo.store_name}</S.ProductBrandName>
+          <S.ProductName>{productInfo.product_name}</S.ProductName>
           <S.ProductPrice>
-            {parseInt(detailInfo.price).toLocaleString()} <span>원</span>
+            {parseInt(productInfo.price).toLocaleString()} <span>원</span>
           </S.ProductPrice>
-          <S.ShippingInfo>{detailInfo.shipping_fee === "0" ? "무료배송" : "택배배송"}</S.ShippingInfo>
-          <CountControl isStock={detailInfo.stock} count={count} onCountChange={handleCountChange} />
+          <S.ShippingInfo>{productInfo.shipping_fee === "0" ? "무료배송" : "택배배송"}</S.ShippingInfo>
+          <CountControl isStock={productInfo.stock} count={count} onCountChange={handleCountChange} />
           <S.OrderDetail>
             <span>Total Price</span>
             <div>
               <span>총 수량 {count} 개</span>
-              <strong>{detailInfo.price ? (parseInt(detailInfo.price) * count).toLocaleString() : 0}원</strong>
+              <strong>{productInfo.price ? (parseInt(productInfo.price) * count).toLocaleString() : 0}원</strong>
             </div>
           </S.OrderDetail>
           <S.ButtonWrapper>

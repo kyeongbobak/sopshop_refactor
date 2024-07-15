@@ -14,7 +14,6 @@ export default function CartPage() {
     <>
       <TopNavBar />
       <CartTabTitle />
-
       <Footer />
     </>
   );
