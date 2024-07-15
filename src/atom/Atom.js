@@ -3,6 +3,7 @@ import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
 
+// 상태를 저장하는 atom
 export const userToken = atom({
   key: "userToken",
   default: "",

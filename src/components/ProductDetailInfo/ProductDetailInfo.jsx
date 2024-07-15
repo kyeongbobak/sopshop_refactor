@@ -4,11 +4,12 @@ import { isLogin, userToken } from "../../atom/Atom";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getProductDetails } from "../../api/Product";
-import { getCartList, addToCart } from "../../api/Cart";
+import { addToCart } from "../../api/Cart";
 import useModal from "../../hook/useModal";
 import * as S from "../../components/ProductDetailInfo/ProductDetailInfoStyle";
 import CountControl from "../CountControl/CountControl";
 import Modal from "../Modal/Modal";
+import useCartList from "../../hook/useCartList";
 
 export default function ProductDetailInfo() {
   const { ProductId } = useParams();
@@ -18,6 +19,7 @@ export default function ProductDetailInfo() {
   const { modalState, showModal, closeModal } = useModal();
 
   const token = useRecoilValue(userToken);
+  const { cartList } = useCartList(token);
   const isLoggedIn = useRecoilValue(isLogin);
   const navigate = useNavigate();
 
@@ -36,17 +38,11 @@ export default function ProductDetailInfo() {
   };
 
   useEffect(() => {
-    const getShoppingList = async () => {
-      const res = await getCartList(token);
-      const data = res.results.map((i) => i.product_id);
-      const isProductInCart = data.includes(parseInt(ProductId));
-      if (isProductInCart) {
-        setIsInCart(true);
-      }
-    };
-
-    getShoppingList();
-  }, [ProductId, token]);
+    if (cartList.length === 0) return;
+    const data = cartList.map((i) => i.product_id);
+    const isProductInCart = data.includes(parseInt(ProductId));
+    setIsInCart(isProductInCart);
+  }, [cartList, ProductId]);
 
   const addToShoppingCart = async () => {
     const body = {

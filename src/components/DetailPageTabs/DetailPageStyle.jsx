@@ -1,6 +1,7 @@
 import { useState } from "react";
 import * as S from "./DetailPageTabs";
 
+// 상세페이지 하단 탭 부분 컴포넌트 분리
 export default function DetailPageTabs() {
   const [isClicked, setIsClicked] = useState("Review");
   const [menuContents, setMenuContents] = useState("Review");

@@ -7,7 +7,6 @@ export const Tabs = styled.ul`
 `;
 
 export const TabItem = styled.li`
-  /*  */
   width: 100%;
   text-align: center;
   font-size: var(--font-sm-size);

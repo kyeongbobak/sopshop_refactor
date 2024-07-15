@@ -17,6 +17,7 @@ export default function Login() {
   const setUserType = useSetRecoilState(userType);
   const navigate = useNavigate();
 
+  //유효성 검사를 더 간단하게 처리하기 위해 useForm 사용
   const {
     register,
     handleSubmit,

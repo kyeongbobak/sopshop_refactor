@@ -1,5 +1,6 @@
 const { useState } = require("react");
 
+// 커스텀 훅 useModal 정의
 const useModal = () => {
   const [modalState, setModalState] = useState({
     isVisible: false,
