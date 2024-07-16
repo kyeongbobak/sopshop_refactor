@@ -6,9 +6,9 @@ const useProductDetail = (productId, token) => {
   const [productInfo, setProductInfo] = useState([]);
   useEffect(() => {
     const getProductInfo = async () => {
-      const res = await getProductDetails(productId);
-      console.log(res);
-      setProductInfo(res);
+      const promises = productId.map((i) => getProductDetails(i));
+      const results = await Promise.all(promises);
+      setProductInfo(results);
     };
     getProductInfo();
   }, [productId, token]);

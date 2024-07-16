@@ -16,7 +16,6 @@ export const getProducts = async (token) => {
 export const getProductDetails = async (productId) => {
   try {
     const res = await Instance.get(`/api/v1/products/${productId}/`);
-    console.log(res);
     return res.data;
   } catch (error) {
     console.log("error", error);

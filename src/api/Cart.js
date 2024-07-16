@@ -2,14 +2,12 @@ import { Instance } from "../api/Instance/Instance";
 
 // 장바구니 목록 보기
 export const getCartList = async (token) => {
-  console.log(token);
   try {
     const res = await Instance.get("/api/v1/cart", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(res);
     return res.data;
   } catch (error) {
     console.log(error);
