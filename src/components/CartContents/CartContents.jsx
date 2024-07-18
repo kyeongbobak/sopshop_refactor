@@ -25,6 +25,8 @@ export default function CartList() {
   const { cartList, refetch } = useCartList(token);
   const { productInfo } = useProductDetail(productIds, token);
 
+  console.log(cartList.length);
+
   useEffect(() => {
     const productId = cartList.map((i) => i.product_id);
     const quantity = cartList.map((i) => i.quantity);
