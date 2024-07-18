@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
@@ -80,6 +80,19 @@ export const ProductPriceWrapper = styled.div`
   text-align: center;
 `;
 
+export const ButtonCommonStyle = css`
+  font-size: var(--font-sm-size);
+  text-align: center;
+  border: 1px solid #222;
+`;
+
+export const SelectOrderButton = styled.button`
+  ${ButtonCommonStyle}
+  background-color: var(--black-color);
+  color: var(--white-color);
+  padding: 10px 30px;
+`;
+
 export const TotalProductPrice = styled.p`
   font-family: "Pretendard";
   font-size: var(--font-md-size);
@@ -97,8 +110,6 @@ export const ButtonWrapper = styled.div`
     font-size: var(--font-sm-size);
   }
 `;
-
-export const StyledLink = styled(Link)``;
 
 export const TotalPriceCal = styled.div`
   padding: 30px 0;
@@ -119,4 +130,11 @@ export const TotalPriceCal = styled.div`
     font-size: var(--font-lg-size);
     font-weight: var(--font-semi-bold);
   }
+`;
+
+export const AllOrderButton = styled.button`
+  ${ButtonCommonStyle}
+  width: 100px;
+  margin: 50px auto;
+  padding: 15px 20px;
 `;

@@ -9,10 +9,8 @@ import { deleteCartItem, deleteAllCartItem } from "../../api/Cart";
 import Modal from "../Modal/Modal";
 import CountControl from "../CountControl/CountControl";
 import * as S from "./CartContentsStyle";
-import * as MS from "../Modal/ModalStyle";
 import useModal from "../../hook/useModal";
 
-// 응답 데이터에 고유한 키 값이 없어 uuid 라이브러리 사용
 export default function CartList() {
   const [productIds, setProductIds] = useState([]);
   const [count, setCount] = useState([]);
@@ -24,12 +22,9 @@ export default function CartList() {
   const token = useRecoilValue(userToken);
   const { cartList, refetch } = useCartList(token);
   const { productInfo } = useProductDetail(productIds, token);
-  console.log(productInfo);
 
   const sumPrice = productInfo.map((i) => i.price).reduce((acc, cur) => acc + cur, 0);
   const sumShipping = productInfo.map((i) => i.shipping_fee).reduce((acc, cur) => acc + cur, 0);
-  console.log(sumPrice);
-  console.log(sumShipping);
 
   useEffect(() => {
     const productId = cartList.map((i) => i.product_id);
@@ -72,6 +67,7 @@ export default function CartList() {
     refetch();
   };
 
+  // 응답 데이터에 고유한 키 값이 없어 uuid 라이브러리 사용
   return (
     <>
       {cartList.length === 0 ? (
@@ -98,7 +94,7 @@ export default function CartList() {
                 </S.CountControlWrapper>
                 <S.ProductPriceWrapper>
                   {cartList && <S.TotalProductPrice>{(cartList[index].quantity * product.price).toLocaleString()} 원</S.TotalProductPrice>}
-                  <MS.SButton>Order</MS.SButton>
+                  <S.SelectOrderButton>Order</S.SelectOrderButton>
                 </S.ProductPriceWrapper>
               </S.CartListWrapper>
             ))}
@@ -146,6 +142,7 @@ export default function CartList() {
               <span>= Total :</span>
               <p>{(sumPrice + sumShipping).toLocaleString()} 원</p>
             </S.TotalPriceCal>
+            <S.AllOrderButton>All Order</S.AllOrderButton>
           </S.Wrapper>
         </>
       )}
