@@ -4,7 +4,6 @@ import MinusIcon from "../../assets/img/icon-minus-line.png";
 import PlusIcon from "../../assets/img/icon-plus-line.png";
 
 export default function CountControl({ count, isStock, onCountChange }) {
-  console.log(count);
   const handleOnCount = (increment) => {
     const newCount = count + increment;
     if (newCount < 1) {

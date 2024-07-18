@@ -30,21 +30,19 @@ export const addToCart = async (token, body) => {
   }
 };
 
-// // 장바구니 수량 수정하기
-// export const modifyCartQuantity = async (token, body, modifiedCartItemId) => {
-//   try {
-//     const instance = axios.create({
-//       headers: {
-//         Authorization: `JWT ${token}`,
-//       },
-//     });
-
-//     const res = await instance.put(`https://openmarket.weniv.co.kr/cart/${modifiedCartItemId}/`, body);
-//     return await res.data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+// 장바구니 수량 수정하기
+export const modifyCartQuantity = async (token, body, modifiedCartItemId) => {
+  try {
+    const res = await Instance.put(`/api/v1/cart/${modifiedCartItemId}/`, body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return await res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // // 장바구니 전부 삭제하기
 // export const deleteAllCartItem = async (token) => {
@@ -54,25 +52,24 @@ export const addToCart = async (token, body) => {
 //         Authorization: `JWT ${token}`,
 //       },
 //     });
-//     const res = await instance.delete(`https://openmarket.weniv.co.kr/cart/`);
+//     const res = await Instance.delete(`/api/v1/cart/`);
 //     return await res.data;
 //   } catch (error) {
 //     console.log(error);
 //   }
 // };
 
-// // 장바구니 개별 삭제하기
-// export const deleteCartItem = async (token, cartItemId) => {
-//   try {
-//     const instance = axios.create({
-//       headers: {
-//         Authorization: `JWT ${token}`,
-//       },
-//     });
-
-//     const res = await instance.delete(`https://openmarket.weniv.co.kr/cart/${cartItemId}`);
-//     return await res.data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+// 장바구니 개별 삭제하기
+export const deleteCartItem = async (token, cartItemId) => {
+  console.log(token, cartItemId);
+  try {
+    const res = await Instance.delete(`/api/v1/cart/${cartItemId}`, {
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    });
+    return await res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

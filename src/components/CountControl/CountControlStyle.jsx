@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   padding: 30px 0;
-  border-bottom: 1px solid var(--gray-color);
   div {
     width: 150px;
     display: flex;
