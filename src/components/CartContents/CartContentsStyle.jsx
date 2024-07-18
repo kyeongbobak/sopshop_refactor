@@ -107,14 +107,16 @@ export const TotalPriceCal = styled.div`
   align-items: center;
   border-top: 1px solid var(--black-color);
   border-bottom: 1px solid var(--black-color);
-  span,
+  gap: 10px;
+
+  span {
+    font-size: var(--font-md-size);
+    font-weight: var(--font-regular);
+  }
+
   p {
     font-family: "Pretendard";
     font-size: var(--font-lg-size);
     font-weight: var(--font-semi-bold);
   }
 `;
-
-export const TotalPrice = styled.p``;
-
-export const ShippingFee = styled.p``;

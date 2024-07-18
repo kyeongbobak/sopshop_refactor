@@ -2,7 +2,7 @@ import * as H from "./TopNavBarStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 import menuIcon from "../../assets/img/menu_icon.png";
 import { isLogin, userToken } from "../../atom/Atom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { logout } from "../../api/LoginOut";
 import { useMutation } from "@tanstack/react-query";

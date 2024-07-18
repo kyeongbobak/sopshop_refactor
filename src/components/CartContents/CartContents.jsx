@@ -24,8 +24,12 @@ export default function CartList() {
   const token = useRecoilValue(userToken);
   const { cartList, refetch } = useCartList(token);
   const { productInfo } = useProductDetail(productIds, token);
+  console.log(productInfo);
 
-  console.log(cartList.length);
+  const sumPrice = productInfo.map((i) => i.price).reduce((acc, cur) => acc + cur, 0);
+  const sumShipping = productInfo.map((i) => i.shipping_fee).reduce((acc, cur) => acc + cur, 0);
+  console.log(sumPrice);
+  console.log(sumShipping);
 
   useEffect(() => {
     const productId = cartList.map((i) => i.product_id);
@@ -93,7 +97,7 @@ export default function CartList() {
                   <CountControl key={index} count={count[index]} onCountChange={(newCount) => handleCountChange(index, newCount)} />
                 </S.CountControlWrapper>
                 <S.ProductPriceWrapper>
-                  <S.TotalProductPrice>{product.price.toLocaleString()} 원 </S.TotalProductPrice>
+                  {cartList && <S.TotalProductPrice>{(cartList[index].quantity * product.price).toLocaleString()} 원</S.TotalProductPrice>}
                   <MS.SButton>Order</MS.SButton>
                 </S.ProductPriceWrapper>
               </S.CartListWrapper>
@@ -135,12 +139,12 @@ export default function CartList() {
             <Modal modalState={modalState} />
             <S.TotalPriceCal>
               <span>Sub Total</span>
-              <S.ProductPrice></S.ProductPrice>
+              <p>{sumPrice.toLocaleString()} 원</p>
               <span>+</span>
               <span>Shipping</span>
-              <S.ShippingFee></S.ShippingFee>
+              <p>{sumShipping.toLocaleString()} 원</p>
               <span>= Total :</span>
-              <S.TotalPrice></S.TotalPrice>
+              <p>{(sumPrice + sumShipping).toLocaleString()} 원</p>
             </S.TotalPriceCal>
           </S.Wrapper>
         </>
