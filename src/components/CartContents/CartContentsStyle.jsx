@@ -1,10 +1,29 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 1280px;
   margin: 0 auto;
+`;
+
+export const ContentsWrapper = styled.div`
+  text-align: center;
+  button {
+    margin-bottom: 300px;
+    padding: 15px 30px;
+    border: 1px solid #222;
+    font-size: var(--font-sm-size);
+    font-weight: var(--font-medium);
+  }
+`;
+
+export const Contents = styled.div`
+  margin: 200px 0 30px 0;
+  text-align: center;
+  color: var(--gray-color);
+  font-size: var(--font-md-size);
 `;
 
 export const CheckBox = styled.input`
@@ -71,10 +90,31 @@ export const TotalProductPrice = styled.p`
 export const ButtonWrapper = styled.div`
   display: flex;
   gap: 10px;
-  margin: 80px 0 50px 0;
+  margin: 30px 0 30px 0;
   justify-content: end;
 
   button {
     font-size: var(--font-sm-size);
   }
 `;
+
+export const StyledLink = styled(Link)``;
+
+export const TotalPriceCal = styled.div`
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid var(--black-color);
+  border-bottom: 1px solid var(--black-color);
+  span,
+  p {
+    font-family: "Pretendard";
+    font-size: var(--font-lg-size);
+    font-weight: var(--font-semi-bold);
+  }
+`;
+
+export const TotalPrice = styled.p``;
+
+export const ShippingFee = styled.p``;

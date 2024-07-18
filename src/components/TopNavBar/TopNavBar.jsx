@@ -8,6 +8,7 @@ import { logout } from "../../api/LoginOut";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
+// 사이드바 추가
 export default function Header() {
   const [sideBarState, setSideBarState] = useState(null);
 

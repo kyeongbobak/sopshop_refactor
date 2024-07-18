@@ -44,20 +44,19 @@ export const modifyCartQuantity = async (token, body, modifiedCartItemId) => {
   }
 };
 
-// // 장바구니 전부 삭제하기
-// export const deleteAllCartItem = async (token) => {
-//   try {
-//     const instance = axios.create({
-//       headers: {
-//         Authorization: `JWT ${token}`,
-//       },
-//     });
-//     const res = await Instance.delete(`/api/v1/cart/`);
-//     return await res.data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+// 장바구니 전부 삭제하기
+export const deleteAllCartItem = async (token) => {
+  try {
+    const res = await Instance.delete(`/api/v1/cart/`, {
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    });
+    return await res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // 장바구니 개별 삭제하기
 export const deleteCartItem = async (token, cartItemId) => {
