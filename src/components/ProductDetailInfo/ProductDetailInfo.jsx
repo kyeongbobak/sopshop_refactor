@@ -40,6 +40,7 @@ export default function ProductDetailInfo() {
     // if (cartList.length === 0) return;
     const data = cartList.map((i) => i.product_id);
     const isProductInCart = data.includes(parseInt(ProductId));
+    console.log(isProductInCart);
     setIsInCart(isProductInCart);
   }, [cartList, ProductId]);
 
@@ -51,12 +52,11 @@ export default function ProductDetailInfo() {
     };
     const res = await addToCart(token, body);
     console.log(res);
-    navigate(`/cart`);
   };
 
   const directOrder = () => {
     addToShoppingCart();
-    navigate(`/cart`);
+    navigate(`/order`);
   };
 
   return (
@@ -107,6 +107,7 @@ export default function ProductDetailInfo() {
                         onCancel: closeModal,
                         onSubmit: () => {
                           addToShoppingCart();
+                          navigate(`/cart`);
                         },
                         content: "이미 장바구니에 있는 상품입니다. 장바구니로 이동할까요?",
                       })
@@ -115,7 +116,14 @@ export default function ProductDetailInfo() {
                     Add To Cart
                   </S.MButton>
                 ) : (
-                  <S.MButton onClick={() => addToShoppingCart()}>Add To Cart</S.MButton>
+                  <S.MButton
+                    onClick={() => {
+                      addToShoppingCart();
+                      navigate(`/cart`);
+                    }}
+                  >
+                    Add To Cart
+                  </S.MButton>
                 )}
               </>
             ) : (

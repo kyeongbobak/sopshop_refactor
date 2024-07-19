@@ -1,3 +1,7 @@
 export default function OrderPage() {
-  return <></>;
+  return (
+    <>
+      <h1>hi</h1>
+    </>
+  );
 }

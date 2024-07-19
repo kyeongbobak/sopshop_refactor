@@ -5,7 +5,7 @@ import { userToken } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
 import useCartList from "../../hook/useCartList";
 import useProductDetail from "../../hook/useProductDetail";
-import { deleteCartItem, deleteAllCartItem } from "../../api/Cart";
+import { deleteCartItem, deleteAllCartItem, modifyCartQuantity } from "../../api/Cart";
 import Modal from "../Modal/Modal";
 import CountControl from "../CountControl/CountControl";
 import * as S from "./CartContentsStyle";
@@ -34,11 +34,25 @@ export default function CartList() {
   }, [cartList]);
 
   const handleCountChange = (index, newCount) => {
+    console.log(index);
+    console.log();
     setCount((prevCount) => {
       const updateCount = [...prevCount];
       updateCount[index] = newCount;
+      modifyCount(index, newCount);
       return updateCount;
     });
+  };
+
+  // 장바구니 수량 수정하기
+  const modifyCount = async (index, newCount) => {
+    console.log(newCount);
+    const body = {
+      product_id: cartList[index].product_id,
+      quantity: newCount,
+    };
+    const res = await modifyCartQuantity(token, body, cartList[index].cart_item_id);
+    console.log(res);
   };
 
   const handleCheckBox = (index) => {
@@ -93,7 +107,7 @@ export default function CartList() {
                   <CountControl key={index} count={count[index]} onCountChange={(newCount) => handleCountChange(index, newCount)} />
                 </S.CountControlWrapper>
                 <S.ProductPriceWrapper>
-                  {cartList && <S.TotalProductPrice>{(cartList[index].quantity * product.price).toLocaleString()} 원</S.TotalProductPrice>}
+                  {cartList[index] && <S.TotalProductPrice>{(cartList[index].quantity * product.price).toLocaleString()} 원</S.TotalProductPrice>}
                   <S.SelectOrderButton>Order</S.SelectOrderButton>
                 </S.ProductPriceWrapper>
               </S.CartListWrapper>
