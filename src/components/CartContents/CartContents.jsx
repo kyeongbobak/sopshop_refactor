@@ -46,7 +46,6 @@ export default function CartList() {
 
   // 장바구니 수량 수정하기
   const modifyCount = async (index, newCount) => {
-    console.log(newCount);
     const body = {
       product_id: cartList[index].product_id,
       quantity: newCount,
@@ -54,6 +53,8 @@ export default function CartList() {
     const res = await modifyCartQuantity(token, body, cartList[index].cart_item_id);
     console.log(res);
   };
+
+  console.log(selected);
 
   const handleCheckBox = (index) => {
     setSelected((prevSelected) => {
@@ -71,6 +72,7 @@ export default function CartList() {
       const res = await deleteCartItem(token, cartItemId);
       console.log(res);
       refetch();
+      setSelected([]);
     });
   };
 
