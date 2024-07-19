@@ -40,3 +40,24 @@ export const BrandName = styled(Link)`
     font-weight: var(--font-bold);
   }
 `;
+
+export const Form = styled.form`
+  span {
+    font-size: var(--font-sm-size);
+    font-weight: var(--font-extra-light);
+    position: absolute;
+    margin: 80px 0 0 70px;
+  }
+`;
+
+export const Input = styled.input`
+  width: 110px;
+  padding: 10px 15px 10px 15px;
+  margin-left: 70px;
+  border: none;
+  border-bottom: 1px solid var(--black-color);
+  outline: none;
+  font-size: var(--font-sm-size);
+  margin-top: 100px;
+  position: relative;
+`;

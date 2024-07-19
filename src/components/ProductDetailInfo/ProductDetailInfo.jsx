@@ -13,6 +13,7 @@ import useCartList from "../../hook/useCartList";
 
 export default function ProductDetailInfo() {
   const { ProductId } = useParams();
+  console.log(ProductId);
   const [detailInfo, setDetailInfo] = useState("");
   const [count, setCount] = useState(1);
   const [isInCart, setIsInCart] = useState(false);

@@ -1,8 +1,22 @@
 import { useState } from "react";
+
+import { useNavigate } from "react-router-dom";
 import * as S from "./SideMenuStyle";
 
 export default function SideMenu() {
   const [selected, setSelected] = useState("FLOPS");
+  const [searchKeyword, setSearchKeyword] = useState("");
+
+  const navigator = useNavigate();
+
+  const handleOnChange = (e) => {
+    setSearchKeyword(e.target.value);
+  };
+
+  const onSearchHandle = async (e) => {
+    e.preventDefault();
+    navigator(`/search/${searchKeyword}`);
+  };
 
   return (
     <S.Wrapper>
@@ -40,6 +54,10 @@ export default function SideMenu() {
           <S.StyledLink to={`/Review`}>Review</S.StyledLink>
         </li>
       </ul>
+      <S.Form onSubmit={onSearchHandle}>
+        <span>Search</span>
+        <S.Input type="text" value={searchKeyword} onChange={handleOnChange} />
+      </S.Form>
     </S.Wrapper>
   );
 }
