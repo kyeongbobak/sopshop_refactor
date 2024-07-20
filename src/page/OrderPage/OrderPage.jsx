@@ -1,7 +1,15 @@
+import TopNavBar from "../../components/TopNavBar/TopNavBar";
+import SideMenu from "../../components/SideMenu/SideMenu";
+import TabTitle from "../../components/TabTitle/OrderTabTitle/OrderTabTitle";
+import Footer from "../../components/Footer/Footer";
+
 export default function OrderPage() {
   return (
     <>
-      <h1>hi</h1>
+      <TopNavBar />
+      <SideMenu />
+      <TabTitle />
+      <Footer />
     </>
   );
 }

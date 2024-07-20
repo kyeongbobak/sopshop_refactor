@@ -33,10 +33,8 @@ export default function MainPage() {
   return (
     <>
       <TopNavBar />
-      <S.Wrapper>
-        <SideMenu />
-        <S.ProductList>{memoizedProductList}</S.ProductList>
-      </S.Wrapper>
+      <SideMenu />
+      <S.ProductList>{memoizedProductList}</S.ProductList>
       <Footer />
     </>
   );
