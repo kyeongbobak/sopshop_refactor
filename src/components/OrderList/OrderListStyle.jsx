@@ -1,9 +1,12 @@
 import styled, { css } from "styled-components";
 
-export const OrderListWrapper = styled.div`
-  max-width: 1280px;
-  display: flex;
+export const Wrapper = styled.div`
+  width: 1280px;
   margin: 0 auto;
+`;
+
+export const OrderListWrapper = styled.div`
+  display: flex;
   align-items: center;
 
   div:nth-child(1) {
@@ -54,3 +57,5 @@ export const TotalPrice = styled.p`
   ${CommonPStyle}
   width: 300px;
 `;
+
+export const TotalOrderPrice = styled.div``;

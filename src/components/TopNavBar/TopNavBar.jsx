@@ -86,7 +86,7 @@ export default function Header() {
                   <H.StyledLink>My Page</H.StyledLink>
                 </li>
                 <li>
-                  <H.StyledLink>Order</H.StyledLink>
+                  <H.StyledLink to={`/order`}>Order</H.StyledLink>
                 </li>
               </ul>
             </H.SideNavBar>

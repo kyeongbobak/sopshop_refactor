@@ -23,7 +23,7 @@ export default function CartList() {
   const { cartList, refetch } = useCartList(token);
   const { productInfo } = useProductDetail(productIds, token);
 
-  const sumPrice = productInfo.map((i) => i.price).reduce((acc, cur) => acc + cur, 0);
+  const sumProductPrice = productInfo.map((i) => i.price).reduce((acc, cur, i) => acc + cur * count[i], 0);
   const sumShipping = productInfo.map((i) => i.shipping_fee).reduce((acc, cur) => acc + cur, 0);
 
   useEffect(() => {
@@ -151,12 +151,12 @@ export default function CartList() {
             <Modal modalState={modalState} />
             <S.TotalPriceCal>
               <span>Sub Total</span>
-              <p>{sumPrice.toLocaleString()} 원</p>
+              <p>{sumProductPrice.toLocaleString()} 원</p>
               <span>+</span>
               <span>Shipping</span>
               <p>{sumShipping.toLocaleString()} 원</p>
               <span>= Total :</span>
-              <p>{(sumPrice + sumShipping).toLocaleString()} 원</p>
+              <p>{(sumProductPrice + sumShipping).toLocaleString()} 원</p>
             </S.TotalPriceCal>
             <S.AllOrderButton>All Order</S.AllOrderButton>
           </S.Wrapper>
