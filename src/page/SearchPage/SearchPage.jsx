@@ -31,7 +31,7 @@ export default function SearchProduct() {
           </p>
           <S.Contents>
             {searchResult.map((product) => (
-              <ProductItem key={product.product_id} productId={product.product_id} productImage={product.image} productStoreName={product.store_name} productName={product.product_name} productPrice={product.price} />
+              <ProductItem key={product.product_id} productId={product.product_id} productImage={product.image} product={product.store_name} productName={product.product_name} productPrice={product.price} />
             ))}
           </S.Contents>
         </S.ContentsWrapper>

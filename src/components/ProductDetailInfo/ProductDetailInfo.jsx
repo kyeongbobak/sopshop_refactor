@@ -14,13 +14,14 @@ import useCartList from "../../hook/useCartList";
 export default function ProductDetailInfo() {
   const { ProductId } = useParams();
   console.log(ProductId);
-  const [detailInfo, setDetailInfo] = useState("");
+  const [product, setProduct] = useState("");
   const [count, setCount] = useState(1);
   const [isInCart, setIsInCart] = useState(false);
   const { modalState, showModal, closeModal } = useModal();
 
   const token = useRecoilValue(userToken);
   const { cartList } = useCartList(token);
+
   const isLoggedIn = useRecoilValue(isLogin);
   const navigate = useNavigate();
 
@@ -32,7 +33,7 @@ export default function ProductDetailInfo() {
     const getProductDetail = async () => {
       const res = await getProductDetails(ProductId);
       console.log(res);
-      setDetailInfo(res);
+      setProduct(res);
     };
     getProductDetail();
   }, [ProductId]);
@@ -63,20 +64,20 @@ export default function ProductDetailInfo() {
   return (
     <>
       <S.Wrapper>
-        <S.ProductImage src={`${detailInfo.image}`} />
+        <S.ProductImage src={`${product.image}`} />
         <S.ProductDetailWrapper>
-          <S.ProductBrandName>{detailInfo.store_name}</S.ProductBrandName>
-          <S.ProductName>{detailInfo.product_name}</S.ProductName>
+          <S.ProductBrandName>{product.store_name}</S.ProductBrandName>
+          <S.ProductName>{product.product_name}</S.ProductName>
           <S.ProductPrice>
-            {parseInt(detailInfo.price).toLocaleString()} <span>원</span>
+            {parseInt(product.price).toLocaleString()} <span>원</span>
           </S.ProductPrice>
-          <S.ShippingInfo>{detailInfo.shipping_fee === "0" ? "무료배송" : "택배배송"}</S.ShippingInfo>
-          <CountControl isStock={detailInfo.stock} count={count} onCountChange={handleCountChange} />
+          <S.ShippingInfo>{product.shipping_fee === "0" ? "무료배송" : "택배배송"}</S.ShippingInfo>
+          <CountControl isStock={product.stock} count={count} onCountChange={handleCountChange} />
           <S.OrderDetail>
             <span>Total Price</span>
             <div>
               <span>총 수량 {count} 개</span>
-              <strong>{detailInfo.price ? (parseInt(detailInfo.price) * count).toLocaleString() : 0}원</strong>
+              <strong>{product.price ? (parseInt(product.price) * count).toLocaleString() : 0}원</strong>
             </div>
           </S.OrderDetail>
           <S.ButtonWrapper>

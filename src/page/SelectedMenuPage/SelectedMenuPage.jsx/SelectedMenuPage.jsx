@@ -15,7 +15,7 @@ export default function SelectedMenuPage() {
   const getBrandProductList = useCallback(async () => {
     const res = await getProducts();
     const data = res.results;
-    const SelectedBrandProducts = data.filter((proudct) => proudct.store_name === selectedMenu);
+    const SelectedBrandProducts = data.filter((i) => i.store_name === selectedMenu);
     setProductList(SelectedBrandProducts);
   }, [selectedMenu]);
 
@@ -25,7 +25,7 @@ export default function SelectedMenuPage() {
 
   // 성능 최적화를 위해 useMemo 사용
   const memoizedBrandProductList = useMemo(
-    () => productList.map((product) => <ProductItem key={product.product_id} productId={product.product_id} productImage={product.image} productStoreName={product.store_name} productName={product.product_name} productPrice={product.price} />),
+    () => productList.map((list) => <ProductItem key={list.product_id} productId={list.product_id} productImage={list.image} productBrandName={list.store_name} productName={list.product_name} productPrice={list.price} />),
     [productList]
   );
 

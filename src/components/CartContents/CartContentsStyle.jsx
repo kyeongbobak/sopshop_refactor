@@ -47,27 +47,29 @@ export const ProductInfoWrapper = styled.div`
   }
 `;
 
-export const ProductBrandName = styled.p`
+export const BrandName = styled.p`
   font-size: var(--font-sm-size);
   font-weight: var(--font-extra-bold);
   color: var(--black-color);
 `;
 
-export const ProductName = styled.p`
-  font-size: var(--font-sm-size);
+export const CommonPStyle = css`
+  font-size: var(--font-md-size);
   margin-top: 20px;
+`;
+
+export const Name = styled.p`
+  ${CommonPStyle}
 `;
 
 export const ShippingInfo = styled.p`
-  font-size: var(--font-md-size);
+  ${CommonPStyle}
   font-weight: var(--font-semi-bold);
-  margin-top: 20px;
 `;
 
-export const ProductPrice = styled.p`
-  font-size: var(--font-md-size);
+export const Price = styled.p`
+  ${CommonPStyle}
   font-weight: var(--font-semi-bold);
-  margin-top: 20px;
 `;
 
 export const CountControlWrapper = styled.div`

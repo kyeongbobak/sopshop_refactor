@@ -100,9 +100,9 @@ export default function CartList() {
               <S.CartListWrapper key={uuidv4()}>
                 <S.CheckBox key={uuidv4()} type="checkbox" checked={selected.includes(index)} onChange={() => handleCheckBox(index)} />
                 <S.ProductInfoWrapper>
-                  <S.ProductBrandName>{product.store_name}</S.ProductBrandName>
-                  <S.ProductName>{product.product_name}</S.ProductName>
-                  <S.ProductPrice>{product.price.toLocaleString()} 원</S.ProductPrice>
+                  <S.BrandName>{product.store_name}</S.BrandName>
+                  <S.Name>{product.product_name}</S.Name>
+                  <S.Price>{product.price.toLocaleString()} 원</S.Price>
                   <S.ShippingInfo>{product.shipping_method === "DELIVERY" ? "택배배송" : "무료배송"}</S.ShippingInfo>
                 </S.ProductInfoWrapper>
                 <S.CountControlWrapper>
