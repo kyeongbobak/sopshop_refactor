@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
   width: 170px;
-  margin-left: 2%;
+  margin-left: 1%;
   position: fixed;
   z-index: 1000;
   font-size: var(--font-md-size);

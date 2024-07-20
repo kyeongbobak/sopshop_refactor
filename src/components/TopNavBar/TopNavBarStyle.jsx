@@ -18,7 +18,7 @@ export const StyledLink = styled(Link)``;
 export const NavBar = styled.ul`
   position: absolute;
   top: 110px;
-  right: 70px;
+  right: 90px;
   vertical-align: top;
   display: flex;
   gap: 30px;

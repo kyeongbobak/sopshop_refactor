@@ -32,14 +32,17 @@ export default function SelectedMenuPage() {
   return (
     <>
       <TopNavBar />
-      <S.Wrapper>
-        <SideMenu />
-        <S.MenuContentsWrapper>
-          <S.MenuName>{selectedMenu}</S.MenuName>
-          <MS.ProductList>{memoizedBrandProductList}</MS.ProductList>
-        </S.MenuContentsWrapper>
-      </S.Wrapper>
-      <Footer />
+      <SideMenu />
+      <div>
+        <S.Wrapper>
+          <S.MenuContentsWrapper>
+            <S.MenuName>{selectedMenu}</S.MenuName>
+            <MS.ProductList>{memoizedBrandProductList}</MS.ProductList>
+            {!!productList && <S.Contents>Empty</S.Contents>}
+          </S.MenuContentsWrapper>
+        </S.Wrapper>
+        <Footer />
+      </div>
     </>
   );
 }

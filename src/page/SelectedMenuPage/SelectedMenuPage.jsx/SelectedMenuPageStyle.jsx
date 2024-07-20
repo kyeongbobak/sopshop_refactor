@@ -12,5 +12,15 @@ export const MenuContentsWrapper = styled.div`
 export const MenuName = styled.p`
   width: 100%;
   font-size: var(--font-md-size);
-  padding: 10px 0 50px 0;
+  padding: 10px 0 50px 10.2%;
+`;
+
+export const Contents = styled.div`
+  width: 100%;
+  height: 300px;
+  margin-top: 10%;
+  padding-left: 10.2%;
+  font-size: var(--font-md-size);
+  font-weight: var(--font-light);
+  text-align: center;
 `;

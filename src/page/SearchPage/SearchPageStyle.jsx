@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
 export const ContentsWrapper = styled.div`
   width: 1280px;
   margin: 0 auto;
+  padding-left: 11.2%;
 
   p {
     font-size: var(--font-sm-size);
