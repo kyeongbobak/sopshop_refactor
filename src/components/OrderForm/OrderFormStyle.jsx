@@ -92,6 +92,7 @@ export const PayMentWrapper = styled.div`
 
 export const AgreeMentWrapper = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   font-size: var(--font-md-size);
   margin-top: 50px;
@@ -191,4 +192,11 @@ export const PayMentBtn = styled.button`
 export const ShippingFee = styled.p`
   border-bottom: 1px solid var(--black-color);
   margin-bottom: 29px;
+`;
+
+export const PayMentPrice = styled.p`
+  span {
+    font-size: 20px;
+    font-weight: var(--font-bold);
+  }
 `;

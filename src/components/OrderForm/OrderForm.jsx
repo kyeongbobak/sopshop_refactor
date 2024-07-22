@@ -84,10 +84,10 @@ export default function OrderForm() {
                   - 베송비
                   <span>0 원</span>
                 </S.ShippingFee>
-                <p>
+                <S.PayMentPrice>
                   - 결제
                   <span>46,500 원</span>
-                </p>
+                </S.PayMentPrice>
                 <S.AgreeMentWrapper>
                   <S.AgreeMentInput type="checkbox" />
                   <span>주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</span>
