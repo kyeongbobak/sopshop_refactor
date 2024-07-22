@@ -5,10 +5,10 @@ export default function OrderTabTitle() {
   return (
     <>
       <C.Wrapper>
-        <S.TabTitleItem>상품 정보</S.TabTitleItem>
-        <S.TabTitleItem>할인</S.TabTitleItem>
-        <C.TabTitleItem>배송비</C.TabTitleItem>
-        <C.TabTitleItem>주문 금액</C.TabTitleItem>
+        <S.ProductInfoTitle>상품 정보</S.ProductInfoTitle>
+        <S.DisCountTitle>할인</S.DisCountTitle>
+        <S.ShippingFeeTitle>배송비</S.ShippingFeeTitle>
+        <S.OrderPriceTitle>주문 금액</S.OrderPriceTitle>
       </C.Wrapper>
     </>
   );

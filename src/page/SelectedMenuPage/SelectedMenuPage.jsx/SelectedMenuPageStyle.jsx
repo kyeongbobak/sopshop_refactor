@@ -11,8 +11,8 @@ export const MenuContentsWrapper = styled.div`
 
 export const MenuName = styled.p`
   width: 100%;
-  font-size: var(--font-md-size);
   padding: 10px 0 50px 10.2%;
+  font-size: var(--font-md-size);
 `;
 
 export const Contents = styled.div`

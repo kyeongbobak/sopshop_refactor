@@ -20,16 +20,12 @@ export const CheckBox = styled.input`
   height: 16px;
 `;
 
-export const TabTitleItem = styled.div`
-  &:nth-child(2) {
-    width: 600px;
-  }
-
-  &:nth-child(3) {
-    width: 300px;
-  }
-
-  &:nth-child(4) {
-    width: 300px;
-  }
+export const ProductInfoTitle = styled.div`
+  width: 600px;
+`;
+export const CountTitle = styled.div`
+  width: 300px;
+`;
+export const ProductPrice = styled.div`
+  width: 300px;
 `;

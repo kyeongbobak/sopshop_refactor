@@ -7,9 +7,11 @@ import * as S from "./OrderListStyle";
 import * as CS from "../CartContents/CartContentsStyle";
 
 export default function OrderList() {
-  const token = useRecoilValue(userToken);
   const [productIds, setProductIds] = useState([]);
   const [count, setCount] = useState([]);
+
+  const token = useRecoilValue(userToken);
+
   const { cartList } = useCartList(token);
   const { productInfo } = useProductDetail(productIds, token);
 
@@ -28,20 +30,20 @@ export default function OrderList() {
       <S.Wrapper>
         {productInfo.map((product, index) => (
           <S.OrderListWrapper key={index}>
-            <div>
+            <S.ProductInfo>
               <S.Image src={product.image} />
               <div>
-                <S.BrandName>{product.store_name}</S.BrandName>
-                <S.Name>{product.product_name}</S.Name>
+                <p>{product.store_name}</p>
+                <p>{product.product_name}</p>
                 <p>
                   <span>Qty :</span>
                   {count[index]}
                 </p>
               </div>
-            </div>
+            </S.ProductInfo>
             <S.DisCount>0</S.DisCount>
-            <S.ShippingInfo>{product.shipping_fee === 0 ? "무료배송" : product.shipping_fee.toLocaleString()} 원</S.ShippingInfo>
-            <S.TotalPrice>{(product.price * count[index]).toLocaleString()} 원</S.TotalPrice>
+            <S.ShippingMethod>{product.shipping_fee === 0 ? "무료배송" : product.shipping_fee.toLocaleString()} 원</S.ShippingMethod>
+            <S.OrderPrice>{(product.price * count[index]).toLocaleString()} 원</S.OrderPrice>
           </S.OrderListWrapper>
         ))}
         <CS.TotalPriceCal>

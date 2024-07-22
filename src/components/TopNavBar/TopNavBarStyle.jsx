@@ -16,12 +16,12 @@ export const LogoImage = styled.img`
 export const StyledLink = styled(Link)``;
 
 export const NavBar = styled.ul`
+  display: flex;
+  gap: 30px;
   position: absolute;
   top: 110px;
   right: 90px;
   vertical-align: top;
-  display: flex;
-  gap: 30px;
   align-items: center;
   font-size: var(--font-lg-size);
   font-weight: var(--font-light);
@@ -52,9 +52,9 @@ to {
 export const SideNavBarOverlay = styled.div`
   position: fixed;
   top: 0;
+  left: 0;
   right: 0;
   bottom: 0;
-  left: 0;
   z-index: 9998;
   background-color: rgba(0, 0, 0, 0.5);
 
@@ -68,12 +68,12 @@ export const SideNavBarOverlay = styled.div`
 `;
 
 export const SideNavBar = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
   width: 400px;
   height: 100%;
   background: #ffffff;
+  position: fixed;
+  top: 0;
+  right: 0;
   z-index: 9999;
 
   &.slideIn {
@@ -85,9 +85,9 @@ export const SideNavBar = styled.div`
   }
 
   ul {
+    padding: 60px 50px;
     font-size: var(--font-lg-size);
     font-weight: var(--font-light);
-    padding: 60px 50px;
   }
 
   li {

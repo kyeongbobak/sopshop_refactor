@@ -9,17 +9,31 @@ export const OrderListWrapper = styled.div`
   display: flex;
   align-items: center;
 
-  div:nth-child(1) {
-    width: 500px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin: 40px 0;
-  }
-
-  p {
+  div {
     font-family: "Pretendard";
     font-size: var(--font-md-size);
+  }
+`;
+
+export const ProductInfo = styled.div`
+  width: 500px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 40px 0;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    p {
+      padding-bottom: 20px;
+    }
+
+    p:nth-child(2) {
+      font-weight: var(--font-semi-bold);
+    }
   }
 `;
 
@@ -29,33 +43,22 @@ export const Image = styled.img`
   object-fit: cover;
 `;
 
-export const BrandName = styled.p`
-  padding-bottom: 20px;
-`;
-
-export const Name = styled.p`
+export const OrderListCommonStyle = css`
+  width: 300px;
   font-weight: var(--font-semi-bold);
-  padding-bottom: 20px;
-`;
-
-export const CommonPStyle = css`
-  font-weight: var(--font-semi-bold);
+  font-size: var(--font-sm-size);
   text-align: center;
 `;
 
-export const DisCount = styled.p`
-  ${CommonPStyle}
+export const DisCount = styled.div`
   width: 180px;
+  text-align: center;
 `;
 
-export const ShippingInfo = styled.p`
-  ${CommonPStyle}
-  width: 300px;
+export const ShippingMethod = styled.div`
+  ${OrderListCommonStyle}
 `;
 
-export const TotalPrice = styled.p`
-  ${CommonPStyle}
-  width: 300px;
+export const OrderPrice = styled.div`
+  ${OrderListCommonStyle}
 `;
-
-export const TotalOrderPrice = styled.div``;

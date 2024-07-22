@@ -6,23 +6,24 @@ import { useNavigate } from "react-router-dom";
 import { getProductDetails } from "../../api/Product";
 import { addToCart } from "../../api/Cart";
 import useModal from "../../hook/useModal";
-import * as S from "../../components/ProductDetailInfo/ProductDetailInfoStyle";
+import useCartList from "../../hook/useCartList";
 import CountControl from "../CountControl/CountControl";
 import Modal from "../Modal/Modal";
-import useCartList from "../../hook/useCartList";
+import * as S from "../../components/ProductDetailInfo/ProductDetailInfoStyle";
 
 export default function ProductDetailInfo() {
-  const { ProductId } = useParams();
-  console.log(ProductId);
   const [product, setProduct] = useState("");
   const [count, setCount] = useState(1);
   const [isInCart, setIsInCart] = useState(false);
-  const { modalState, showModal, closeModal } = useModal();
 
   const token = useRecoilValue(userToken);
+  const isLoggedIn = useRecoilValue(isLogin);
+
+  const { ProductId } = useParams();
+
+  const { modalState, showModal, closeModal } = useModal();
   const { cartList } = useCartList(token);
 
-  const isLoggedIn = useRecoilValue(isLogin);
   const navigate = useNavigate();
 
   const handleCountChange = (newCount) => {
@@ -39,7 +40,6 @@ export default function ProductDetailInfo() {
   }, [ProductId]);
 
   useEffect(() => {
-    // if (cartList.length === 0) return;
     const data = cartList.map((i) => i.product_id);
     const isProductInCart = data.includes(parseInt(ProductId));
     console.log(isProductInCart);

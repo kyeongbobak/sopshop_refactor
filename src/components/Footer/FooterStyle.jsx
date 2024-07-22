@@ -15,6 +15,21 @@ export const TopSection = styled.section`
   display: flex;
   justify-content: space-between;
   margin: 200px 0 22px;
+
+  ul {
+    display: flex;
+  }
+
+  li {
+    cursor: pointer;
+
+    + li::before {
+      content: "|";
+      display: inline-block;
+      vertical-align: middle;
+      padding: 0 10px;
+    }
+  }
 `;
 
 export const BottomSection = styled.div`
@@ -31,21 +46,6 @@ export const BottomSection = styled.div`
   strong,
   p {
     font-family: "Pretendard";
-  }
-`;
-
-export const Ul = styled.ul`
-  display: flex;
-`;
-
-export const Li = styled.li`
-  cursor: pointer;
-
-  + li::before {
-    content: "|";
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0 10px;
   }
 `;
 

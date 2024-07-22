@@ -12,6 +12,14 @@ export const Wrapper = styled.div`
     padding-left: 70px;
   }
 
+  div {
+    margin: 40px 0 0 25px;
+
+    &:nth-child(1) {
+      color: var(--main-color);
+    }
+  }
+
   li {
     margin-top: 15px;
     font-weight: var(--font-light);
@@ -19,14 +27,6 @@ export const Wrapper = styled.div`
 
   li:nth-child(4) {
     margin-top: 80px;
-  }
-
-  div {
-    margin: 40px 0 0 25px;
-
-    &:nth-child(1) {
-      color: var(--main-color);
-    }
   }
 `;
 
@@ -53,12 +53,9 @@ export const Form = styled.form`
 
 export const Input = styled.input`
   width: 110px;
-  padding: 10px 15px 10px 15px;
-  margin-left: 70px;
-  border: none;
-  border-bottom: 1px solid var(--black-color);
-  outline: none;
-  font-size: var(--font-sm-size);
-  margin-top: 100px;
   position: relative;
+  padding: 10px 15px 10px 15px;
+  margin: 100px 0 0 70px;
+  border-bottom: 1px solid var(--black-color);
+  font-size: var(--font-sm-size);
 `;

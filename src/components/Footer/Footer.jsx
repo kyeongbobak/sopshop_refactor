@@ -8,27 +8,27 @@ export default function Footer() {
     <>
       <S.Wrapper>
         <S.TopSection>
-          <S.Ul>
-            <S.Li>
+          <ul>
+            <li>
               <S.StyledLink>회사소개</S.StyledLink>
-            </S.Li>
-            <S.Li>
+            </li>
+            <li>
               <S.StyledLink>이용약관</S.StyledLink>
-            </S.Li>
-            <S.Li>
+            </li>
+            <li>
               <S.StyledLink>개인정보처리방침</S.StyledLink>
-            </S.Li>
-            <S.Li>
+            </li>
+            <li>
               <S.StyledLink>전자금융거래약관</S.StyledLink>
-            </S.Li>
-            <S.Li>
+            </li>
+            <li>
               <S.StyledLink>청소년보호정책</S.StyledLink>
-            </S.Li>
-            <S.Li>
+            </li>
+            <li>
               <S.StyledLink>제휴문의</S.StyledLink>
-            </S.Li>
-          </S.Ul>
-          <S.Ul>
+            </li>
+          </ul>
+          <ul>
             <S.SnSLink>
               <S.SnSLogoImage src={insta} />
             </S.SnSLink>
@@ -38,7 +38,7 @@ export default function Footer() {
             <S.SnSLink>
               <S.SnSLogoImage src={yt} />
             </S.SnSLink>
-          </S.Ul>
+          </ul>
         </S.TopSection>
         <S.BottomSection>
           <strong>(주)SopShop</strong>

@@ -1,27 +1,28 @@
-import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userToken } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
-import useCartList from "../../hook/useCartList";
-import useProductDetail from "../../hook/useProductDetail";
+import { v4 as uuidv4 } from "uuid";
 import { deleteCartItem, deleteAllCartItem, modifyCartQuantity } from "../../api/Cart";
+import useCartList from "../../hook/useCartList";
+import useModal from "../../hook/useModal";
+import useProductDetail from "../../hook/useProductDetail";
 import Modal from "../Modal/Modal";
 import CountControl from "../CountControl/CountControl";
 import * as S from "./CartContentsStyle";
-import useModal from "../../hook/useModal";
 
 export default function CartList() {
   const [productIds, setProductIds] = useState([]);
   const [count, setCount] = useState([]);
   const [selected, setSelected] = useState([]);
+
+  const token = useRecoilValue(userToken);
+
+  const { cartList, refetch } = useCartList(token);
+  const { productInfo } = useProductDetail(productIds, token);
   const { modalState, showModal, closeModal } = useModal();
 
   const navigator = useNavigate();
-
-  const token = useRecoilValue(userToken);
-  const { cartList, refetch } = useCartList(token);
-  const { productInfo } = useProductDetail(productIds, token);
 
   const sumProductPrice = productInfo.map((i) => i.price).reduce((acc, cur, i) => acc + cur * count[i], 0);
   const sumShipping = productInfo.map((i) => i.shipping_fee).reduce((acc, cur) => acc + cur, 0);
@@ -100,10 +101,10 @@ export default function CartList() {
               <S.CartListWrapper key={uuidv4()}>
                 <S.CheckBox key={uuidv4()} type="checkbox" checked={selected.includes(index)} onChange={() => handleCheckBox(index)} />
                 <S.ProductInfoWrapper>
-                  <S.BrandName>{product.store_name}</S.BrandName>
+                  <S.StoreName>{product.store_name}</S.StoreName>
                   <S.Name>{product.product_name}</S.Name>
                   <S.Price>{product.price.toLocaleString()} 원</S.Price>
-                  <S.ShippingInfo>{product.shipping_method === "DELIVERY" ? "택배배송" : "무료배송"}</S.ShippingInfo>
+                  <S.ShippingMethod>{product.shipping_method === "DELIVERY" ? "택배배송" : "무료배송"}</S.ShippingMethod>
                 </S.ProductInfoWrapper>
                 <S.CountControlWrapper>
                   <CountControl key={index} count={count[index]} onCountChange={(newCount) => handleCountChange(index, newCount)} />

@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { search } from "../../api/Product";
-import * as S from "./SearchPageStyle";
 import TopNavBar from "../../components/TopNavBar/TopNavBar";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import Footer from "../../components/Footer/Footer";
+import * as S from "./SearchPageStyle";
 
 export default function SearchProduct() {
-  const { searchKeyword } = useParams();
   const [searchResult, setSearchResult] = useState([]);
+
+  const { searchKeyword } = useParams();
 
   useEffect(() => {
     const getSearchProduct = async () => {

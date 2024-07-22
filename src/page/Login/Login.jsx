@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import { useSetRecoilState } from "recoil";
 import { userToken, isLogin, userType } from "../../atom/Atom";
-import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { login } from "../../api/LoginOut";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
 import * as S from "./LoginStyle";
@@ -12,6 +12,7 @@ import logo from "../../assets/img/Logo-SopShop.png";
 export default function Login() {
   const [IsBuyer, setIsBuyer] = useState(true);
   const [warningMessage, setWarningMessage] = useState("");
+
   const setUserToken = useSetRecoilState(userToken);
   const setIsLogin = useSetRecoilState(isLogin);
   const setUserType = useSetRecoilState(userType);

@@ -17,15 +17,14 @@ export const ContentsWrapper = styled.div`
   width: 360px;
   padding: 50px 70px 40px;
   border: 1px solid var(--gray-color);
-
-  font-size: 17px;
-  line-height: 22px;
   box-sizing: border-box;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
+  font-size: 17px;
+  line-height: 22px;
   p {
     text-align: center;
     font-family: "Pretendard";
@@ -45,7 +44,7 @@ export const SButton = styled.button`
   width: 60px;
   padding: 10px 20px;
   background-color: var(--black-color);
-  color: var(--white-color);
   font-size: var(--font-sm-size);
+  color: var(--white-color);
   text-align: center;
 `;

@@ -5,27 +5,6 @@ export const Wrapper = styled.div`
   gap: 8px;
 `;
 
-export const Label = styled.label`
-  padding: 12px 0;
-  font-size: var(--font-md-size);
-
-  &:nth-child(5) {
-    margin-top: 50px;
-  }
-`;
-
-export const CommonIntputStyle = css`
-  height: 54px;
-  border: 1px solid var(--gray-color);
-  border-radius: 2px;
-`;
-
-export const Input = styled.input`
-  ${CommonIntputStyle}
-  flex-grow: 1;
-  font-size: var(--font-md-size);
-`;
-
 export const PasswordInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,14 +14,6 @@ export const PasswordInputWrapper = styled.div`
     width: 28px;
     position: absolute;
   }
-`;
-
-export const PasswordCheckIcon = styled.img`
-  margin: 55px 0 0 430px;
-`;
-
-export const PasswordConfirmIcon = styled.img`
-  margin: 153px 0 0 430px;
 `;
 
 export const PhoneInputWrapper = styled.div`
@@ -84,9 +55,9 @@ export const PhoneInputWrapper = styled.div`
 
   ul::-webkit-scrollbar-thumb {
     background: var(--gray-color);
+    border: 3px solid transparent;
     border-radius: 10px;
     background-clip: padding-box;
-    border: 3px solid transparent;
   }
 
   li {
@@ -95,6 +66,35 @@ export const PhoneInputWrapper = styled.div`
     padding: 10px 0px;
     margin-left: 10px;
   }
+`;
+
+export const Label = styled.label`
+  padding: 12px 0;
+  font-size: var(--font-md-size);
+
+  &:nth-child(5) {
+    margin-top: 50px;
+  }
+`;
+
+export const CommonIntputStyle = css`
+  height: 54px;
+  border: 1px solid var(--gray-color);
+  border-radius: 2px;
+`;
+
+export const Input = styled.input`
+  ${CommonIntputStyle}
+  flex-grow: 1;
+  font-size: var(--font-md-size);
+`;
+
+export const PasswordCheckIcon = styled.img`
+  margin: 55px 0 0 430px;
+`;
+
+export const PasswordConfirmIcon = styled.img`
+  margin: 153px 0 0 430px;
 `;
 
 export const FrontNumberInput = styled.input`
@@ -133,8 +133,6 @@ export const SellerInputSection = styled.div`
     margin-top: 50px;
   }
 `;
-
-export const CheckBox = styled.input``;
 
 export const SectionContents = styled.p`
   span {

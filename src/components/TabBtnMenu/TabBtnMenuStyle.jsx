@@ -15,18 +15,18 @@ export const TabItem = styled.li`
 export const CommonTabItemBtnStyle = css`
   width: 100%;
   height: 67px;
-  background-color: var(--light-gray-color);
   border: 1px solid var(--gray-color);
-  cursor: pointer;
   z-index: 2;
+  background-color: var(--light-gray-color);
+  cursor: pointer;
 `;
 
 export const TabItemBtn = styled.button`
   ${CommonTabItemBtnStyle}
 
   &.active {
-    background-color: white;
     border: 1px solid var(--gray-color);
     border-bottom: 0;
+    background-color: white;
   }
 `;

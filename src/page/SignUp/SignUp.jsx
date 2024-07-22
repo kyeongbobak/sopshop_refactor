@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useSetRecoilState } from "recoil";
 import { userType } from "../../atom/Atom";
+import { useNavigate } from "react-router-dom";
+import { signUp, validateAccount, validateCompanyNumber } from "../../api/Account";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
 import * as LS from "../Login/LoginStyle";
 import * as S from "../SignUp/SignUpStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 import upArrow from "../../assets/img/icon-up-arrow.png";
 import downArrow from "../../assets/img/icon-down-arrow.png";
-import { signUp, validateAccount, validateCompanyNumber } from "../../api/Account";
 import checkOffIcon from "../../assets/img/icon-check-off.png";
 import checkOnIcon from "../../assets/img/icon-check-on.png";
 
@@ -19,10 +19,10 @@ export default function SignUp() {
   const [DuplicateMessage, setDuplicateMessage] = useState("");
   const [activeOption, setActiveOption] = useState(false);
 
-  const frontNumberList = ["010", "011", "016", "017", "018", "019"];
-
   const setUserType = useSetRecoilState(userType);
   const navigate = useNavigate();
+
+  const frontNumberList = ["010", "011", "016", "017", "018", "019"];
 
   const {
     register,
@@ -226,7 +226,7 @@ export default function SignUp() {
             </S.SellerInputSection>
           )}
           <S.Section>
-            <S.CheckBox type="checkbox" required />
+            <input type="checkbox" required />
             <S.SectionContents>
               sopshop의 <span>이용약관</span> 및 <span>개인 정보 처리 방침</span>에 대한 내용을 확인하였고 동의합니다.
             </S.SectionContents>

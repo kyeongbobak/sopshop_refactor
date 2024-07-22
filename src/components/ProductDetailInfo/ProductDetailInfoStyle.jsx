@@ -5,22 +5,26 @@ export const Wrapper = styled.div`
   gap: 50px;
 `;
 
-export const ProductImage = styled.img`
-  width: 600px;
-  height: 720px;
-  object-fit: cover;
-`;
-
 export const ProductDetailWrapper = styled.div`
   width: 600px;
   display: flex;
   flex-direction: column;
 `;
 
+export const ButtonWrapper = styled.div`
+  display: flex;
+`;
+
+export const ProductImage = styled.img`
+  width: 600px;
+  height: 720px;
+  object-fit: cover;
+`;
+
 export const ProductBrandName = styled.p`
+  margin-bottom: 16px;
   font-size: var(--font-md-size);
   font-weight: var(--font-bold);
-  margin-bottom: 16px;
 `;
 
 export const ProductName = styled.p`
@@ -30,8 +34,8 @@ export const ProductName = styled.p`
 `;
 
 export const ProductPrice = styled.p`
-  font-size: var(--font-max-size);
   margin-top: 20px;
+  font-size: var(--font-max-size);
   span {
     font-size: var(--font-lg-size);
     font-weight: var(--font-light);
@@ -64,22 +68,16 @@ export const OrderDetail = styled.div`
 `;
 
 export const ShippingInfo = styled.p`
+  padding-bottom: 20px;
+  margin-top: 138px;
+  border-bottom: 1px solid var(--gray-color);
   font-family: "Pretendard";
   font-size: var(--font-md-size);
   color: var(--black-color);
-  margin-top: 138px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--gray-color);
 `;
-
-export const ProductCountWrapper = styled.div``;
 
 export const ProductTotalPrice = styled.p`
   font-size: var(--font-max-size);
-`;
-
-export const ButtonWrapper = styled.div`
-  display: flex;
 `;
 
 export const ButtonCommonStyle = css`
@@ -100,7 +98,7 @@ export const BuyButton = styled.button`
 export const MButton = styled.button`
   ${ButtonCommonStyle}
   width: 200px;
-  border: 1px solid var(--black-color);
   margin-left: 8px;
+  border: 1px solid var(--black-color);
   color: var(--black-color);
 `;

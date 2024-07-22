@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
 
 export const ContentsWrapper = styled.div`
   text-align: center;
+
   button {
     margin-bottom: 300px;
     padding: 15px 30px;
@@ -16,19 +17,6 @@ export const ContentsWrapper = styled.div`
     font-size: var(--font-sm-size);
     font-weight: var(--font-medium);
   }
-`;
-
-export const Contents = styled.div`
-  margin: 200px 0 30px 0;
-  text-align: center;
-  color: var(--gray-color);
-  font-size: var(--font-md-size);
-`;
-
-export const CheckBox = styled.input`
-  margin: 0 250px 0 31px;
-  width: 16px;
-  height: 16px;
 `;
 
 export const CartListWrapper = styled.div`
@@ -41,35 +29,17 @@ export const ProductInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 380px;
+`;
 
-  p {
-    font-family: "Pretendard";
+export const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  margin: 30px 0 30px 0;
+  justify-content: end;
+
+  button {
+    font-size: var(--font-sm-size);
   }
-`;
-
-export const BrandName = styled.p`
-  font-size: var(--font-sm-size);
-  font-weight: var(--font-extra-bold);
-  color: var(--black-color);
-`;
-
-export const CommonPStyle = css`
-  font-size: var(--font-md-size);
-  margin-top: 20px;
-`;
-
-export const Name = styled.p`
-  ${CommonPStyle}
-`;
-
-export const ShippingInfo = styled.p`
-  ${CommonPStyle}
-  font-weight: var(--font-semi-bold);
-`;
-
-export const Price = styled.p`
-  ${CommonPStyle}
-  font-weight: var(--font-semi-bold);
 `;
 
 export const CountControlWrapper = styled.div`
@@ -79,6 +49,47 @@ export const CountControlWrapper = styled.div`
 export const ProductPriceWrapper = styled.div`
   width: 300px;
   text-align: center;
+`;
+
+export const Contents = styled.div`
+  margin: 200px 0 30px 0;
+  text-align: center;
+  font-size: var(--font-md-size);
+  color: var(--gray-color);
+`;
+
+export const CheckBox = styled.input`
+  margin: 0 250px 0 31px;
+  width: 16px;
+  height: 16px;
+`;
+
+export const ProductInfoCommonStyle = css`
+  font-family: "Pretendard";
+  font-size: var(--font-md-size);
+  margin-top: 20px;
+`;
+
+export const StoreName = styled.div`
+  ${ProductInfoCommonStyle}
+  font-family: "Pretendard";
+  font-size: var(--font-sm-size);
+  font-weight: var(--font-extra-bold);
+  color: var(--black-color);
+`;
+
+export const Name = styled.div`
+  ${ProductInfoCommonStyle}
+`;
+
+export const Price = styled.div`
+  ${ProductInfoCommonStyle}
+  font-weight: var(--font-semi-bold);
+`;
+
+export const ShippingMethod = styled.div`
+  ${ProductInfoCommonStyle}
+  font-weight: var(--font-semi-bold);
 `;
 
 export const ButtonCommonStyle = css`
@@ -94,22 +105,18 @@ export const SelectOrderButton = styled.button`
   padding: 10px 30px;
 `;
 
+export const AllOrderButton = styled.button`
+  ${ButtonCommonStyle}
+  width: 100px;
+  margin: 50px auto;
+  padding: 15px 20px;
+`;
+
 export const TotalProductPrice = styled.p`
   font-family: "Pretendard";
   font-size: var(--font-md-size);
   font-weight: var(--font-semi-bold);
   margin-bottom: 28px;
-`;
-
-export const ButtonWrapper = styled.div`
-  display: flex;
-  gap: 10px;
-  margin: 30px 0 30px 0;
-  justify-content: end;
-
-  button {
-    font-size: var(--font-sm-size);
-  }
 `;
 
 export const TotalPriceCal = styled.div`
@@ -120,6 +127,7 @@ export const TotalPriceCal = styled.div`
   border-top: 1px solid var(--black-color);
   border-bottom: 1px solid var(--black-color);
   gap: 10px;
+  font-family: "Pretendard";
 
   span {
     font-size: var(--font-md-size);
@@ -131,11 +139,4 @@ export const TotalPriceCal = styled.div`
     font-size: var(--font-lg-size);
     font-weight: var(--font-semi-bold);
   }
-`;
-
-export const AllOrderButton = styled.button`
-  ${ButtonCommonStyle}
-  width: 100px;
-  margin: 50px auto;
-  padding: 15px 20px;
 `;

@@ -1,13 +1,13 @@
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { isLogin, userToken } from "../../atom/Atom";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../api/LoginOut";
+import useCartList from "../../hook/useCartList";
 import * as H from "./TopNavBarStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 import menuIcon from "../../assets/img/menu_icon.png";
-import { isLogin, userToken } from "../../atom/Atom";
-import { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { logout } from "../../api/LoginOut";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import useCartList from "../../hook/useCartList";
 
 // 사이드바 추가
 export default function Header() {
@@ -16,6 +16,7 @@ export default function Header() {
   const setIsLogin = useSetRecoilState(isLogin);
   const isLoggedIn = useRecoilValue(isLogin);
   const token = useRecoilValue(userToken);
+
   const { cartList } = useCartList(token);
 
   const navigator = useNavigate();
