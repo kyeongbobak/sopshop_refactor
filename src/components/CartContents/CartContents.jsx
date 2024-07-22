@@ -111,7 +111,7 @@ export default function CartList() {
                 </S.CountControlWrapper>
                 <S.ProductPriceWrapper>
                   {cartList[index] && <S.TotalProductPrice>{(cartList[index].quantity * product.price).toLocaleString()} 원</S.TotalProductPrice>}
-                  <S.SelectOrderButton>Order</S.SelectOrderButton>
+                  <S.SelectOrderBtn>Order</S.SelectOrderBtn>
                 </S.ProductPriceWrapper>
               </S.CartListWrapper>
             ))}
@@ -159,7 +159,7 @@ export default function CartList() {
               <span>= Total :</span>
               <p>{(sumProductPrice + sumShipping).toLocaleString()} 원</p>
             </S.TotalPriceCal>
-            <S.AllOrderButton>All Order</S.AllOrderButton>
+            <S.AllOrderBtn>All Order</S.AllOrderBtn>
           </S.Wrapper>
         </>
       )}

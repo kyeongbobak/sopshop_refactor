@@ -11,78 +11,91 @@ export default function OrderForm() {
             <S.Label>이름</S.Label>
             <S.Input />
           </div>
-          <S.PhoneInputWrapper>
+          <S.PhoneInfoWrapper>
             <S.Label>휴대폰</S.Label>
-            <S.Input />
+            <S.FrontNumberInput />
             <span> - </span>
-            <S.Input />
+            <S.PhoneNumberInput />
             <span> - </span>
-            <S.Input />
-          </S.PhoneInputWrapper>
+            <S.PhoneNumberInput />
+          </S.PhoneInfoWrapper>
           <div>
             <S.Label>이메일</S.Label>
             <S.Input />
           </div>
         </S.BuyerInfoWrapper>
+        <S.SectionTitle>배송지 정보</S.SectionTitle>
         <S.Form>
-          <S.SectionTitle>배송지 정보</S.SectionTitle>
-          <div>
+          <S.ReceiverInfoWrapper>
             <S.Label>수령인</S.Label>
             <S.Input />
-          </div>
-          <div>
+          </S.ReceiverInfoWrapper>
+          <S.ReceiverPhoneInfoWrapper>
             <S.Label>휴대폰</S.Label>
-            <S.Input />
+            <S.FrontNumberInput />
             <span> - </span>
-            <S.Input />
+            <S.PhoneNumberInput />
             <span> - </span>
-            <S.Input />
-          </div>
-          <div>
+            <S.PhoneNumberInput />
+          </S.ReceiverPhoneInfoWrapper>
+          <S.AddressInfoWrapper>
             <S.Label>배송 주소</S.Label>
-            <S.Input />
-            <S.Input />
-            <S.Input />
-          </div>
-          <div>
+            <S.AddressWrapper>
+              <div>
+                <S.ZipCodeAddressInput />
+                <S.ZipCodeSearchBtn>우편번호 조회</S.ZipCodeSearchBtn>
+              </div>
+              <S.StreetAddressInput />
+              <S.DetailAddressInput />
+            </S.AddressWrapper>
+          </S.AddressInfoWrapper>
+          <S.DeliveryMessageWrapper>
             <S.Label>배송 메세지</S.Label>
             <S.Input />
-          </div>
-          <div>
-            <div>
-              <h5>결제 수단</h5>
-              <div>
-                <label className="a11y-hidden">결제 수단</label>
-                <S.Input />
-                <S.Input />
-                <S.Input />
-                <S.Input />
-              </div>
-            </div>
-            <div>
+          </S.DeliveryMessageWrapper>
+          <S.PayMentInfoWrapper>
+            <S.PayMentMethodSection>
+              <S.SectionTitle>결제 수단</S.SectionTitle>
+              <S.PayOptionWrapper>
+                <S.PayOptionInput type="radio" />
+                <p>신용 / 체크카드</p>
+                <S.PayOptionInput type="radio" />
+                <p>무통장 입금</p>
+                <S.PayOptionInput type="radio" />
+                <p>휴대폰 결제</p>
+                <S.PayOptionInput type="radio" />
+                <p>네이버페이</p>
+                <S.PayOptionInput type="radio" />
+                <p>카카오페이</p>
+              </S.PayOptionWrapper>
+            </S.PayMentMethodSection>
+            <S.PayMentDetailSection>
               <S.SectionTitle>최종 결제 정보</S.SectionTitle>
-              <div>
+              <S.PayMentWrapper>
                 <p>
                   - 상품 금액
-                  <span></span>
+                  <span>46,500 원</span>
                 </p>
                 <p>
                   - 할인 금액
-                  <span></span>
+                  <span>0 원</span>
                 </p>
-                <p>
+                <S.ShippingFee>
                   - 베송비
-                  <span></span>
-                </p>
+                  <span>0 원</span>
+                </S.ShippingFee>
                 <p>
-                  - 결제금액
-                  <span></span>
+                  - 결제
+                  <span>46,500 원</span>
                 </p>
-                <S.Input />
-                <S.Button>결제하기</S.Button>
-              </div>
-            </div>
-          </div>
+                <S.AgreeMentWrapper>
+                  <S.AgreeMentInput type="checkbox" />
+                  <span>주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</span>
+                </S.AgreeMentWrapper>
+                <S.PayMentBtn>PAYMENT</S.PayMentBtn>
+              </S.PayMentWrapper>
+            </S.PayMentDetailSection>
+          </S.PayMentInfoWrapper>
         </S.Form>
       </S.Wrapper>
     </>

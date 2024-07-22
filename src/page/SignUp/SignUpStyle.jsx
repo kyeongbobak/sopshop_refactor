@@ -106,7 +106,7 @@ export const PhoneNumberInput = styled.input`
   ${CommonIntputStyle}
 `;
 
-export const ConfirmButton = styled.button`
+export const ConfirmBtn = styled.button`
   padding: 17px 37px;
   border-radius: 5px;
   background-color: var(--main-color);

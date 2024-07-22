@@ -27,7 +27,7 @@ export const NavBar = styled.ul`
   font-weight: var(--font-light);
 `;
 
-export const MenuButton = styled.button`
+export const MenuBtn = styled.button`
   img {
     width: 32px;
   }

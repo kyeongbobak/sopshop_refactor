@@ -50,13 +50,13 @@ export default function Header() {
             </H.StyledLink>
           </li>
           <li>
-            <H.MenuButton
+            <H.MenuBtn
               onClick={() => {
                 setSideBarState("slideIn");
               }}
             >
               <img src={menuIcon} alt="open-menu" />
-            </H.MenuButton>
+            </H.MenuBtn>
           </li>
         </H.NavBar>
         {sideBarState && (

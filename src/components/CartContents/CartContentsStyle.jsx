@@ -98,14 +98,14 @@ export const ButtonCommonStyle = css`
   border: 1px solid #222;
 `;
 
-export const SelectOrderButton = styled.button`
+export const SelectOrderBtn = styled.button`
   ${ButtonCommonStyle}
   background-color: var(--black-color);
   color: var(--white-color);
   padding: 10px 30px;
 `;
 
-export const AllOrderButton = styled.button`
+export const AllOrderBtn = styled.button`
   ${ButtonCommonStyle}
   width: 100px;
   margin: 50px auto;

@@ -82,9 +82,9 @@ export default function ProductDetailInfo() {
           </S.OrderDetail>
           <S.ButtonWrapper>
             {isLoggedIn ? (
-              <S.BuyButton onClick={() => directOrder()}>Buy Now</S.BuyButton>
+              <S.BuyBtn onClick={() => directOrder()}>Buy Now</S.BuyBtn>
             ) : (
-              <S.BuyButton
+              <S.BuyBtn
                 onClick={() =>
                   showModal({
                     text: "아니오",
@@ -96,7 +96,7 @@ export default function ProductDetailInfo() {
                 }
               >
                 Buy Now
-              </S.BuyButton>
+              </S.BuyBtn>
             )}
             {isLoggedIn ? (
               <>

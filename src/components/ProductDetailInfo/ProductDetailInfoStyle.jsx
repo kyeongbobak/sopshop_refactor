@@ -88,7 +88,7 @@ export const ButtonCommonStyle = css`
   font-weight: var(--font-medium);
 `;
 
-export const BuyButton = styled.button`
+export const BuyBtn = styled.button`
   ${ButtonCommonStyle}
   width: 516px;
   background-color: var(--black-color);

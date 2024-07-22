@@ -153,9 +153,9 @@ export default function SignUp() {
               })}
               onFocus={() => setDuplicateMessage("")}
             />
-            <S.ConfirmButton type="button" onClick={verifyUserName}>
+            <S.ConfirmBtn type="button" onClick={verifyUserName}>
               중복확인
-            </S.ConfirmButton>
+            </S.ConfirmBtn>
           </S.Wrapper>
           {errors.username && <LS.ErrorMessage>{errors.username.message}</LS.ErrorMessage>}
           <LS.ErrorMessage>{DuplicateMessage}</LS.ErrorMessage>
@@ -215,9 +215,9 @@ export default function SignUp() {
                   })}
                   onFocus={() => setDuplicateMessage("")}
                 />
-                <S.ConfirmButton type="button" onClick={verifyCompanyNumber}>
+                <S.ConfirmBtn type="button" onClick={verifyCompanyNumber}>
                   인증
-                </S.ConfirmButton>
+                </S.ConfirmBtn>
               </S.Wrapper>
               {errors.companyNumber && <LS.ErrorMessage>{errors.companyNumber.message}</LS.ErrorMessage>}
               <LS.ErrorMessage>{DuplicateMessage}</LS.ErrorMessage>

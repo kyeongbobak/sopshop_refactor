@@ -34,9 +34,9 @@ export default function OrderList() {
               <S.Image src={product.image} />
               <div>
                 <p>{product.store_name}</p>
-                <p>{product.product_name}</p>
+                <S.Name>{product.product_name}</S.Name>
                 <p>
-                  <span>Qty :</span>
+                  <span>Qty : </span>
                   {count[index]}
                 </p>
               </div>

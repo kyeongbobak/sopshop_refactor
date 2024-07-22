@@ -28,11 +28,8 @@ export const ProductInfo = styled.div`
     align-items: start;
 
     p {
+      font-family: "Pretendard";
       padding-bottom: 20px;
-    }
-
-    p:nth-child(2) {
-      font-weight: var(--font-semi-bold);
     }
   }
 `;
@@ -41,6 +38,10 @@ export const Image = styled.img`
   width: 104px;
   height: 104px;
   object-fit: cover;
+`;
+
+export const Name = styled.p`
+  font-weight: var(--font-semi-bold);
 `;
 
 export const OrderListCommonStyle = css`
