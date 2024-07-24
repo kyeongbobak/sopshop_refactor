@@ -6,6 +6,7 @@ export const InputCommonStyle = css`
   box-sizing: border-box;
   border: 1px solid var(--black-color);
   font-size: var(--font-md-size);
+  text-align: center;
 `;
 
 export const BorderCommonStyle = css`

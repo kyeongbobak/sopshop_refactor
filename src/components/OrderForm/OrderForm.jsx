@@ -1,10 +1,31 @@
+import { useForm } from "react-hook-form";
+import * as LS from "../../page/Login/LoginStyle";
 import * as S from "./OrderFormStyle";
+import { useEffect } from "react";
 
 export default function OrderForm() {
+  const {
+    register,
+    watch,
+
+    formState: { errors },
+  } = useForm();
+  const frontNumber = watch("frontNumber", "");
+  const secondNumber = watch("secondNumber", "");
+  const lastNumber = watch("lastNumber", "");
+
+  console.log(frontNumber, secondNumber, lastNumber);
+
+  const phoneNumber = [frontNumber, secondNumber, lastNumber].join("");
+  console.log(phoneNumber);
+
+  useEffect(() => {}, []);
+
   return (
     <>
       <S.Wrapper>
         <S.SubTitle>배송정보</S.SubTitle>
+
         <S.BuyerInfoWrapper>
           <S.SectionTitle>주문자 정보</S.SectionTitle>
           <div>
@@ -13,12 +34,13 @@ export default function OrderForm() {
           </div>
           <S.PhoneInfoWrapper>
             <S.Label>휴대폰</S.Label>
-            <S.FrontNumberInput />
+            <S.FrontNumberInput {...register("frontNumber", { required: "번호를 입력해주세요." })} />
             <span> - </span>
-            <S.PhoneNumberInput />
+            <S.PhoneNumberInput {...register("secondNumber")} />
             <span> - </span>
-            <S.PhoneNumberInput />
+            <S.PhoneNumberInput {...register("lastNumber")} />
           </S.PhoneInfoWrapper>
+          {errors.frontNumber && <LS.ErrorMessage>{errors.frontNumber.message}</LS.ErrorMessage>}
           <div>
             <S.Label>이메일</S.Label>
             <S.Input />

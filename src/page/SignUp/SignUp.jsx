@@ -16,7 +16,7 @@ import checkOnIcon from "../../assets/img/icon-check-on.png";
 
 export default function SignUp() {
   const [IsBuyer, setIsBuyer] = useState(true);
-  const [DuplicateMessage, setDuplicateMessage] = useState("");
+  const [duplicateMessage, setDuplicateMessage] = useState("");
   const [activeOption, setActiveOption] = useState(false);
 
   const setUserType = useSetRecoilState(userType);
@@ -35,9 +35,15 @@ export default function SignUp() {
     formState: { errors },
   } = useForm();
 
+  console.log(errors.passwordConfirm);
   // watch 함수를 활용하여 실시간으로 비밀번호 일치 여부 확인하여 사용자 경험 개선
   const password = watch("password", "");
   const passwordConfirm = watch("password2", "");
+  const frontNumber = watch("frontNumber", "");
+  const secondNumber = watch("secondNumber", "");
+  const lastNumber = watch("lastNumber", "");
+
+  const phoneNumber = [frontNumber, secondNumber, lastNumber].join("");
 
   // 계정 검증하기
   const verifyUsernameMutation = useMutation({
@@ -62,21 +68,10 @@ export default function SignUp() {
     },
   });
 
-  // 사업자등록번호 검증하기
-  const verifyCompanyNumberMutation = useMutation({
-    mutationFn: validateCompanyNumber,
-    onSuccess: (data) => {
-      console.log(data);
-      if (data.Success) {
-        setDuplicateMessage(data.Success);
-      } else if (data.FAIL_Message) {
-        setDuplicateMessage(data.FAIL_Message);
-      }
-    },
-    onError: () => {
-      setDuplicateMessage("유효하지 않은 사업자 등록번호입니다. 10자리를 입력해 주세요.");
-    },
-  });
+  const verifyUserName = async () => {
+    const { username } = getValues();
+    await verifyUsernameMutation.mutate(username);
+  };
 
   // 비밀번호 유효성검사
   useEffect(() => {
@@ -102,9 +97,18 @@ export default function SignUp() {
         message: "비밀번호는 한개 이상의 숫자가 필수적으로 들어가야 합니다.",
       });
     } else {
-      clearErrors();
+      clearErrors("password");
     }
   }, [setError, clearErrors, password, passwordConfirm]);
+
+  // 휴대폰 번호 검증하기
+  useEffect(() => {
+    if (phoneNumber.length > 9 && !/^\d{10,11}$/.test(phoneNumber)) {
+      setError("phoneNumber", { type: "phoneNumber-Pattern", message: "휴대폰 번호는 10자리 또는 11자리 숫자여야 합니다." });
+    } else {
+      clearErrors();
+    }
+  }, [setError, clearErrors, phoneNumber]);
 
   const SingUpMutation = useMutation({
     mutationFn: signUp,
@@ -119,20 +123,30 @@ export default function SignUp() {
     },
   });
 
-  const verifyUserName = async () => {
-    const { username } = getValues();
-    await verifyUsernameMutation.mutate(username);
+  const handleOnSignUp = (data) => {
+    data.phone_number = phoneNumber;
+    SingUpMutation.mutate(data);
   };
+
+  // 사업자등록번호 검증하기
+  const verifyCompanyNumberMutation = useMutation({
+    mutationFn: validateCompanyNumber,
+    onSuccess: (data) => {
+      console.log(data);
+      if (data.Success) {
+        setDuplicateMessage(data.Success);
+      } else if (data.FAIL_Message) {
+        setDuplicateMessage(data.FAIL_Message);
+      }
+    },
+    onError: () => {
+      setDuplicateMessage("유효하지 않은 사업자 등록번호입니다. 10자리를 입력해 주세요.");
+    },
+  });
 
   const verifyCompanyNumber = async () => {
     const { companyNumber } = getValues();
     await verifyCompanyNumberMutation.mutate(companyNumber);
-  };
-
-  const handleOnSignUp = (data) => {
-    const { frontNumber, secondNumber, lastNumber } = getValues();
-    data.phone_number = [frontNumber, secondNumber, lastNumber].join("");
-    SingUpMutation.mutate(data);
   };
 
   return (
@@ -158,7 +172,7 @@ export default function SignUp() {
             </S.ConfirmBtn>
           </S.Wrapper>
           {errors.username && <LS.ErrorMessage>{errors.username.message}</LS.ErrorMessage>}
-          <LS.ErrorMessage>{DuplicateMessage}</LS.ErrorMessage>
+          {duplicateMessage && <LS.ErrorMessage>{duplicateMessage}</LS.ErrorMessage>}
           <S.PasswordInputWrapper>
             <S.Label>비밀번호</S.Label>
             <S.Input
@@ -171,38 +185,50 @@ export default function SignUp() {
             {errors.password && <LS.ErrorMessage>{errors.password.message}</LS.ErrorMessage>}
             <S.Label>비밀번호 확인</S.Label>
             <S.Input type="password" {...register("password2")} />
-            {password === passwordConfirm && passwordConfirm ? <S.PasswordConfirmIcon src={checkOnIcon} alt="checkOn" /> : <S.PasswordConfirmIcon src={checkOffIcon} alt="checkIcon" />}
-            {password !== passwordConfirm && <LS.ErrorMessage>{errors.passwordConfirm?.message}</LS.ErrorMessage>}
+            {password === passwordConfirm && passwordConfirm ? (
+              <S.PasswordConfirmIcon src={checkOnIcon} alt="checkOn" />
+            ) : (
+              <S.PasswordConfirmIcon className={errors.password || errors.passwordConfirm ? "active" : ""} src={checkOffIcon} alt="checkIcon" />
+            )}
           </S.PasswordInputWrapper>
+          {password !== passwordConfirm && <LS.ErrorMessage>{errors.passwordConfirm?.message}</LS.ErrorMessage>}
           {errors.password && <LS.ErrorMessage>{errors.password.message}</LS.ErrorMessage>}
           <S.Label>이름</S.Label>
           <S.Input {...register("name")} />
           <S.Label>휴대폰 번호</S.Label>
-          <S.Wrapper>
-            <S.PhoneInputWrapper>
-              <div>
-                <S.FrontNumberInput {...register("frontNumber")} defaultValue={"010"} />
-                <button onClick={() => setActiveOption(!activeOption)}>{activeOption ? <img src={downArrow} alt="upArrow" /> : <img src={upArrow} alt="upArrow" />}</button>
-                {activeOption && (
-                  <ul>
-                    {frontNumberList.map((value, index) => (
-                      <li
-                        key={index}
-                        onClick={() => {
-                          setValue("frontNumber", value);
-                          setActiveOption(false);
-                        }}
-                      >
-                        {value}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-              <S.PhoneNumberInput {...register("secondNumber")} />
-              <S.PhoneNumberInput {...register("lastNumber")} />
-            </S.PhoneInputWrapper>
-          </S.Wrapper>
+          <S.PhoneInputWrapper>
+            <div>
+              <S.FrontNumberInput {...register("frontNumber")} defaultValue={"010"} />
+              <button onClick={() => setActiveOption(!activeOption)}>{activeOption ? <img src={downArrow} alt="upArrow" /> : <img src={upArrow} alt="upArrow" />}</button>
+              {activeOption && (
+                <ul>
+                  {frontNumberList.map((value, index) => (
+                    <li
+                      key={index}
+                      onClick={() => {
+                        setValue("frontNumber", value);
+                        setActiveOption(false);
+                      }}
+                    >
+                      {value}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <S.PhoneNumberInput
+              {...register("secondNumber", {
+                required: "휴대폰 번호를 입력해주세요",
+              })}
+            />
+            <S.PhoneNumberInput
+              {...register("lastNumber", {
+                required: "휴대폰 번호를 입력해주세요",
+              })}
+            />
+          </S.PhoneInputWrapper>
+          {(errors.secondNumber || errors.lastNumber) && <LS.ErrorMessage>{errors.secondNumber.message}</LS.ErrorMessage>}
+          {errors.phoneNumber && <LS.ErrorMessage>{errors.phoneNumber.message}</LS.ErrorMessage>}
           {!IsBuyer && (
             <S.SellerInputSection>
               <S.Label htmlFor="id">사업자 등록번호</S.Label>
@@ -220,7 +246,7 @@ export default function SignUp() {
                 </S.ConfirmBtn>
               </S.Wrapper>
               {errors.companyNumber && <LS.ErrorMessage>{errors.companyNumber.message}</LS.ErrorMessage>}
-              <LS.ErrorMessage>{DuplicateMessage}</LS.ErrorMessage>
+              <LS.ErrorMessage>{duplicateMessage}</LS.ErrorMessage>
               <S.Label>스토어 이름</S.Label>
               <S.Input />
             </S.SellerInputSection>

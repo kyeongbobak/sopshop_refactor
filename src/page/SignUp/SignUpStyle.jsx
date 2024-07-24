@@ -71,10 +71,6 @@ export const PhoneInputWrapper = styled.div`
 export const Label = styled.label`
   padding: 12px 0;
   font-size: var(--font-md-size);
-
-  &:nth-child(5) {
-    margin-top: 50px;
-  }
 `;
 
 export const CommonIntputStyle = css`
@@ -95,6 +91,10 @@ export const PasswordCheckIcon = styled.img`
 
 export const PasswordConfirmIcon = styled.img`
   margin: 153px 0 0 430px;
+
+  &.active {
+    margin: 179px 0 0 430px;
+  }
 `;
 
 export const FrontNumberInput = styled.input`
