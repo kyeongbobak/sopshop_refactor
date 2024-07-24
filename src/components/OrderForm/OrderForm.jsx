@@ -7,25 +7,28 @@ export default function OrderForm() {
   const {
     register,
     watch,
-
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm();
-  const frontNumber = watch("frontNumber", "");
-  const secondNumber = watch("secondNumber", "");
-  const lastNumber = watch("lastNumber", "");
 
-  console.log(frontNumber, secondNumber, lastNumber);
+  const email = watch("email");
 
-  const phoneNumber = [frontNumber, secondNumber, lastNumber].join("");
-  console.log(phoneNumber);
-
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("email", {
+        type: "manual",
+        message: "이메일 주소에 '@' 기호를 포함시켜 주세요.",
+      });
+    } else {
+      clearErrors("email");
+    }
+  }, [email, setError, clearErrors]);
 
   return (
     <>
       <S.Wrapper>
         <S.SubTitle>배송정보</S.SubTitle>
-
         <S.BuyerInfoWrapper>
           <S.SectionTitle>주문자 정보</S.SectionTitle>
           <div>
@@ -40,10 +43,10 @@ export default function OrderForm() {
             <span> - </span>
             <S.PhoneNumberInput {...register("lastNumber")} />
           </S.PhoneInfoWrapper>
-          {errors.frontNumber && <LS.ErrorMessage>{errors.frontNumber.message}</LS.ErrorMessage>}
           <div>
             <S.Label>이메일</S.Label>
-            <S.Input />
+            <S.Input {...register("email")} />
+            {errors.email && <LS.ErrorMessage>{errors.email.message}</LS.ErrorMessage>}
           </div>
         </S.BuyerInfoWrapper>
         <S.SectionTitle>배송지 정보</S.SectionTitle>
