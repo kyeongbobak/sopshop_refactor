@@ -14,6 +14,7 @@ export default function OrderForm() {
 
   const email = watch("email");
 
+  // 이메일 유효성 검사
   useEffect(() => {
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError("email", {
@@ -37,17 +38,17 @@ export default function OrderForm() {
           </div>
           <S.PhoneInfoWrapper>
             <S.Label>휴대폰</S.Label>
-            <S.FrontNumberInput {...register("frontNumber", { required: "번호를 입력해주세요." })} />
+            <S.FrontNumberInput {...register("frontNumber")} maxLength={3} />
             <span> - </span>
-            <S.PhoneNumberInput {...register("secondNumber")} />
+            <S.PhoneNumberInput {...register("secondNumber")} maxLength={4} />
             <span> - </span>
-            <S.PhoneNumberInput {...register("lastNumber")} />
+            <S.PhoneNumberInput {...register("lastNumber")} maxLength={4} />
           </S.PhoneInfoWrapper>
-          <div>
+          <S.EmailInfoWrapper>
             <S.Label>이메일</S.Label>
             <S.Input {...register("email")} />
             {errors.email && <LS.ErrorMessage>{errors.email.message}</LS.ErrorMessage>}
-          </div>
+          </S.EmailInfoWrapper>
         </S.BuyerInfoWrapper>
         <S.SectionTitle>배송지 정보</S.SectionTitle>
         <S.Form>
@@ -57,11 +58,11 @@ export default function OrderForm() {
           </S.ReceiverInfoWrapper>
           <S.ReceiverPhoneInfoWrapper>
             <S.Label>휴대폰</S.Label>
-            <S.FrontNumberInput />
+            <S.FrontNumberInput maxLength={3} />
             <span> - </span>
-            <S.PhoneNumberInput />
+            <S.PhoneNumberInput maxLength={4} />
             <span> - </span>
-            <S.PhoneNumberInput />
+            <S.PhoneNumberInput maxLength={4} />
           </S.ReceiverPhoneInfoWrapper>
           <S.AddressInfoWrapper>
             <S.Label>배송 주소</S.Label>

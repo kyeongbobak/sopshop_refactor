@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -77,6 +78,7 @@ export const CommonIntputStyle = css`
   height: 54px;
   border: 1px solid var(--gray-color);
   border-radius: 2px;
+  margin-bottom: 13px;
 `;
 
 export const Input = styled.input`

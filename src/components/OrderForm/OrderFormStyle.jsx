@@ -6,7 +6,6 @@ export const InputCommonStyle = css`
   box-sizing: border-box;
   border: 1px solid var(--black-color);
   font-size: var(--font-md-size);
-  text-align: center;
 `;
 
 export const BorderCommonStyle = css`
@@ -34,6 +33,19 @@ export const PhoneInfoWrapper = styled.div`
   span {
     padding: 0px 9px;
   }
+
+  input {
+    text-align: center;
+  }
+`;
+
+export const EmailInfoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  p {
+    padding-left: 10px;
+  }
 `;
 
 export const ReceiverPhoneInfoWrapper = styled.div`
@@ -41,6 +53,10 @@ export const ReceiverPhoneInfoWrapper = styled.div`
 
   span {
     padding: 0px 9px;
+  }
+
+  input {
+    text-align: center;
   }
 `;
 
@@ -135,6 +151,7 @@ export const Label = styled.label`
 
 export const Input = styled.input`
   ${InputCommonStyle}
+  padding-left: 15px;
 `;
 
 export const FrontNumberInput = styled.input`
@@ -151,15 +168,18 @@ export const ZipCodeAddressInput = styled.input`
   ${InputCommonStyle}
   width: 170px;
   height: 40px;
+  padding-left: 15px;
 `;
 
 export const StreetAddressInput = styled.input`
   ${InputCommonStyle}
   margin: 10px 0;
+  padding-left: 15px;
 `;
 
 export const DetailAddressInput = styled.input`
   ${InputCommonStyle}
+  padding-left: 15px;
 `;
 
 export const PayOptionInput = styled.input``;

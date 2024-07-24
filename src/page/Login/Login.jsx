@@ -83,6 +83,9 @@ export default function Login() {
         <S.ErrorMessage>{warningMessage}</S.ErrorMessage>
         <S.MButton type="submit">LOG IN</S.MButton>
       </S.Form>
+      <S.StyledLinkWrapper>
+        <S.StyledLink to={`/signUp`}>CREATE ACCOUNT</S.StyledLink>
+      </S.StyledLinkWrapper>
     </S.Wrapper>
   );
 }
