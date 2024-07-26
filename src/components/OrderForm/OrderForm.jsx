@@ -1,27 +1,45 @@
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { userToken } from "../../atom/Atom";
 import { useForm } from "react-hook-form";
+import { order } from "../../api/Order";
+import useCartList from "../../hook/useCartList";
 import ZipCodeSearchModal from "../../components/Modal/ZipCodeSearchModal/ZipCodeSearchModal";
 import * as LS from "../../page/Login/LoginStyle";
 import * as S from "./OrderFormStyle";
+import useProductDetail from "../../hook/useProductDetail";
 
 export default function OrderForm() {
   const [isSearched, setIsSearched] = useState(false);
   const [zipCode, setZipCode] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [paymentMethod, setPayMentMethod] = useState("");
+  const [productIds, setProductIds] = useState([]);
+  const [quantities, setQuantities] = useState([]);
 
-  console.log(paymentMethod);
+  const token = useRecoilValue(userToken);
+  const { cartList } = useCartList(token);
 
-  const getAdress = (data) => {
-    console.log(data);
-    setIsSearched(false);
-    setZipCode(data.zonecode);
-    setStreetAddress(data.address);
-  };
+  useEffect(() => {
+    const productId = cartList.map((i) => i.product_id).join();
+    const quantity = cartList.map((i) => i.quantity).join();
+    console.log(quantity);
+    console.log(productId);
+    setProductIds(productId);
+    setQuantities(quantity);
+  }, [cartList]);
+
+  const { productInfo } = useProductDetail(productIds, token);
+
+  const totalShippingFee = productInfo.map((i) => i.shipping_fee).reduce((acc, cur) => acc + cur, 0);
+  const totalProductPrice = productInfo.map((i) => i.price).reduce((acc, cur) => acc + cur, 0);
+  console.log(totalProductPrice);
 
   const {
     register,
     watch,
+    handleSubmit,
+    getValues,
     setError,
     clearErrors,
     formState: { errors },
@@ -40,6 +58,45 @@ export default function OrderForm() {
       clearErrors("email");
     }
   }, [email, setError, clearErrors]);
+
+  // 우편 번호 조회
+  const getAdress = (data) => {
+    setIsSearched(false);
+    setZipCode(data.zonecode);
+    setStreetAddress(data.address);
+  };
+
+  // const directOrderMutaion = useMutation({
+  //   mutationFn: order,
+  //   onSuccess: (data) => {
+  //     console.log(data);
+  //   },
+  //   onError: (errors) => {
+  //     console.log(errors);
+  //   },
+  // });
+
+  const submitPayMent = async () => {
+    const { receiver, frontNumber, secondNumber, lastNumber, zipCode, streetAddress, detailAddress, deliveryMessage } = getValues();
+
+    const phoneNumber = [frontNumber, secondNumber, lastNumber].join("");
+    const address = [zipCode, streetAddress, detailAddress].join("");
+
+    const directOrder = {
+      product_id: productIds,
+      quantity: quantities,
+      order_kind: "direct_order",
+      receiver: receiver,
+      receiver_phone_number: phoneNumber,
+      address: address,
+      address_message: deliveryMessage,
+      payment_method: paymentMethod,
+      total_price: `${totalProductPrice}`,
+    };
+
+    const res = await order(directOrder, token);
+    console.log(res);
+  };
 
   return (
     <>
@@ -66,24 +123,24 @@ export default function OrderForm() {
           </S.EmailInfoWrapper>
         </S.BuyerInfoWrapper>
         <S.SectionTitle>배송지 정보</S.SectionTitle>
-        <S.Form>
+        <S.Form onSubmit={handleSubmit(submitPayMent)}>
           <S.ReceiverInfoWrapper>
             <S.Label>수령인</S.Label>
-            <S.Input />
+            <S.Input {...register("receiver")} />
           </S.ReceiverInfoWrapper>
           <S.ReceiverPhoneInfoWrapper>
             <S.Label>휴대폰</S.Label>
-            <S.FrontNumberInput maxLength={3} />
+            <S.FrontNumberInput maxLength={3} {...register("frontNumber")} />
             <span> - </span>
-            <S.PhoneNumberInput maxLength={4} />
+            <S.PhoneNumberInput maxLength={4} {...register("secondNumber")} />
             <span> - </span>
-            <S.PhoneNumberInput maxLength={4} />
+            <S.PhoneNumberInput maxLength={4} {...register("lastNumber")} />
           </S.ReceiverPhoneInfoWrapper>
           <S.AddressInfoWrapper>
             <S.Label>배송 주소</S.Label>
             <S.AddressWrapper>
               <div>
-                <S.ZipCodeAddressInput value={zipCode} readOnly />
+                <S.ZipCodeAddressInput {...register("zipCode")} value={zipCode} readOnly />
                 <S.ZipCodeSearchBtn
                   type="button"
                   onClick={() => {
@@ -94,13 +151,13 @@ export default function OrderForm() {
                 </S.ZipCodeSearchBtn>
               </div>
               {isSearched && <ZipCodeSearchModal onComplete={getAdress} />}
-              <S.StreetAddressInput value={streetAddress} readOnly />
-              <S.DetailAddressInput />
+              <S.StreetAddressInput {...register("streetAddress")} value={streetAddress} readOnly />
+              <S.DetailAddressInput {...register("detailAddress")} />
             </S.AddressWrapper>
           </S.AddressInfoWrapper>
           <S.DeliveryMessageWrapper>
             <S.Label>배송 메세지</S.Label>
-            <S.Input />
+            <S.Input {...register("deliveryMessage")} />
           </S.DeliveryMessageWrapper>
           <S.PayMentInfoWrapper>
             <S.PayMentMethodSection>
@@ -131,7 +188,7 @@ export default function OrderForm() {
                 </p>
                 <S.ShippingFee>
                   - 베송비
-                  <span>0 원</span>
+                  <span>{totalShippingFee.toLocaleString()} 원</span>
                 </S.ShippingFee>
                 <S.PayMentPrice>
                   - 결제
@@ -141,7 +198,7 @@ export default function OrderForm() {
                   <S.AgreeMentInput type="checkbox" />
                   <span>주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</span>
                 </S.AgreeMentWrapper>
-                <S.PayMentBtn>PAYMENT</S.PayMentBtn>
+                <S.PayMentBtn type="submit">PAYMENT</S.PayMentBtn>
               </S.PayMentWrapper>
             </S.PayMentDetailSection>
           </S.PayMentInfoWrapper>
