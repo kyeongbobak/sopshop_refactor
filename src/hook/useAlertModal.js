@@ -1,7 +1,7 @@
 const { useState } = require("react");
 
-// 커스텀 훅 useModal 정의
-const useModal = () => {
+// 커스텀 훅 useAlertModal 정의
+const useAlertModal = () => {
   const [modalState, setModalState] = useState({
     isVisible: false,
     text: "예",
@@ -28,4 +28,4 @@ const useModal = () => {
   return { modalState, showModal, closeModal };
 };
 
-export default useModal;
+export default useAlertModal;

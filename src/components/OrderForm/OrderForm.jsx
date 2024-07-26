@@ -1,9 +1,21 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import ZipCodeSearchModal from "../../components/Modal/ZipCodeSearchModal/ZipCodeSearchModal";
 import * as LS from "../../page/Login/LoginStyle";
 import * as S from "./OrderFormStyle";
-import { useEffect } from "react";
 
 export default function OrderForm() {
+  const [isSearched, setIsSearched] = useState(false);
+  const [zipCode, setZipCode] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+
+  const getAdress = (data) => {
+    console.log(data);
+    setIsSearched(false);
+    setZipCode(data.zonecode);
+    setStreetAddress(data.address);
+  };
+
   const {
     register,
     watch,
@@ -68,10 +80,18 @@ export default function OrderForm() {
             <S.Label>배송 주소</S.Label>
             <S.AddressWrapper>
               <div>
-                <S.ZipCodeAddressInput />
-                <S.ZipCodeSearchBtn>우편번호 조회</S.ZipCodeSearchBtn>
+                <S.ZipCodeAddressInput value={zipCode} readOnly />
+                <S.ZipCodeSearchBtn
+                  type="button"
+                  onClick={() => {
+                    setIsSearched(true);
+                  }}
+                >
+                  우편번호 조회
+                </S.ZipCodeSearchBtn>
               </div>
-              <S.StreetAddressInput />
+              {isSearched && <ZipCodeSearchModal onComplete={getAdress} />}
+              <S.StreetAddressInput value={streetAddress} readOnly />
               <S.DetailAddressInput />
             </S.AddressWrapper>
           </S.AddressInfoWrapper>

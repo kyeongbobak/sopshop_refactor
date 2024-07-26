@@ -1,6 +1,6 @@
-import * as S from "./ModalStyle";
+import * as S from "./AlertModalStyle";
 
-export default function Modal({ modalState }) {
+export default function AlertModal({ modalState }) {
   if (!modalState.isVisible) {
     return null;
   }

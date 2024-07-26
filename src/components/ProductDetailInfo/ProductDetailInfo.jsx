@@ -5,10 +5,10 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getProductDetails } from "../../api/Product";
 import { addToCart } from "../../api/Cart";
-import useModal from "../../hook/useModal";
+import useAlertModal from "../../hook/useAlertModal";
 import useCartList from "../../hook/useCartList";
 import CountControl from "../CountControl/CountControl";
-import Modal from "../Modal/Modal";
+import AlertModal from "../../components/Modal/AlertModal/AlertModal";
 import * as S from "../../components/ProductDetailInfo/ProductDetailInfoStyle";
 
 export default function ProductDetailInfo() {
@@ -21,7 +21,7 @@ export default function ProductDetailInfo() {
 
   const { ProductId } = useParams();
 
-  const { modalState, showModal, closeModal } = useModal();
+  const { modalState, showModal, closeModal } = useAlertModal();
   const { cartList } = useCartList(token);
 
   const navigate = useNavigate();
@@ -143,7 +143,7 @@ export default function ProductDetailInfo() {
                 Add To Cart
               </S.MButton>
             )}
-            <Modal modalState={modalState} />
+            <AlertModal modalState={modalState} />
           </S.ButtonWrapper>
         </S.ProductDetailWrapper>
       </S.Wrapper>

@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { deleteCartItem, deleteAllCartItem, modifyCartQuantity } from "../../api/Cart";
 import useCartList from "../../hook/useCartList";
-import useModal from "../../hook/useModal";
+import useAlertModal from "../../hook/useAlertModal";
 import useProductDetail from "../../hook/useProductDetail";
-import Modal from "../Modal/Modal";
+import AlertModal from "../../components/Modal/AlertModal/AlertModal";
 import CountControl from "../CountControl/CountControl";
 import * as S from "./CartContentsStyle";
 
@@ -20,7 +20,7 @@ export default function CartList() {
 
   const { cartList, refetch } = useCartList(token);
   const { productInfo } = useProductDetail(productIds, token);
-  const { modalState, showModal, closeModal } = useModal();
+  const { modalState, showModal, closeModal } = useAlertModal();
 
   const navigator = useNavigate();
 
@@ -149,7 +149,7 @@ export default function CartList() {
                 Empty
               </button>
             </S.ButtonWrapper>
-            <Modal modalState={modalState} />
+            <AlertModal modalState={modalState} />
             <S.TotalPriceCal>
               <span>Sub Total</span>
               <p>{sumProductPrice.toLocaleString()} 원</p>

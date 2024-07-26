@@ -173,12 +173,14 @@ export const ZipCodeAddressInput = styled.input`
 
 export const StreetAddressInput = styled.input`
   ${InputCommonStyle}
+  width: 800px;
   margin: 10px 0;
   padding-left: 15px;
 `;
 
 export const DetailAddressInput = styled.input`
   ${InputCommonStyle}
+  width: 800px;
   padding-left: 15px;
 `;
 
