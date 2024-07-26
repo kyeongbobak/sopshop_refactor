@@ -8,6 +8,9 @@ export default function OrderForm() {
   const [isSearched, setIsSearched] = useState(false);
   const [zipCode, setZipCode] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
+  const [paymentMethod, setPayMentMethod] = useState("");
+
+  console.log(paymentMethod);
 
   const getAdress = (data) => {
     console.log(data);
@@ -103,15 +106,15 @@ export default function OrderForm() {
             <S.PayMentMethodSection>
               <S.SectionTitle>결제 수단</S.SectionTitle>
               <S.PayOptionWrapper>
-                <S.PayOptionInput type="radio" />
+                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("신용/체크카드")} checked={paymentMethod === "신용/체크카드"} readOnly />
                 <p>신용 / 체크카드</p>
-                <S.PayOptionInput type="radio" />
+                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("무통장 입금")} checked={paymentMethod === "무통장 입금"} readOnly />
                 <p>무통장 입금</p>
-                <S.PayOptionInput type="radio" />
+                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("휴대폰 결제")} checked={paymentMethod === "휴대폰 결제"} readOnly />
                 <p>휴대폰 결제</p>
-                <S.PayOptionInput type="radio" />
+                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("네이버 페이")} checked={paymentMethod === "네이버 페이"} readOnly />
                 <p>네이버페이</p>
-                <S.PayOptionInput type="radio" />
+                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("카카오 페이")} checked={paymentMethod === "카카오 페이"} readOnly />
                 <p>카카오페이</p>
               </S.PayOptionWrapper>
             </S.PayMentMethodSection>
