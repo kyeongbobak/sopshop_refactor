@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { isLogin, userToken } from "../../atom/Atom";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { isLogin, userToken, orderType } from "../../atom/Atom";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getProductDetails } from "../../api/Product";
-import { addToCart } from "../../api/Cart";
+import { addToCart, modifyCartQuantity } from "../../api/Cart";
 import useAlertModal from "../../hook/useAlertModal";
 import useCartList from "../../hook/useCartList";
 import CountControl from "../CountControl/CountControl";
@@ -18,11 +18,14 @@ export default function ProductDetailInfo() {
 
   const token = useRecoilValue(userToken);
   const isLoggedIn = useRecoilValue(isLogin);
+  const setOrderType = useSetRecoilState(orderType);
 
-  const { ProductId } = useParams();
-
+  const { productId } = useParams();
   const { modalState, showModal, closeModal } = useAlertModal();
   const { cartList } = useCartList(token);
+
+  const findCartItem = cartList.find((i) => i.product_id === parseInt(productId));
+  const findCartCount = findCartItem ? findCartItem.quantity : 0;
 
   const navigate = useNavigate();
 
@@ -32,23 +35,22 @@ export default function ProductDetailInfo() {
 
   useEffect(() => {
     const getProductDetail = async () => {
-      const res = await getProductDetails(ProductId);
-      console.log(res);
+      const res = await getProductDetails(productId);
       setProduct(res);
     };
     getProductDetail();
-  }, [ProductId]);
+  }, [productId]);
 
   useEffect(() => {
     const data = cartList.map((i) => i.product_id);
-    const isProductInCart = data.includes(parseInt(ProductId));
+    const isProductInCart = data.includes(parseInt(productId));
     console.log(isProductInCart);
     setIsInCart(isProductInCart);
-  }, [cartList, ProductId]);
+  }, [cartList, productId]);
 
   const addToShoppingCart = async () => {
     const body = {
-      product_id: `${parseInt(ProductId)}`,
+      product_id: `${parseInt(productId)}`,
       quantity: `${count}`,
       check: isInCart,
     };
@@ -56,8 +58,21 @@ export default function ProductDetailInfo() {
     console.log(res);
   };
 
+  const modifyCount = async () => {
+    const addCount = findCartCount + count;
+
+    const body = {
+      product_id: productId,
+      quantity: addCount,
+    };
+    const res = await modifyCartQuantity(token, body, findCartItem.cart_item_id);
+    navigate(`/order`);
+    return res;
+  };
+
   const directOrder = () => {
     addToShoppingCart();
+    setOrderType("direct_order");
     navigate(`/order`);
   };
 
@@ -82,7 +97,13 @@ export default function ProductDetailInfo() {
           </S.OrderDetail>
           <S.ButtonWrapper>
             {isLoggedIn ? (
-              <S.BuyBtn onClick={() => directOrder()}>Buy Now</S.BuyBtn>
+              <S.BuyBtn
+                onClick={() => {
+                  isInCart ? modifyCount() : directOrder();
+                }}
+              >
+                Buy Now
+              </S.BuyBtn>
             ) : (
               <S.BuyBtn
                 onClick={() =>
@@ -108,7 +129,7 @@ export default function ProductDetailInfo() {
                         submitText: "예",
                         onCancel: closeModal,
                         onSubmit: () => {
-                          addToShoppingCart();
+                          modifyCount();
                           navigate(`/cart`);
                         },
                         content: "이미 장바구니에 있는 상품입니다. 장바구니로 이동할까요?",

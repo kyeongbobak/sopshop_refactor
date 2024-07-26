@@ -15,7 +15,7 @@ import checkOffIcon from "../../assets/img/icon-check-off.png";
 import checkOnIcon from "../../assets/img/icon-check-on.png";
 
 export default function SignUp() {
-  const [IsBuyer, setIsBuyer] = useState(true);
+  const [isBuyer, setIsBuyer] = useState(true);
   const [duplicateMessage, setDuplicateMessage] = useState("");
   const [activeOption, setActiveOption] = useState(false);
 
@@ -155,7 +155,7 @@ export default function SignUp() {
         <LS.LogoImg to={`/`}>
           <img src={logo} alt="logo" />
         </LS.LogoImg>
-        <TabBtnMenu IsBuyer={IsBuyer} setIsBuyer={setIsBuyer} content={"가입"} />
+        <TabBtnMenu isBuyer={isBuyer} setIsBuyer={setIsBuyer} content={"가입"} />
         <LS.Form onSubmit={handleSubmit(handleOnSignUp)}>
           <S.Label htmlFor="id">아이디</S.Label>
           <S.Wrapper>
@@ -229,7 +229,7 @@ export default function SignUp() {
           </S.PhoneInputWrapper>
           {(errors.secondNumber || errors.lastNumber) && <LS.ErrorMessage>{errors.secondNumber.message}</LS.ErrorMessage>}
           {errors.phoneNumber && <LS.ErrorMessage>{errors.phoneNumber.message}</LS.ErrorMessage>}
-          {!IsBuyer && (
+          {!isBuyer && (
             <S.SellerInputSection>
               <S.Label htmlFor="id">사업자 등록번호</S.Label>
               <S.Wrapper>

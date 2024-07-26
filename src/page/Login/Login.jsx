@@ -10,7 +10,7 @@ import * as S from "./LoginStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 
 export default function Login() {
-  const [IsBuyer, setIsBuyer] = useState(true);
+  const [isBuyer, setIsBuyer] = useState(true);
   const [warningMessage, setWarningMessage] = useState("");
 
   const setUserToken = useSetRecoilState(userToken);
@@ -43,7 +43,7 @@ export default function Login() {
   // 데이터 변경이나 업데이트를 위해 useMutation 사용
   const handleOnLogin = (data) => {
     console.log(data);
-    data.login_type = IsBuyer ? "BUYER" : "SELLER";
+    data.login_type = isBuyer ? "BUYER" : "SELLER";
     LoginMutation.mutate(data);
   };
 
@@ -52,7 +52,7 @@ export default function Login() {
       <S.LogoImg to={`/`}>
         <img src={logo} alt="logo" />
       </S.LogoImg>
-      <TabBtnMenu IsBuyer={IsBuyer} setIsBuyer={setIsBuyer} content={"로그인"} />
+      <TabBtnMenu isBuyer={isBuyer} setIsBuyer={setIsBuyer} content={"로그인"} />
       <S.Form onSubmit={handleSubmit(handleOnLogin)}>
         <S.Label htmlFor="userId" className="a11y-hidden">
           아이디

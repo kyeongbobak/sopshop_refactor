@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+
 import { useRecoilValue } from "recoil";
-import { userToken } from "../../atom/Atom";
+import { orderType, userToken } from "../../atom/Atom";
 import { useForm } from "react-hook-form";
 import { order } from "../../api/Order";
 import useCartList from "../../hook/useCartList";
+import useProductDetail from "../../hook/useProductDetail";
 import ZipCodeSearchModal from "../../components/Modal/ZipCodeSearchModal/ZipCodeSearchModal";
 import * as LS from "../../page/Login/LoginStyle";
 import * as S from "./OrderFormStyle";
-import useProductDetail from "../../hook/useProductDetail";
 
 export default function OrderForm() {
   const [isSearched, setIsSearched] = useState(false);
@@ -15,25 +16,33 @@ export default function OrderForm() {
   const [streetAddress, setStreetAddress] = useState("");
   const [paymentMethod, setPayMentMethod] = useState("");
   const [productIds, setProductIds] = useState([]);
-  const [quantities, setQuantities] = useState([]);
+  const [counts, setCounts] = useState([]);
 
   const token = useRecoilValue(userToken);
+  const orderState = useRecoilValue(orderType);
+
   const { cartList } = useCartList(token);
-
-  useEffect(() => {
-    const productId = cartList.map((i) => i.product_id).join();
-    const quantity = cartList.map((i) => i.quantity).join();
-    console.log(quantity);
-    console.log(productId);
-    setProductIds(productId);
-    setQuantities(quantity);
-  }, [cartList]);
-
   const { productInfo } = useProductDetail(productIds, token);
 
-  const totalShippingFee = productInfo.map((i) => i.shipping_fee).reduce((acc, cur) => acc + cur, 0);
-  const totalProductPrice = productInfo.map((i) => i.price).reduce((acc, cur) => acc + cur, 0);
-  console.log(totalProductPrice);
+  useEffect(() => {
+    const productIdArray = cartList.map((i) => i.product_id);
+    const countArray = cartList.map((i) => i.quantity);
+    setProductIds(productIdArray);
+    setCounts(countArray);
+  }, [cartList]);
+
+  const productId = productIds.join("");
+  const quantity = counts.join("");
+
+  const { totalShippingFee, totalProductPrice } = useMemo(() => {
+    const totalShippingFee = productInfo.map((i) => i.shipping_fee).reduce((acc, cur) => acc + cur, 0);
+    const totalProductPrice = productInfo.map((i) => i.price).reduce((acc, cur) => acc + cur, 0);
+
+    return {
+      totalShippingFee,
+      totalProductPrice,
+    };
+  }, [productInfo]);
 
   const {
     register,
@@ -66,26 +75,21 @@ export default function OrderForm() {
     setStreetAddress(data.address);
   };
 
-  // const directOrderMutaion = useMutation({
-  //   mutationFn: order,
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //   },
-  //   onError: (errors) => {
-  //     console.log(errors);
-  //   },
-  // });
-
   const submitPayMent = async () => {
-    const { receiver, frontNumber, secondNumber, lastNumber, zipCode, streetAddress, detailAddress, deliveryMessage } = getValues();
+    const { receiver, frontNumber, secondNumber, lastNumber, detailAddress, deliveryMessage } = getValues();
+
+    console.log(zipCode);
+    console.log(streetAddress);
+    console.log(detailAddress);
 
     const phoneNumber = [frontNumber, secondNumber, lastNumber].join("");
     const address = [zipCode, streetAddress, detailAddress].join("");
+    console.log(address);
 
     const directOrder = {
-      product_id: productIds,
-      quantity: quantities,
-      order_kind: "direct_order",
+      product_id: productId,
+      quantity: quantity,
+      order_kind: orderState,
       receiver: receiver,
       receiver_phone_number: phoneNumber,
       address: address,

@@ -21,3 +21,9 @@ export const userType = atom({
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
+
+export const orderType = atom({
+  key: "orderType",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});

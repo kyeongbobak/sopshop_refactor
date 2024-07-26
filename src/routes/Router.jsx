@@ -17,7 +17,7 @@ export default function Router() {
         <Route path="/" element={<MainPage />}></Route>
         <Route path="/:selectedMenu" element={<SelectedMenuPage />}></Route>
         <Route path="/search/:searchKeyword" element={<SearchPage />}></Route>
-        <Route path="/products/:ProductId" element={<ProductDetail />}></Route>
+        <Route path="/products/:productId" element={<ProductDetail />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/order" element={<OrderPage />}></Route>
       </Routes>

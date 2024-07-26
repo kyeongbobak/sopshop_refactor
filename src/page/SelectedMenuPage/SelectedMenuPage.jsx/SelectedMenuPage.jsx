@@ -16,8 +16,8 @@ export default function SelectedMenuPage() {
   const getBrandProductList = useCallback(async () => {
     const res = await getProducts();
     const data = res.results;
-    const SelectedBrandProducts = data.filter((i) => i.store_name === selectedMenu);
-    setProductList(SelectedBrandProducts);
+    const selectedBrandProducts = data.filter((i) => i.store_name === selectedMenu);
+    setProductList(selectedBrandProducts);
   }, [selectedMenu]);
 
   useEffect(() => {
