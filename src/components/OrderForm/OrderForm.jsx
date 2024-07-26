@@ -76,13 +76,13 @@ export default function OrderForm() {
   };
 
   const submitPayMent = async () => {
-    const { receiver, frontNumber, secondNumber, lastNumber, detailAddress, deliveryMessage } = getValues();
+    const { receiver, receiverFrontNumber, receiverSecondNumber, receiverLastNumber, detailAddress, deliveryMessage } = getValues();
 
     console.log(zipCode);
     console.log(streetAddress);
     console.log(detailAddress);
 
-    const phoneNumber = [frontNumber, secondNumber, lastNumber].join("");
+    const phoneNumber = [receiverFrontNumber, receiverSecondNumber, receiverLastNumber].join("");
     const address = [zipCode, streetAddress, detailAddress].join("");
     console.log(address);
 
@@ -134,11 +134,11 @@ export default function OrderForm() {
           </S.ReceiverInfoWrapper>
           <S.ReceiverPhoneInfoWrapper>
             <S.Label>휴대폰</S.Label>
-            <S.FrontNumberInput maxLength={3} {...register("frontNumber")} />
+            <S.FrontNumberInput maxLength={3} {...register("receiverFrontNumber")} />
             <span> - </span>
-            <S.PhoneNumberInput maxLength={4} {...register("secondNumber")} />
+            <S.PhoneNumberInput maxLength={4} {...register("receiverSecondNumber")} />
             <span> - </span>
-            <S.PhoneNumberInput maxLength={4} {...register("lastNumber")} />
+            <S.PhoneNumberInput maxLength={4} {...register("receiverLastNumber")} />
           </S.ReceiverPhoneInfoWrapper>
           <S.AddressInfoWrapper>
             <S.Label>배송 주소</S.Label>
