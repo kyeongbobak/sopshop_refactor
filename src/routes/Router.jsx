@@ -7,6 +7,7 @@ import SelectedMenuPage from "../page/SelectedMenuPage/SelectedMenuPage.jsx/Sele
 import ProductDetail from "../page/ProductDetailPage/ProductDetailPage";
 import CartPage from "../page/CartPage/CartPage";
 import OrderPage from "../page/OrderPage/OrderPage";
+import OrderCompletePage from "../page/OrderCompletePage/OrderCompletePage";
 
 export default function Router() {
   return (
@@ -20,6 +21,7 @@ export default function Router() {
         <Route path="/products/:productId" element={<ProductDetail />}></Route>
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/order" element={<OrderPage />}></Route>
+        <Route path="/orderComplete" element={<OrderCompletePage />}></Route>
       </Routes>
     </>
   );

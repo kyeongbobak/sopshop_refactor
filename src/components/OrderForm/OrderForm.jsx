@@ -1,5 +1,4 @@
 import { useEffect, useState, useMemo } from "react";
-
 import { useRecoilValue } from "recoil";
 import { orderType, userToken } from "../../atom/Atom";
 import { useForm } from "react-hook-form";
@@ -9,6 +8,7 @@ import useProductDetail from "../../hook/useProductDetail";
 import ZipCodeSearchModal from "../../components/Modal/ZipCodeSearchModal/ZipCodeSearchModal";
 import * as LS from "../../page/Login/LoginStyle";
 import * as S from "./OrderFormStyle";
+import { useNavigate } from "react-router-dom";
 
 export default function OrderForm() {
   const [isSearched, setIsSearched] = useState(false);
@@ -17,6 +17,8 @@ export default function OrderForm() {
   const [paymentMethod, setPayMentMethod] = useState("");
   const [productIds, setProductIds] = useState([]);
   const [counts, setCounts] = useState([]);
+
+  const navigator = useNavigate();
 
   const token = useRecoilValue(userToken);
   const orderState = useRecoilValue(orderType);
@@ -27,6 +29,7 @@ export default function OrderForm() {
   useEffect(() => {
     const productIdArray = cartList.map((i) => i.product_id);
     const countArray = cartList.map((i) => i.quantity);
+
     setProductIds(productIdArray);
     setCounts(countArray);
   }, [cartList]);
@@ -78,14 +81,10 @@ export default function OrderForm() {
   const submitPayMent = async () => {
     const { receiver, receiverFrontNumber, receiverSecondNumber, receiverLastNumber, detailAddress, deliveryMessage } = getValues();
 
-    console.log(zipCode);
-    console.log(streetAddress);
-    console.log(detailAddress);
-
     const phoneNumber = [receiverFrontNumber, receiverSecondNumber, receiverLastNumber].join("");
     const address = [zipCode, streetAddress, detailAddress].join("");
-    console.log(address);
 
+    // 바로 구매하기
     const directOrder = {
       product_id: productId,
       quantity: quantity,
@@ -99,7 +98,11 @@ export default function OrderForm() {
     };
 
     const res = await order(directOrder, token);
-    console.log(res);
+
+    if (res) {
+      navigator(`/`);
+    }
+    return res;
   };
 
   return (

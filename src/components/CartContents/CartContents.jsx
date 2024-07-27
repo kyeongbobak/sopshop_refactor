@@ -35,8 +35,6 @@ export default function CartList() {
   }, [cartList]);
 
   const handleCountChange = (index, newCount) => {
-    console.log(index);
-    console.log();
     setCount((prevCount) => {
       const updateCount = [...prevCount];
       updateCount[index] = newCount;
@@ -54,8 +52,6 @@ export default function CartList() {
     const res = await modifyCartQuantity(token, body, cartList[index].cart_item_id);
     console.log(res);
   };
-
-  console.log(selected);
 
   const handleCheckBox = (index) => {
     setSelected((prevSelected) => {

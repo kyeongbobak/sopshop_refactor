@@ -5,7 +5,7 @@ export const getOrderList = async (token) => {
   try {
     const res = await Instance.get(`/api/v1/order/`, {
       headers: {
-        Authorization: `JWT ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return await res.data;

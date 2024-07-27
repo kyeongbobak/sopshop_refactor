@@ -25,7 +25,7 @@ export default function ProductDetailInfo() {
   const { cartList } = useCartList(token);
 
   const findCartItem = cartList.find((i) => i.product_id === parseInt(productId));
-  const findCartCount = findCartItem ? findCartItem.quantity : 0;
+  const findItemCount = findCartItem ? findCartItem.quantity : 0;
 
   const navigate = useNavigate();
 
@@ -44,7 +44,6 @@ export default function ProductDetailInfo() {
   useEffect(() => {
     const data = cartList.map((i) => i.product_id);
     const isProductInCart = data.includes(parseInt(productId));
-    console.log(isProductInCart);
     setIsInCart(isProductInCart);
   }, [cartList, productId]);
 
@@ -55,11 +54,11 @@ export default function ProductDetailInfo() {
       check: isInCart,
     };
     const res = await addToCart(token, body);
-    console.log(res);
+    return res;
   };
 
   const modifyCount = async () => {
-    const addCount = findCartCount + count;
+    const addCount = findItemCount + count;
 
     const body = {
       product_id: productId,
@@ -67,6 +66,7 @@ export default function ProductDetailInfo() {
     };
     const res = await modifyCartQuantity(token, body, findCartItem.cart_item_id);
     navigate(`/order`);
+    console.log(res);
     return res;
   };
 
