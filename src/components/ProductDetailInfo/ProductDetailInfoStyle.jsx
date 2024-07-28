@@ -88,6 +88,13 @@ export const ButtonCommonStyle = css`
   font-weight: var(--font-medium);
 `;
 
+export const SoldOutBtn = styled.button`
+  ${ButtonCommonStyle}
+  width: auto;
+  border: 1px solid var(--black-color);
+  color: var(--black-color);
+`;
+
 export const BuyBtn = styled.button`
   ${ButtonCommonStyle}
   width: 516px;

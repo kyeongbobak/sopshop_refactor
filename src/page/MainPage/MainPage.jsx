@@ -27,7 +27,7 @@ export default function MainPage() {
 
   // productList가 변경되지 않는 한 동일한 상품 리스트를 반환하기 때문에 `useMemo`을 활용하여 불필요한 리렌더링 방지
   const memoizedProductList = useMemo(
-    () => productList.map((list) => <ProductItem key={list.product_id} productId={list.product_id} productImage={list.image} productBrandName={list.store_name} productName={list.product_name} productPrice={list.price} />),
+    () => productList.map((list) => <ProductItem key={list.product_id} productId={list.product_id} productImage={list.image} productBrandName={list.store_name} productName={list.product_name} productPrice={list.price} productStock={list.stock} />),
     [productList]
   );
 

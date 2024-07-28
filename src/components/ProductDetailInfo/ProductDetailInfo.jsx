@@ -41,6 +41,8 @@ export default function ProductDetailInfo() {
     getProductDetail();
   }, [productId]);
 
+  console.log(product);
+
   useEffect(() => {
     const data = cartList.map((i) => i.product_id);
     const isProductInCart = data.includes(parseInt(productId));
@@ -87,7 +89,7 @@ export default function ProductDetailInfo() {
             {parseInt(product.price).toLocaleString()} <span>원</span>
           </S.ProductPrice>
           <S.ShippingInfo>{product.shipping_fee === "0" ? "무료배송" : "택배배송"}</S.ShippingInfo>
-          <CountControl isStock={product.stock} count={count} onCountChange={handleCountChange} />
+          <CountControl isStock={product.stock} count={product.stock === 0 ? 0 : count} onCountChange={handleCountChange} />
           <S.OrderDetail>
             <span>Total Price</span>
             <div>
@@ -95,77 +97,83 @@ export default function ProductDetailInfo() {
               <strong>{product.price ? (parseInt(product.price) * count).toLocaleString() : 0}원</strong>
             </div>
           </S.OrderDetail>
-          <S.ButtonWrapper>
-            {isLoggedIn ? (
-              <S.BuyBtn
-                onClick={() => {
-                  isInCart ? modifyCount() : directOrder();
-                }}
-              >
-                Buy Now
-              </S.BuyBtn>
-            ) : (
-              <S.BuyBtn
-                onClick={() =>
-                  showModal({
-                    text: "아니오",
-                    submitText: "예",
-                    onCancel: closeModal,
-                    onSubmit: () => navigate(`/login`),
-                    content: "로그인이 필요한 서비스입니다. 로그인 하시겠습니까? ",
-                  })
-                }
-              >
-                Buy Now
-              </S.BuyBtn>
-            )}
-            {isLoggedIn ? (
-              <>
-                {isInCart ? (
-                  <S.MButton
-                    onClick={() =>
-                      showModal({
-                        text: "아니오",
-                        submitText: "예",
-                        onCancel: closeModal,
-                        onSubmit: () => {
-                          modifyCount();
-                          navigate(`/cart`);
-                        },
-                        content: "이미 장바구니에 있는 상품입니다. 장바구니로 이동할까요?",
-                      })
-                    }
-                  >
-                    Add To Cart
-                  </S.MButton>
-                ) : (
-                  <S.MButton
-                    onClick={() => {
-                      addToShoppingCart();
-                      navigate(`/cart`);
-                    }}
-                  >
-                    Add To Cart
-                  </S.MButton>
-                )}
-              </>
-            ) : (
-              <S.MButton
-                onClick={() =>
-                  showModal({
-                    text: "아니오",
-                    submitText: "예",
-                    onCancel: closeModal,
-                    onSubmit: () => navigate(`/login`),
-                    content: "로그인이 필요한 서비스입니다. 로그인 하시겠습니까? ",
-                  })
-                }
-              >
-                Add To Cart
-              </S.MButton>
-            )}
-            <AlertModal modalState={modalState} />
-          </S.ButtonWrapper>
+          {product.stock === 0 ? (
+            <>
+              <S.SoldOutBtn>SOLD OUT</S.SoldOutBtn>
+            </>
+          ) : (
+            <S.ButtonWrapper>
+              {isLoggedIn ? (
+                <S.BuyBtn
+                  onClick={() => {
+                    isInCart ? modifyCount() : directOrder();
+                  }}
+                >
+                  Buy Now
+                </S.BuyBtn>
+              ) : (
+                <S.BuyBtn
+                  onClick={() =>
+                    showModal({
+                      text: "아니오",
+                      submitText: "예",
+                      onCancel: closeModal,
+                      onSubmit: () => navigate(`/login`),
+                      content: "로그인이 필요한 서비스입니다. 로그인 하시겠습니까? ",
+                    })
+                  }
+                >
+                  Buy Now
+                </S.BuyBtn>
+              )}
+              {isLoggedIn ? (
+                <>
+                  {isInCart ? (
+                    <S.MButton
+                      onClick={() =>
+                        showModal({
+                          text: "아니오",
+                          submitText: "예",
+                          onCancel: closeModal,
+                          onSubmit: () => {
+                            modifyCount();
+                            navigate(`/cart`);
+                          },
+                          content: "이미 장바구니에 있는 상품입니다. 장바구니로 이동할까요?",
+                        })
+                      }
+                    >
+                      Add To Cart
+                    </S.MButton>
+                  ) : (
+                    <S.MButton
+                      onClick={() => {
+                        addToShoppingCart();
+                        navigate(`/cart`);
+                      }}
+                    >
+                      Add To Cart
+                    </S.MButton>
+                  )}
+                </>
+              ) : (
+                <S.MButton
+                  onClick={() =>
+                    showModal({
+                      text: "아니오",
+                      submitText: "예",
+                      onCancel: closeModal,
+                      onSubmit: () => navigate(`/login`),
+                      content: "로그인이 필요한 서비스입니다. 로그인 하시겠습니까? ",
+                    })
+                  }
+                >
+                  Add To Cart
+                </S.MButton>
+              )}
+              <AlertModal modalState={modalState} />
+            </S.ButtonWrapper>
+          )}
         </S.ProductDetailWrapper>
       </S.Wrapper>
     </>
