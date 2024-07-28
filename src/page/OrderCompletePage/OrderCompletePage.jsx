@@ -72,15 +72,9 @@ export default function OrderCompletePage() {
                   </S.DeliveryStatus>
                   <S.DeliveryAddress>
                     <span>배송지 주소</span>
-                    <S.Receiver>
-                      <span>수령인 :</span> {orderList[0].receiver}
-                    </S.Receiver>
-                    <S.Address>
-                      <span>주소 : </span> {orderList[0].address}
-                    </S.Address>
-                    <S.PhoneNumber>
-                      <span>휴대폰 번호 :</span> {orderList[0].receiver_phone_number}
-                    </S.PhoneNumber>
+                    <S.Receiver>수령인 : {orderList[0].receiver}</S.Receiver>
+                    <S.Address>주소 : {orderList[0].address}</S.Address>
+                    <S.PhoneNumber>휴대폰 번호 :{orderList[0].receiver_phone_number}</S.PhoneNumber>
                   </S.DeliveryAddress>
                   <S.PayMentMethodWrapper>
                     <S.OrderDetailTitle>PayMent</S.OrderDetailTitle>
@@ -95,15 +89,15 @@ export default function OrderCompletePage() {
                   <S.OrderDetailTitle>Total</S.OrderDetailTitle>
                   <S.OrderPrice>
                     <span>총 주문 상품: </span>
-                    {product.price.toLocaleString()} 원
+                    <p>{product.price.toLocaleString()} 원</p>
                   </S.OrderPrice>
                   <S.ShippingFee>
                     <span>배송비</span>
-                    {product.shipping_fee.toLocaleString()} 원
+                    <p>{product.shipping_fee.toLocaleString()} 원</p>
                   </S.ShippingFee>
                   <S.TotalPice>
                     <span>합계</span>
-                    {(product.price + product.shipping_fee).toLocaleString()} 원
+                    <p>{(product.price + product.shipping_fee).toLocaleString()} 원</p>
                   </S.TotalPice>
                 </S.TotalPriceWrapper>
               </>

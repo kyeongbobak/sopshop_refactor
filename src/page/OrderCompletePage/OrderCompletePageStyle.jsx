@@ -9,13 +9,13 @@ export const Wrapper = styled.div`
   border-bottom: 1px solid var(--black-color);
   font-size: var(--font-lg-size);
   display: flex;
+  gap: 60px;
   justify-content: center;
   align-items: center;
   font-family: "Pretendard";
 `;
 
 export const Section = styled.section`
-  width: 600px;
   margin: 30px 0;
 `;
 
@@ -25,12 +25,18 @@ export const OrderInfoWrapper = styled.div`
 `;
 
 export const ProductInfoWrapper = styled.div`
+  height: 574px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
   p {
     font-family: "Pretendard";
   }
 `;
 
 export const OrderDetailWrapper = styled.div`
+  width: 500px;
+
   div,
   p,
   span {
@@ -40,13 +46,24 @@ export const OrderDetailWrapper = styled.div`
 
 export const DeliveryInfoWrapper = styled.div``;
 
-export const PayMentMethodWrapper = styled.div``;
+export const PayMentMethodWrapper = styled.div`
+  border-bottom: 1px solid #d4d7da;
+  p {
+    padding-bottom: 20px;
+  }
+`;
 
-export const TotalPriceWrapper = styled.div``;
+export const TotalPriceWrapper = styled.div`
+  div {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+  }
+`;
 
 export const ProductImage = styled.img`
-  width: 320px;
-  height: 380px;
+  width: 480px;
+  height: 586px;
   object-fit: cover;
 `;
 
@@ -58,7 +75,6 @@ export const ProductInfoCommonStyle = css`
 `;
 
 export const ProductName = styled.p`
-  margin-top: 30px;
   padding-bottom: 10px;
   font-size: var(--font-lg-size);
   font-weight: var(--font-medium);
@@ -80,8 +96,8 @@ export const ProductStoreName = styled.p`
 `;
 
 export const StyledLink = styled(Link)`
-  display: inline-block;
-  margin-top: 30px;
+  display: flex;
+  margin-top: auto;
   font-size: var(--font-lg-size);
   font-weight: var(--font-light);
   text-decoration: underline;
@@ -90,7 +106,6 @@ export const StyledLink = styled(Link)`
 export const TitleCommonStyle = css`
   font-size: var(--font-max-size);
   font-weight: var(--font-medium);
-  margin: 20px 0;
 `;
 
 export const SectionTitle = styled.h2`
@@ -99,21 +114,60 @@ export const SectionTitle = styled.h2`
 
 export const OrderDetailTitle = styled.h3`
   ${TitleCommonStyle}
+  margin: 20px 0;
 `;
 
-export const OrderNumber = styled.div``;
+export const OrderNumber = styled.div`
+  p {
+    padding: 20px 0;
+    font-weight: var(--font-semi-bold);
+  }
 
-export const DeliveryStatus = styled.div``;
+  border-bottom: 1px solid #d4d7da;
+`;
 
-export const DeliveryAddress = styled.div``;
+export const DeliveryStatus = styled.div`
+  span {
+    display: inline-block;
+    font-weight: var(--font-bold);
+    padding-bottom: 10px;
+  }
 
-export const Receiver = styled.div``;
+  p {
+    padding-bottom: 20px;
+  }
+`;
 
-export const Address = styled.div``;
+export const DeliveryAddress = styled.div`
+  border-bottom: 1px solid #d4d7da;
 
-export const PhoneNumber = styled.div``;
+  span {
+    display: inline-block;
+    font-weight: var(--font-bold);
+    padding-bottom: 10px;
+  }
+`;
+
+export const Receiver = styled.div`
+  padding: 3px 0;
+`;
+
+export const Address = styled.div`
+  padding: 3px 0;
+`;
+
+export const PhoneNumber = styled.div`
+  padding: 3px 0px 20px 0px;
+`;
+
 export const OrderPrice = styled.div``;
 
 export const ShippingFee = styled.div``;
 
-export const TotalPice = styled.div``;
+export const TotalPice = styled.div`
+  span,
+  p {
+    font-size: 22px;
+    font-weight: var(--font-bold);
+  }
+`;
