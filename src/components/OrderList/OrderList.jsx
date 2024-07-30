@@ -25,37 +25,45 @@ export default function OrderList() {
     setCount(quantity);
   }, [cartList]);
 
+  console.log(cartList);
+
   return (
     <>
-      <S.Wrapper>
-        {productInfo.map((product, index) => (
-          <S.OrderListWrapper key={index}>
-            <S.ProductInfo>
-              <S.Image src={product.image} />
-              <div>
-                <p>{product.store_name}</p>
-                <S.Name>{product.product_name}</S.Name>
-                <p>
-                  <span>Qty : </span>
-                  {count[index]}
-                </p>
-              </div>
-            </S.ProductInfo>
-            <S.DisCount>0</S.DisCount>
-            <S.ShippingMethod>{product.shipping_fee === 0 ? "무료배송" : product.shipping_fee.toLocaleString()} 원</S.ShippingMethod>
-            <S.OrderPrice>{(product.price * count[index]).toLocaleString()} 원</S.OrderPrice>
-          </S.OrderListWrapper>
-        ))}
-        <CS.TotalPriceCal>
-          <span>Total Product Price</span>
-          <p>{sumProductPrice.toLocaleString()}원</p>
-          <span>+</span>
-          <span>Total Shipping Fee</span>
-          <p>{sumShipping.toLocaleString()} 원</p>
-          <span>= Total Order Price :</span>
-          <p>{(sumProductPrice + sumShipping).toLocaleString()} 원</p>
-        </CS.TotalPriceCal>
-      </S.Wrapper>
+      {cartList.length === 0 ? (
+        <S.Wrapper>
+          <S.Contents>주문 내역이 없습니다.</S.Contents>
+        </S.Wrapper>
+      ) : (
+        <S.Wrapper>
+          {productInfo.map((product, index) => (
+            <S.OrderListWrapper key={index}>
+              <S.ProductInfo>
+                <S.Image src={product.image} />
+                <div>
+                  <p>{product.store_name}</p>
+                  <S.Name>{product.product_name}</S.Name>
+                  <p>
+                    <span>Qty : </span>
+                    {count[index]}
+                  </p>
+                </div>
+              </S.ProductInfo>
+              <S.DisCount>0</S.DisCount>
+              <S.ShippingMethod>{product.shipping_fee === 0 ? "무료배송" : product.shipping_fee.toLocaleString()} 원</S.ShippingMethod>
+              <S.OrderPrice>{(product.price * count[index]).toLocaleString()} 원</S.OrderPrice>
+            </S.OrderListWrapper>
+          ))}
+          <CS.TotalPriceCal>
+            <span>Total Product Price</span>
+            <p>{sumProductPrice.toLocaleString()}원</p>
+            <span>+</span>
+            <span>Total Shipping Fee</span>
+            <p>{sumShipping.toLocaleString()} 원</p>
+            <span>= Total Order Price :</span>
+            <p>{(sumProductPrice + sumShipping).toLocaleString()} 원</p>
+          </CS.TotalPriceCal>
+        </S.Wrapper>
+      )}
     </>
   );
 }

@@ -5,6 +5,13 @@ export const Wrapper = styled.div`
   margin: 0 auto;
 `;
 
+export const Contents = styled.p`
+  padding: 150px 0;
+  font-family: "Pretendard";
+  font-size: var(--font-md-size);
+  text-align: center;
+`;
+
 export const OrderListWrapper = styled.div`
   display: flex;
   align-items: center;

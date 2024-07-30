@@ -17,7 +17,6 @@ export default function OrderCompletePage() {
   useEffect(() => {
     const OrderList = async () => {
       const res = await getOrderList(token);
-      console.log(res);
       setOrderList(res.results.slice(0, 1));
     };
     OrderList();

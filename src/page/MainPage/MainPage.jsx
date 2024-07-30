@@ -17,7 +17,6 @@ export default function MainPage() {
   const getProductList = useCallback(async () => {
     const res = await getProducts(token);
     const mainPageProductList = res.results.slice(0, 10);
-    console.log(res);
     setProductList(mainPageProductList);
   }, [token]);
 

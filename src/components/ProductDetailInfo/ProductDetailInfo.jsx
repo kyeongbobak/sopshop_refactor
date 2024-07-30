@@ -44,6 +44,8 @@ export default function ProductDetailInfo() {
   console.log(product);
 
   useEffect(() => {
+    if (cartList.length === 0) return;
+
     const data = cartList.map((i) => i.product_id);
     const isProductInCart = data.includes(parseInt(productId));
     setIsInCart(isProductInCart);

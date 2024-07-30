@@ -11,7 +11,7 @@ import AlertModal from "../../components/Modal/AlertModal/AlertModal";
 import CountControl from "../CountControl/CountControl";
 import * as S from "./CartContentsStyle";
 
-export default function CartList() {
+export default function CartContents() {
   const [productIds, setProductIds] = useState([]);
   const [count, setCount] = useState([]);
   const [selected, setSelected] = useState([]);
@@ -35,6 +35,7 @@ export default function CartList() {
   }, [cartList]);
 
   const handleCountChange = (index, newCount) => {
+    console.log(newCount);
     setCount((prevCount) => {
       const updateCount = [...prevCount];
       updateCount[index] = newCount;
@@ -50,13 +51,12 @@ export default function CartList() {
       quantity: newCount,
     };
     const res = await modifyCartQuantity(token, body, cartList[index].cart_item_id);
-    console.log(res);
+    return res;
   };
 
   const handleCheckBox = (index) => {
     setSelected((prevSelected) => {
-      console.log(prevSelected);
-      if (!selected.includes(index)) {
+      if (!prevSelected.includes(index)) {
         return [...selected, index];
       }
     });
@@ -155,7 +155,7 @@ export default function CartList() {
               <span>= Total :</span>
               <p>{(sumProductPrice + sumShipping).toLocaleString()} 원</p>
             </S.TotalPriceCal>
-            <S.AllOrderBtn>All Order</S.AllOrderBtn>
+            <S.AllOrderBtn onClick={() => navigator(`/order`)}>All Order</S.AllOrderBtn>
           </S.Wrapper>
         </>
       )}

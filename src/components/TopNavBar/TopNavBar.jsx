@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isLogin, userToken } from "../../atom/Atom";
@@ -12,12 +12,13 @@ import menuIcon from "../../assets/img/menu_icon.png";
 // 사이드바 추가
 export default function Header() {
   const [sideBarState, setSideBarState] = useState(null);
+  const [listCount, setListCount] = useState("");
 
   const setIsLogin = useSetRecoilState(isLogin);
   const isLoggedIn = useRecoilValue(isLogin);
   const token = useRecoilValue(userToken);
 
-  const { cartList } = useCartList(token);
+  const { cartList, refetch } = useCartList(token);
 
   const navigator = useNavigate();
 
@@ -37,6 +38,14 @@ export default function Header() {
     logoutMutation.mutate(token);
   };
 
+  useEffect(() => {
+    setListCount(cartList.length);
+  }, [cartList]);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
   return (
     <>
       <H.Wrapper>
@@ -46,7 +55,7 @@ export default function Header() {
         <H.NavBar>
           <li>
             <H.StyledLink to="/cart">
-              Cart <span>{cartList.length}</span>
+              Cart <span>{listCount}</span>
             </H.StyledLink>
           </li>
           <li>
