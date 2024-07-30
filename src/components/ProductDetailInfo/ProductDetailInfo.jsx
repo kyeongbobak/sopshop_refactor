@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
-import { isLogin, userToken, orderType } from "../../atom/Atom";
+import { isLogin, userToken, orderType, userType } from "../../atom/Atom";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getProductDetails } from "../../api/Product";
@@ -19,10 +19,11 @@ export default function ProductDetailInfo() {
   const token = useRecoilValue(userToken);
   const isLoggedIn = useRecoilValue(isLogin);
   const setOrderType = useSetRecoilState(orderType);
+  const userTypeValue = useRecoilValue(userType);
 
   const { productId } = useParams();
   const { modalState, showModal, closeModal } = useAlertModal();
-  const { cartList } = useCartList(token);
+  const { cartList } = useCartList(token, userTypeValue);
 
   const findCartItem = cartList.find((i) => i.product_id === parseInt(productId));
   const findItemCount = findCartItem ? findCartItem.quantity : 0;

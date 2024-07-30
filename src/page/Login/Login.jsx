@@ -28,10 +28,9 @@ export default function Login() {
   const LoginMutation = useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      console.log(data);
       setUserToken(data.token);
       setIsLogin(true);
-      setUserType(data.user_type);
+      setUserType(data.login_type);
       navigate(`/`);
     },
     onError: (error) => {
@@ -42,7 +41,6 @@ export default function Login() {
 
   // 데이터 변경이나 업데이트를 위해 useMutation 사용
   const handleOnLogin = (data) => {
-    console.log(data);
     data.login_type = isBuyer ? "BUYER" : "SELLER";
     LoginMutation.mutate(data);
   };

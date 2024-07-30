@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useRecoilValue } from "recoil";
-import { orderType, userToken } from "../../atom/Atom";
+import { orderType, userToken, userType } from "../../atom/Atom";
 import { useForm } from "react-hook-form";
 import { order } from "../../api/Order";
 import useCartList from "../../hook/useCartList";
@@ -22,8 +22,9 @@ export default function OrderForm() {
 
   const token = useRecoilValue(userToken);
   const orderState = useRecoilValue(orderType);
+  const userTypeValue = useRecoilValue(userType);
 
-  const { cartList } = useCartList(token);
+  const { cartList } = useCartList(token, userTypeValue);
   const { productInfo } = useProductDetail(productIds, token);
 
   useEffect(() => {

@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
 import { getCartList } from "../api/Cart";
 
-const getShoppingList = async (token, setCartList) => {
-  const res = await getCartList(token, setCartList);
-  setCartList(res.results);
-};
-
 // 커스텀 훅 useCartList 정의
-const useCartList = (token) => {
+const useCartList = (token, userTypeValue) => {
   const [cartList, setCartList] = useState([]);
 
   useEffect(() => {
-    if (token) {
-      getShoppingList(token, setCartList);
-    }
-  }, [token]);
+    const getShoppingList = async () => {
+      if (token && userTypeValue === "BUYER") {
+        const res = await getCartList(token);
+        setCartList(res.results);
+      }
+    };
 
-  const refetch = () => {
-    getShoppingList(token, setCartList);
+    getShoppingList();
+  }, [token, userTypeValue]);
+
+  const refetch = async () => {
+    if (token && userTypeValue === "BUYER") {
+      const res = await getCartList(token);
+      setCartList(res.results);
+    }
   };
 
   return { cartList, refetch };

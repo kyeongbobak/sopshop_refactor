@@ -45,48 +45,57 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'GmarketSans';
     font-weight: 300;
     src: url(${GmarketSansLight}) format('opentype');
+    font-display: swap;
   }
 
   @font-face {
     font-family: 'GmarketSans';
     font-weight: 500; 
     src: url(${GmarketSansMedium}) format('opentype');
+    font-display: swap;
   }
 
   @font-face {
     font-family: 'GmarketSans';
     font-weight: 700; 
     src: url(${GmarketSansBold}) format('opentype');
+    font-display: swap;
   }
 
   @font-face {
     font-family: 'Pretendard';
     font-weight: 100;
     src: url(${PretendardThin}) format('opentype');
+    font-display: swap;
   }
 
   @font-face {
     font-family: 'Pretendard';
     font-weight: 200; 
     src: url(${PretendardExtraLight}) format('opentype');
+    font-display: swap;
+    ;
   }
 
   @font-face {
     font-family: 'Pretendard';
     font-weight: 300; 
     src: url(${PretendardLight}) format('opentype');
+    font-display: swap;
   }
 
   @font-face {
     font-family: 'Pretendard';
     font-weight: 400;
     src: url(${PretendardRegular}) format('opentype');
+    font-display: swap;
   }
 
   @font-face {
     font-family: 'Pretendard';
     font-weight: 600; 
     src: url(${PretendardSemiBold}) format('opentype');
+    font-display: swap;
   }
 
 

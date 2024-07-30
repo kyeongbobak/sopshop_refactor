@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { userToken } from "../../atom/Atom";
+import { userToken, userType } from "../../atom/Atom";
 import { useRecoilValue } from "recoil";
 import useCartList from "../../hook/useCartList";
 import useProductDetail from "../../hook/useProductDetail";
@@ -11,8 +11,9 @@ export default function OrderList() {
   const [count, setCount] = useState([]);
 
   const token = useRecoilValue(userToken);
+  const userTypeValue = useRecoilValue(userType);
 
-  const { cartList } = useCartList(token);
+  const { cartList } = useCartList(token, userTypeValue);
   const { productInfo } = useProductDetail(productIds, token);
 
   const sumProductPrice = productInfo.map((i) => i.price).reduce((acc, cur, i) => acc + cur * count[i], 0);

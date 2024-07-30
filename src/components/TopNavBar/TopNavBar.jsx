@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { isLogin, userToken } from "../../atom/Atom";
+import { isLogin, userToken, userType } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../api/LoginOut";
 import useCartList from "../../hook/useCartList";
@@ -17,8 +17,9 @@ export default function Header() {
   const setIsLogin = useSetRecoilState(isLogin);
   const isLoggedIn = useRecoilValue(isLogin);
   const token = useRecoilValue(userToken);
+  const userTypeValue = useRecoilValue(userType);
 
-  const { cartList, refetch } = useCartList(token);
+  const { cartList, refetch } = useCartList(token, userTypeValue);
 
   const navigator = useNavigate();
 

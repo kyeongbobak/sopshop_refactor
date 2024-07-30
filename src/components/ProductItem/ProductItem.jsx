@@ -1,7 +1,6 @@
 import * as S from "../ProductItem/ProductItemStyle";
 
 export default function ProductItem({ productId, productImage, productBrandName, productName, productPrice, productStock }) {
-  console.log(productStock);
   return (
     <li>
       <S.StyleLink to={`/products/${productId}`}>

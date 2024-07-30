@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { userToken } from "../../atom/Atom";
+import { userToken, userType } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { deleteCartItem, deleteAllCartItem, modifyCartQuantity } from "../../api/Cart";
@@ -17,8 +17,9 @@ export default function CartContents() {
   const [selected, setSelected] = useState([]);
 
   const token = useRecoilValue(userToken);
+  const userTypeValue = useRecoilValue(userType);
 
-  const { cartList, refetch } = useCartList(token);
+  const { cartList, refetch } = useCartList(token, userTypeValue);
   const { productInfo } = useProductDetail(productIds, token);
   const { modalState, showModal, closeModal } = useAlertModal();
 
@@ -35,7 +36,6 @@ export default function CartContents() {
   }, [cartList]);
 
   const handleCountChange = (index, newCount) => {
-    console.log(newCount);
     setCount((prevCount) => {
       const updateCount = [...prevCount];
       updateCount[index] = newCount;
