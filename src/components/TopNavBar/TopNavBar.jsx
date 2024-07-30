@@ -5,7 +5,8 @@ import { isLogin, userToken, userType } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../api/LoginOut";
 import useCartList from "../../hook/useCartList";
-import * as H from "./TopNavBarStyle";
+import * as S from "./TopNavBarStyle";
+import shoppingBagIcon from "../../assets/img/icon-shopping-bag.png";
 import logo from "../../assets/img/Logo-SopShop.png";
 import menuIcon from "../../assets/img/menu_icon.png";
 
@@ -18,6 +19,8 @@ export default function Header() {
   const isLoggedIn = useRecoilValue(isLogin);
   const token = useRecoilValue(userToken);
   const userTypeValue = useRecoilValue(userType);
+
+  console.log(userTypeValue);
 
   const { cartList, refetch } = useCartList(token, userTypeValue);
 
@@ -49,61 +52,92 @@ export default function Header() {
 
   return (
     <>
-      <H.Wrapper>
-        <H.StyledLink to="/">
-          <H.LogoImage src={logo} alt="SopShop Logo" />
-        </H.StyledLink>
-        <H.NavBar>
-          <li>
-            <H.StyledLink to="/cart">
-              Cart <span>{listCount}</span>
-            </H.StyledLink>
-          </li>
-          <li>
-            <H.MenuBtn
-              onClick={() => {
-                setSideBarState("slideIn");
-              }}
-            >
-              <img src={menuIcon} alt="open-menu" />
-            </H.MenuBtn>
-          </li>
-        </H.NavBar>
-        {sideBarState && (
-          <>
-            <H.SideNavBarOverlay
-              className={sideBarState}
-              onClick={() => {
-                setSideBarState("slideOut");
-              }}
-            ></H.SideNavBarOverlay>
-            <H.SideNavBar className={sideBarState}>
-              <ul>
-                <li>
-                  {isLoggedIn ? (
-                    <button onClick={handleOnLogout}>
-                      <H.StyledLink to={`/login`}>Logout</H.StyledLink>
-                    </button>
-                  ) : (
-                    <button>
-                      <H.StyledLink to={`/login`}>Login</H.StyledLink>
-                    </button>
-                  )}
-                </li>
-                <li>
-                  <H.StyledLink to={`/signUp`}>Join</H.StyledLink>
-                </li>
-                <li>
-                  <H.StyledLink>My Page</H.StyledLink>
-                </li>
-                <li>
-                  <H.StyledLink to={`/order`}>Order</H.StyledLink>
-                </li>
-              </ul>
-            </H.SideNavBar>
-          </>
-        )}
-      </H.Wrapper>
+      {userTypeValue === "SELLER" ? (
+        <>
+          <S.Wrapper>
+            <S.StyledLink to="/">
+              <S.LogoImage src={logo} alt="SopShop Logo" />
+            </S.StyledLink>
+            <S.NavBar>
+              <li>
+                <S.MenuLinkBtn>
+                  <img src={shoppingBagIcon} alt="shoppingBagIcon" />
+                  <p>판매자 센터</p>
+                </S.MenuLinkBtn>
+              </li>
+              <li>
+                {isLoggedIn ? (
+                  <button onClick={handleOnLogout}>
+                    <S.StyledLink to={`/login`}>Logout</S.StyledLink>
+                  </button>
+                ) : (
+                  <button>
+                    <S.StyledLink to={`/login`}>Login</S.StyledLink>
+                  </button>
+                )}
+              </li>
+            </S.NavBar>
+          </S.Wrapper>
+        </>
+      ) : (
+        <>
+          <S.Wrapper>
+            <S.StyledLink to="/">
+              <S.LogoImage src={logo} alt="SopShop Logo" />
+            </S.StyledLink>
+            <S.NavBar>
+              <li>
+                <S.StyledLink to="/cart">
+                  Cart <span>{listCount}</span>
+                </S.StyledLink>
+              </li>
+              <li>
+                <S.MenuBtn
+                  onClick={() => {
+                    setSideBarState("slideIn");
+                  }}
+                >
+                  <img src={menuIcon} alt="open-menu" />
+                </S.MenuBtn>
+              </li>
+            </S.NavBar>
+            {sideBarState && (
+              <>
+                <S.SideNavBarOverlay
+                  className={sideBarState}
+                  onClick={() => {
+                    setSideBarState("slideOut");
+                  }}
+                ></S.SideNavBarOverlay>
+                <S.SideNavBar className={sideBarState}>
+                  <ul>
+                    <li>
+                      {isLoggedIn ? (
+                        <button onClick={handleOnLogout}>
+                          <S.StyledLink to={`/login`}>Logout</S.StyledLink>
+                        </button>
+                      ) : (
+                        <button>
+                          <S.StyledLink to={`/login`}>Login</S.StyledLink>
+                        </button>
+                      )}
+                    </li>
+                    <li>
+                      <S.StyledLink to={`/signUp`}>Join</S.StyledLink>
+                    </li>
+                    <li>
+                      <S.StyledLink>My Page</S.StyledLink>
+                    </li>
+                    <li>
+                      <S.StyledLink to={`/order`}>Order</S.StyledLink>
+                    </li>
+                  </ul>
+                </S.SideNavBar>
+              </>
+            )}
+          </S.Wrapper>
+        </>
+      )}
     </>
   );
 }

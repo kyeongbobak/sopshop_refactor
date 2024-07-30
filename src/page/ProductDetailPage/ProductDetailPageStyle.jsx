@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
 `;
 
 export const ContentsWrapper = styled.div`
-  margin: 0 auto;
   width: 1400px;
+  margin: 0 auto;
+  padding-left: 12%;
 `;

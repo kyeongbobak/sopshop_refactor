@@ -27,6 +27,24 @@ export const NavBar = styled.ul`
   font-weight: var(--font-light);
 `;
 
+export const MenuLinkBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 168px;
+  padding: 10px;
+  background-color: var(--main-color);
+  color: white;
+  font-family: "Pretendard";
+  font-size: var(--font-md-size);
+  font-weight: var(--font-light);
+
+  img {
+    width: 24px;
+  }
+`;
+
 export const MenuBtn = styled.button`
   img {
     width: 32px;
