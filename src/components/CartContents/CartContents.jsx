@@ -67,17 +67,17 @@ export default function CartContents() {
     selected.forEach(async (index) => {
       const cartItemId = cartList[index].cart_item_id;
       const res = await deleteCartItem(token, cartItemId);
-      console.log(res);
       refetch();
       setSelected([]);
+      return res;
     });
   };
 
   // 장바구니 모두 삭제하기
   const deleteAllCartList = async () => {
     const res = await deleteAllCartItem(token);
-    console.log(res);
     refetch();
+    return res;
   };
 
   // 응답 데이터에 고유한 키 값이 없어 uuid 라이브러리 사용

@@ -23,9 +23,6 @@ export const CheckBox = styled.input`
 export const ProductInfoTitle = styled.div`
   width: 600px;
 `;
-export const CountTitle = styled.div`
-  width: 300px;
-`;
-export const ProductPrice = styled.div`
+export const TabItemTitle = styled.div`
   width: 300px;
 `;

@@ -6,8 +6,8 @@ export default function CartTabTitle() {
       <S.Wrapper>
         <S.CheckBox type="checkbox" />
         <S.ProductInfoTitle>상품 정보</S.ProductInfoTitle>
-        <S.CountTitle>수량</S.CountTitle>
-        <S.ProductPrice>상품 금액</S.ProductPrice>
+        <S.TabItemTitle>수량</S.TabItemTitle>
+        <S.TabItemTitle>상품 금액</S.TabItemTitle>
       </S.Wrapper>
     </>
   );

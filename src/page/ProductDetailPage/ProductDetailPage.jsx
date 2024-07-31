@@ -5,7 +5,7 @@ import ProductDetailInfo from "../../components/ProductDetailInfo/ProductDetailI
 import DetailPageTabs from "../../components/DetailPageTabs/DetailPageStyle";
 import * as S from "./ProductDetailPageStyle";
 
-export default function ProductDetail() {
+export default function ProductDetailPage() {
   return (
     <>
       <TopNavBar />

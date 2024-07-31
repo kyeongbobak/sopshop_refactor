@@ -6,7 +6,7 @@ import { order } from "../../api/Order";
 import useCartList from "../../hook/useCartList";
 import useProductDetail from "../../hook/useProductDetail";
 import ZipCodeSearchModal from "../../components/Modal/ZipCodeSearchModal/ZipCodeSearchModal";
-import * as LS from "../../page/Login/LoginStyle";
+import * as LS from "../../page/LoginPage/LoginPageStyle";
 import * as S from "./OrderFormStyle";
 import { useNavigate } from "react-router-dom";
 

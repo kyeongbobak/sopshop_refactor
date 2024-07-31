@@ -6,10 +6,10 @@ import { userToken, isLogin, userType } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../api/LoginOut";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
-import * as S from "./LoginStyle";
+import * as S from "./LoginPageStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 
-export default function Login() {
+export default function LoginPage() {
   const [isBuyer, setIsBuyer] = useState(true);
   const [warningMessage, setWarningMessage] = useState("");
 

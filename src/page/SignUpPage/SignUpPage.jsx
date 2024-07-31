@@ -6,15 +6,15 @@ import { userType } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
 import { signUp, validateAccount, validateCompanyNumber } from "../../api/Account";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
-import * as LS from "../Login/LoginStyle";
-import * as S from "../SignUp/SignUpStyle";
+import * as LS from "../LoginPage/LoginPageStyle";
+import * as S from "./SignUpPageStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 import upArrow from "../../assets/img/icon-up-arrow.png";
 import downArrow from "../../assets/img/icon-down-arrow.png";
 import checkOffIcon from "../../assets/img/icon-check-off.png";
 import checkOnIcon from "../../assets/img/icon-check-on.png";
 
-export default function SignUp() {
+export default function SignUpPage() {
   const [isBuyer, setIsBuyer] = useState(true);
   const [duplicateMessage, setDuplicateMessage] = useState("");
   const [activeOption, setActiveOption] = useState(false);

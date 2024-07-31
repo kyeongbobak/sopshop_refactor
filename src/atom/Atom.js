@@ -27,3 +27,8 @@ export const orderType = atom({
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
+
+export const CartListState = atom({
+  key: "cartListState",
+  default: [],
+});

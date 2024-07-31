@@ -32,13 +32,16 @@ export const MenuLinkBtn = styled.button`
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: 168px;
+  width: 140px;
   padding: 10px;
   background-color: var(--main-color);
-  color: white;
-  font-family: "Pretendard";
-  font-size: var(--font-md-size);
-  font-weight: var(--font-light);
+
+  span {
+    color: white;
+    font-family: "Pretendard";
+    font-size: var(--font-md-size);
+    font-weight: var(--font-light);
+  }
 
   img {
     width: 24px;

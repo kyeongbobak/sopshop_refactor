@@ -7,5 +7,5 @@ export const Wrapper = styled.div`
 export const ContentsWrapper = styled.div`
   width: 1400px;
   margin: 0 auto;
-  padding-left: 12%;
+  padding-left: 11.5%;
 `;

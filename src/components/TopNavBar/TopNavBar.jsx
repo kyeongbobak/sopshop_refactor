@@ -1,28 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { isLogin, userToken, userType } from "../../atom/Atom";
+import { CartListState, isLogin, userToken, userType } from "../../atom/Atom";
+
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../api/LoginOut";
-import useCartList from "../../hook/useCartList";
+
 import * as S from "./TopNavBarStyle";
 import shoppingBagIcon from "../../assets/img/icon-shopping-bag.png";
 import logo from "../../assets/img/Logo-SopShop.png";
 import menuIcon from "../../assets/img/menu_icon.png";
 
-// 사이드바 추가
 export default function Header() {
   const [sideBarState, setSideBarState] = useState(null);
-  const [listCount, setListCount] = useState("");
 
   const setIsLogin = useSetRecoilState(isLogin);
   const isLoggedIn = useRecoilValue(isLogin);
   const token = useRecoilValue(userToken);
   const userTypeValue = useRecoilValue(userType);
-
-  console.log(userTypeValue);
-
-  const { cartList, refetch } = useCartList(token, userTypeValue);
+  const cartListLength = useRecoilValue(CartListState);
 
   const navigator = useNavigate();
 
@@ -42,14 +38,6 @@ export default function Header() {
     logoutMutation.mutate(token);
   };
 
-  useEffect(() => {
-    setListCount(cartList.length);
-  }, [cartList]);
-
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
-
   return (
     <>
       {userTypeValue === "SELLER" ? (
@@ -62,7 +50,9 @@ export default function Header() {
               <li>
                 <S.MenuLinkBtn>
                   <img src={shoppingBagIcon} alt="shoppingBagIcon" />
-                  <p>판매자 센터</p>
+                  <S.StyledLink to={`/dashBoard`}>
+                    <span>판매자 센터</span>
+                  </S.StyledLink>
                 </S.MenuLinkBtn>
               </li>
               <li>
@@ -88,7 +78,7 @@ export default function Header() {
             <S.NavBar>
               <li>
                 <S.StyledLink to="/cart">
-                  Cart <span>{listCount}</span>
+                  Cart <span>{cartListLength}</span>
                 </S.StyledLink>
               </li>
               <li>
@@ -126,7 +116,7 @@ export default function Header() {
                       <S.StyledLink to={`/signUp`}>Join</S.StyledLink>
                     </li>
                     <li>
-                      <S.StyledLink>My Page</S.StyledLink>
+                      <S.StyledLink to={`/myPage`}>My Page</S.StyledLink>
                     </li>
                     <li>
                       <S.StyledLink to={`/order`}>Order</S.StyledLink>
