@@ -30,5 +30,5 @@ export const orderType = atom({
 
 export const CartListState = atom({
   key: "cartListState",
-  default: [],
+  default: 0,
 });
