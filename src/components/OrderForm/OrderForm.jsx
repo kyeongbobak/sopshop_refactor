@@ -25,7 +25,7 @@ export default function OrderForm() {
   const userTypeValue = useRecoilValue(userType);
 
   const { cartList } = useCartList(token, userTypeValue);
-  const { productInfo } = useProductDetail(productIds, token);
+  const { productInfo } = useProductDetail(token, productIds);
 
   useEffect(() => {
     const productIdArray = cartList.map((i) => i.product_id);

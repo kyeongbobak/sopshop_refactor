@@ -14,7 +14,7 @@ export default function OrderList() {
   const userTypeValue = useRecoilValue(userType);
 
   const { cartList } = useCartList(token, userTypeValue);
-  const { productInfo } = useProductDetail(productIds, token);
+  const { productInfo } = useProductDetail(token, productIds);
 
   const sumProductPrice = productInfo.map((i) => i.price).reduce((acc, cur, i) => acc + cur * count[i], 0);
   const sumShipping = productInfo.map((i) => i.shipping_fee).reduce((acc, cur) => acc + cur, 0);

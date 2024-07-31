@@ -20,7 +20,7 @@ export default function CartContents() {
   const userTypeValue = useRecoilValue(userType);
 
   const { cartList, refetch } = useCartList(token, userTypeValue);
-  const { productInfo } = useProductDetail(productIds, token);
+  const { productInfo } = useProductDetail(token, productIds);
   const { modalState, showModal, closeModal } = useAlertModal();
 
   const navigator = useNavigate();

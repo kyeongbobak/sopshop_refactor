@@ -31,7 +31,6 @@ export const getOrderList = async (token) => {
 
 // 상품 주문생성하기, 카트 주문생성하기
 export const order = async (directOrder, token) => {
-  console.log(directOrder, token);
   try {
     const res = await Instance.post("/api/v1/order/", directOrder, {
       headers: {
