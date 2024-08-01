@@ -26,8 +26,6 @@ export default function OrderList() {
     setCount(quantity);
   }, [cartList]);
 
-  console.log(cartList);
-
   return (
     <>
       {cartList.length === 0 ? (

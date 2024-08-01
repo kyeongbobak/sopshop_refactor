@@ -9,7 +9,7 @@ import CartPage from "../page/CartPage/CartPage";
 import OrderPage from "../page/OrderPage/OrderPage";
 import OrderCompletePage from "../page/OrderCompletePage/OrderCompletePage";
 import MyPage from "../page/MyPage/MyPage";
-import DashBoardPage from "../page/DashBoardPage/DashBoardPage";
+import SellerCenter from "../page/SellerCenterPage/SellerCenterPage";
 
 export default function Router() {
   return (
@@ -25,7 +25,7 @@ export default function Router() {
         <Route path="/order" element={<OrderPage />}></Route>
         <Route path="/orderComplete" element={<OrderCompletePage />}></Route>
         <Route path="/myPage" element={<MyPage />}></Route>
-        <Route path="/dashBoard" element={<DashBoardPage />}></Route>
+        <Route path="/sellerCenter" element={<SellerCenter />}></Route>
       </Routes>
     </>
   );

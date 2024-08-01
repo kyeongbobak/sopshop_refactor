@@ -20,9 +20,6 @@ export const CheckBox = styled.input`
   height: 16px;
 `;
 
-export const ProductInfoTitle = styled.div`
-  width: 600px;
-`;
-export const TabItemTitle = styled.div`
+export const TabTitleItem = styled.div`
   width: 300px;
 `;

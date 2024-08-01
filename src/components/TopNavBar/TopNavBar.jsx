@@ -50,7 +50,7 @@ export default function Header() {
               <li>
                 <S.MenuLinkBtn>
                   <img src={shoppingBagIcon} alt="shoppingBagIcon" />
-                  <S.StyledLink to={`/dashBoard`}>
+                  <S.StyledLink to={`/sellerCenter`}>
                     <span>판매자 센터</span>
                   </S.StyledLink>
                 </S.MenuLinkBtn>
