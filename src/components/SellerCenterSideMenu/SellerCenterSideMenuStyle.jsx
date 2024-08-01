@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
+  position: absolute;
   padding-left: 60px;
   margin-top: 100px;
 
