@@ -10,6 +10,7 @@ import OrderPage from "../page/OrderPage/OrderPage";
 import OrderCompletePage from "../page/OrderCompletePage/OrderCompletePage";
 import MyPage from "../page/MyPage/MyPage";
 import SellerCenter from "../page/SellerCenterPage/SellerCenterPage";
+import ProductMakePage from "../page/ProductMakePage/ProductMakePage";
 
 export default function Router() {
   return (
@@ -26,6 +27,7 @@ export default function Router() {
         <Route path="/orderComplete" element={<OrderCompletePage />}></Route>
         <Route path="/myPage" element={<MyPage />}></Route>
         <Route path="/sellerCenter" element={<SellerCenter />}></Route>
+        <Route path="/productMakePage" element={<ProductMakePage />}></Route>
       </Routes>
     </>
   );

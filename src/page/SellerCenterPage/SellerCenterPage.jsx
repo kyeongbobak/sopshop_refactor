@@ -12,7 +12,7 @@ export default function SellerCenterPage() {
   const titles = ["상품정보", "판매가격", "수정", "삭제"];
   const styles = [{ width: 800 }, { width: 300 }, {}];
   const [orderItem, setOrderItem] = useState([]);
-
+  console.log(orderItem);
   const token = useRecoilValue(userToken);
 
   useEffect(() => {
@@ -23,6 +23,16 @@ export default function SellerCenterPage() {
     };
     OrderList();
   }, [token]);
+
+  // const modifyProduct = async () => {
+  //   const res = await modifySellingProduct(token, productId);
+  //   console.log(res);
+  // };
+
+  // const deleteProduct = async () => {
+  //   const res = await deleteSellingProduct(token, productId);
+  //   console.log(res);
+  // };
 
   return (
     <>

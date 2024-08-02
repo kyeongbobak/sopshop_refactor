@@ -9,7 +9,7 @@ export default function SellerCenterSideMenu() {
       <S.Wrapper>
         <ul>
           <li onClick={() => setSelected("SellingProducts")} className={selected === "SellingProducts" ? "active" : ""}>
-            <S.StyledLink to={``}>판매중인 상품</S.StyledLink>
+            <S.StyledLink to={`/sellerCenter`}>판매중인 상품</S.StyledLink>
           </li>
           <li onClick={() => setSelected("Order&Delivery")} className={selected === "Order&Delivery" ? "active" : ""}>
             <S.StyledLink>주문 / 배송</S.StyledLink>
@@ -24,7 +24,7 @@ export default function SellerCenterSideMenu() {
             <S.StyledLink>스토어 설정</S.StyledLink>
           </li>
           <li onClick={() => setSelected("AddProduct")} className={selected === "AddProduct" ? "active" : ""}>
-            <S.StyledLink to={``}>상품 등록</S.StyledLink>
+            <S.StyledLink to={`/productMakePage`}>상품 등록</S.StyledLink>
           </li>
         </ul>
       </S.Wrapper>
