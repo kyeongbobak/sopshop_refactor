@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+// useState
 import { useRecoilValue } from "recoil";
 import { userToken } from "../../atom/Atom";
 import { getSellingProducts } from "../../api/SellingProduct";
+// modifySellingProduct, deleteSellingProduct
 import TabTitle from "../../components/TabTitle/TabTitle";
 import SellerCenterHeader from "../../components/SellerCenterHeader/SellerCenterHeader";
 import SellerCenterSideMenu from "../../components/SellerCenterSideMenu/SellerCenterSideMenu";
@@ -11,20 +13,20 @@ import * as S from "./SellerCenterPageStyle";
 export default function SellerCenterPage() {
   const titles = ["상품정보", "판매가격", "수정", "삭제"];
   const styles = [{ width: 800 }, { width: 300 }, {}];
-  const [orderItem, setOrderItem] = useState([]);
-  console.log(orderItem);
+  // const [sellingProduct, setSellingProduct] = useState([]);
   const token = useRecoilValue(userToken);
 
   useEffect(() => {
-    const OrderList = async () => {
+    const sellingProductList = async () => {
       const res = await getSellingProducts(token);
       console.log(res);
-      setOrderItem(res);
+      // setSellingProduct(res);
     };
-    OrderList();
+    sellingProductList();
   }, [token]);
 
-  // const modifyProduct = async () => {
+  // const modifyProduct = async (index) => {
+  //   console.log(index);
   //   const res = await modifySellingProduct(token, productId);
   //   console.log(res);
   // };
@@ -49,12 +51,8 @@ export default function SellerCenterPage() {
             </S.ProductDetailsWrapper>
           </S.ProductInfoWrapper>
           <S.ProductPrice>7,500원</S.ProductPrice>
-          <S.ButtonWrapper>
-            <S.ModifyBtn>수정</S.ModifyBtn>
-          </S.ButtonWrapper>
-          <S.ButtonWrapper>
-            <S.DeleteBtn>삭제</S.DeleteBtn>
-          </S.ButtonWrapper>
+          <S.ButtonWrapper>{/* <S.ModifyBtn onClick={() => modifyProduct(index)}>수정</S.ModifyBtn> */}</S.ButtonWrapper>
+          <S.ButtonWrapper>{/* <S.DeleteBtn onClick={() => deleteProduct(index)}>삭제</S.DeleteBtn> */}</S.ButtonWrapper>
         </S.SellingProductWrapper>
       </S.Wrapper>
     </>
