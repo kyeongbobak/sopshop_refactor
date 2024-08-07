@@ -5,6 +5,10 @@ export const WrapperCommonStyle = css`
     display: flex;
   }
 
+  span {
+    display: block;
+  }
+
   strong {
     display: flex;
     align-items: center;
@@ -31,12 +35,15 @@ export const Wrapper = styled.div`
   margin: 100px 0 0 23%;
 `;
 
-export const ProductImageWrapper = styled.div``;
+export const ProductImageWrapper = styled.div`
+  margin-right: 40px;
+`;
 
 export const ProductDetailWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   span {
     display: inline-block;
     padding-bottom: 6px;
@@ -73,9 +80,37 @@ export const StockWrapper = styled.div`
   ${WrapperCommonStyle}
 `;
 
+export const ProductDetailInfoWrapper = styled.div`
+  font-family: "Pretendard";
+  margin-top: 45px;
+  padding-bottom: 150px;
+
+  span {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: var(--font-md-size);
+  }
+`;
+
+export const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: end;
+  button {
+    width: 200px;
+    height: 60px;
+    text-align: center;
+    margin-top: 45px;
+    font-size: var(--font-md-size);
+  }
+`;
+
 export const Form = styled.form`
   display: flex;
-  gap: 40px;
+  flex-direction: column;
+`;
+
+export const Section = styled.div`
+  display: flex;
 `;
 
 export const Label = styled.label`
@@ -98,7 +133,7 @@ export const ProductImage = styled.img`
 export const IconImage = styled.img``;
 
 export const ProductNameInput = styled.input`
-  width: 826px;
+  width: 600px;
   height: 35px;
   border: 1px solid var(--gray-color);
 `;
@@ -114,5 +149,24 @@ export const DeliveryBtn = styled.button`
 
 export const DirectDeliveryBtn = styled.button`
   border: 1px solid var(--gray-color);
+  margin-left: 10px;
+`;
+
+export const InfoContents = styled.div`
+  width: 1280px;
+  height: 700px;
+  padding-top: 350px;
+  text-align: center;
+  background-color: var(--light-gray-color);
+  box-sizing: border-box;
+  font-size: var(--font-lg-size);
+`;
+
+export const CancelBtn = styled.button`
+  border: 1px solid var(--gray-color);
+`;
+
+export const SavedBtn = styled.button`
+  background-color: var(--main-color);
   margin-left: 10px;
 `;

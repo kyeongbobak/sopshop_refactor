@@ -54,3 +54,15 @@ export const deleteSellingProduct = async (token, productId) => {
     console.log(error);
   }
 };
+
+// 상품 등록하기
+export const createProduct = async (token, body) => {
+  try {
+    const res = await Instance.post(`api/v1/products`, body, {
+      Authorization: `Bearer ${token}`,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
