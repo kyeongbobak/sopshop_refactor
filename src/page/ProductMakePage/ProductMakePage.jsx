@@ -4,25 +4,24 @@ import SellerCenterHeader from "../../components/SellerCenterHeader/SellerCenter
 import SellerCenterSideMenu from "../../components/SellerCenterSideMenu/SellerCenterSideMenu";
 import uploadImage from "../../assets/img/image.png";
 import * as S from "./ProductMakeStyle";
-import { getValue } from "@testing-library/user-event/dist/utils";
+import { useMutation } from "@tanstack/react-query";
+import { createProduct } from "../../api/SellingProduct";
+import { useRecoilValue } from "recoil";
+import { userToken } from "../../atom/Atom";
 
 export default function ProductMakePage() {
   const [imagePreview, setImagePreview] = useState(null);
+  const [selectImage, setSelectImage] = useState(null);
+  const [deliveryMethod, setDeliveryMethod] = useState("");
 
-  const { register, handleSubmit, watch, getValues } = useForm();
+  const token = useRecoilValue(userToken);
+
+  const { register, handleSubmit, getValues } = useForm();
 
   const handleImageChange = (e) => {
-    //
     const file = e.target.files[0];
-    console.log(file);
-    const formData = new FormData();
-    formData.append("image", file);
-    console.log(formData);
 
-    //
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
+    setSelectImage(file);
 
     if (file) {
       const reader = new FileReader();
@@ -33,9 +32,33 @@ export default function ProductMakePage() {
     }
   };
 
+  const createMutation = useMutation({
+    mutationFn: async ({ token, formData }) => createProduct({ token, formData }),
+    onSuccess: (data) => {
+      if (data.Success) {
+        console.log(data.Success);
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const handleCreateProduct = () => {
     const { productName, price, shippingFee, stock } = getValues();
-    console.log(productName, price, shippingFee, stock);
+
+    const formData = new FormData();
+    formData.append("product_name", productName);
+    formData.append("image", selectImage);
+    formData.append("price", price);
+    formData.append("shipping_method", deliveryMethod);
+    formData.append("shipping_fee", shippingFee);
+    formData.append("stock", stock);
+    formData.append("product_info", "에디터영역");
+
+    console.log(formData);
+
+    createMutation.mutate({ token, formData });
   };
 
   return (
@@ -48,7 +71,6 @@ export default function ProductMakePage() {
             <S.ProductImageWrapper>
               <S.Label htmlFor="file-input">
                 {imagePreview ? (
-                  //
                   <S.ProductImage src={imagePreview} alt="상품 이미지 미리보기" />
                 ) : (
                   <div>
@@ -77,8 +99,15 @@ export default function ProductMakePage() {
               <S.DeliveryMethodWrapper>
                 <span>배송방법</span>
                 <S.ButtonWrapper>
-                  <S.DeliveryBtn>택배, 소포, 등기</S.DeliveryBtn>
-                  <S.DirectDeliveryBtn>직접 배송(화물 배달)</S.DirectDeliveryBtn>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDeliveryMethod("택배");
+                    }}
+                    className={deliveryMethod === "택배" ? "active" : ""}
+                  >
+                    택배
+                  </button>
                 </S.ButtonWrapper>
               </S.DeliveryMethodWrapper>
               <S.ShippingFeeWrapper>

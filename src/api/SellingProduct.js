@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Instance } from "./Instance/Instance";
 
 // 판매하는 상품 불러오기
@@ -5,7 +6,9 @@ export const getSellingProducts = async (token) => {
   console.log(token);
   try {
     const res = await Instance.get(`/api/v1/seller`, {
-      Authorization: `Bearer ${token}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     console.log(res);
     return res.data;
@@ -56,11 +59,16 @@ export const deleteSellingProduct = async (token, productId) => {
 };
 
 // 상품 등록하기
-export const createProduct = async (token, body) => {
+export const createProduct = async ({ token, formData }) => {
   try {
-    const res = await Instance.post(`api/v1/products`, body, {
-      Authorization: `Bearer ${token}`,
+    const res = await axios.post(`https://openmarket.aroxima.dev/api/v1/products`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
     });
+
+    console.log(res);
     return res.data;
   } catch (error) {
     console.log(error);

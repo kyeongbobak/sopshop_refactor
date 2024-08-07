@@ -64,11 +64,17 @@ export const DeliveryMethodWrapper = styled.div``;
 
 export const ButtonWrapper = styled.div`
   button {
-    width: 220px;
-    height: 35px;
+    width: 207px;
+    height: 40px;
     font-family: "Pretendard";
     font-size: var(--font-min-size);
     text-align: center;
+    border: 1px solid var(--gray-color);
+
+    &.active {
+      background-color: var(--black-color);
+      color: white;
+    }
   }
 `;
 
@@ -140,16 +146,6 @@ export const ProductNameInput = styled.input`
 
 export const Input = styled.input`
   ${InputCommonStyle}
-`;
-
-export const DeliveryBtn = styled.button`
-  background-color: var(--black-color);
-  color: white;
-`;
-
-export const DirectDeliveryBtn = styled.button`
-  border: 1px solid var(--gray-color);
-  margin-left: 10px;
 `;
 
 export const InfoContents = styled.div`
