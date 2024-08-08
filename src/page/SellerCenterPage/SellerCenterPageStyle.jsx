@@ -10,10 +10,7 @@ export const ButtonCommonStyle = css`
 
 export const Wrapper = styled.div`
   width: 1280px;
-  height: 884px;
-  margin: 100px 0 0 23%;
-  border-right: 1px solid var(--black-color);
-  border-left: 1px solid var(--black-color);
+  margin: 100px 0 100px 23%;
   border-bottom: 1px solid var(--black-color);
 `;
 
@@ -36,18 +33,20 @@ export const ProductInfoWrapper = styled.div`
 export const ProductDetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  font-family: "Pretendard";
-  font-size: var(--font-md-size);
+  gap: 15px;
+  p {
+    font-family: "Pretendard";
+    font-size: var(--font-md-size);
+  }
 `;
 
 export const ProductImage = styled.img`
   width: 130px;
+  margin-right: 15px;
 `;
 
 export const ProductName = styled.p`
-  font-size: var(--font-md-size);
-  font-weight: var(--font-extra-bold);
+  font-weight: var(--font-semi-bold);
 `;
 
 export const ProductStock = styled.p``;
@@ -57,6 +56,7 @@ export const ProductPrice = styled.p`
   text-align: center;
   font-family: "Pretendard";
   font-size: var(--font-md-size);
+  font-weight: var(--font-semi-bold);
 `;
 
 export const ButtonWrapper = styled.div`

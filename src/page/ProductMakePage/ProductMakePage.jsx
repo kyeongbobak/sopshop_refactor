@@ -54,7 +54,7 @@ export default function ProductMakePage() {
     formData.append("shipping_method", deliveryMethod);
     formData.append("shipping_fee", shippingFee);
     formData.append("stock", stock);
-    formData.append("product_info", "에디터영역");
+    formData.append("product_info", "앞접시나 반찬접시");
 
     console.log(formData);
 
