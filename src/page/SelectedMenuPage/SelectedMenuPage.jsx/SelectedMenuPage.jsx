@@ -38,8 +38,7 @@ export default function SelectedMenuPage() {
         <S.Wrapper>
           <S.MenuContentsWrapper>
             <S.MenuName>{selectedMenu}</S.MenuName>
-            <MS.ProductList>{memoizedBrandProductList}</MS.ProductList>
-            {!!productList && <S.Contents>Empty</S.Contents>}
+            {productList.length === 0 ? <S.Contents>Empty</S.Contents> : <MS.ProductList>{memoizedBrandProductList}</MS.ProductList>}
           </S.MenuContentsWrapper>
         </S.Wrapper>
         <Footer />
