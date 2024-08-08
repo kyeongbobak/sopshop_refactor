@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { getProducts } from "../../../api/Product";
-import TopNavBar from "../../../components/TopNavBar/TopNavBar";
-import SideMenu from "../../../components/SideMenu/SideMenu";
-import ProductItem from "../../../components/ProductItem/ProductItem";
-import Footer from "../../../components/Footer/Footer";
-import * as MS from "../../MainPage/MainPageStyle";
+import { getProducts } from "../../api/Product";
+import TopNavBar from "../../components/TopNavBar/TopNavBar";
+import SideMenu from "../../components/SideMenu/SideMenu";
+import ProductItem from "../../components/ProductItem/ProductItem";
+import Footer from "../../components/Footer/Footer";
+import * as MS from "../MainPage/MainPageStyle";
 import * as S from "./SelectedMenuPageStyle";
 
 export default function SelectedMenuPage() {

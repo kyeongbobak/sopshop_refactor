@@ -3,7 +3,7 @@ import Login from "../page/LoginPage/LoginPage";
 import SignUp from "../page/SignUpPage/SignUpPage";
 import MainPage from "../page/MainPage/MainPage";
 import SearchPage from "../page/SearchPage/SearchPage";
-import SelectedMenuPage from "../page/SelectedMenuPage/SelectedMenuPage.jsx/SelectedMenuPage";
+import SelectedMenuPage from "../page/SelectedMenuPage/SelectedMenuPage";
 import ProductDetail from "../page/ProductDetailPage/ProductDetailPage";
 import CartPage from "../page/CartPage/CartPage";
 import OrderPage from "../page/OrderPage/OrderPage";
