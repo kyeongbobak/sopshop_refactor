@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { createProduct } from "../../api/SellingProduct";
 import { useRecoilValue } from "recoil";
 import { userToken } from "../../atom/Atom";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductMakePage() {
   const [imagePreview, setImagePreview] = useState(null);
@@ -17,6 +18,8 @@ export default function ProductMakePage() {
   const token = useRecoilValue(userToken);
 
   const { register, handleSubmit, getValues } = useForm();
+
+  const navigator = useNavigate();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -35,9 +38,8 @@ export default function ProductMakePage() {
   const createMutation = useMutation({
     mutationFn: async ({ token, formData }) => createProduct({ token, formData }),
     onSuccess: (data) => {
-      if (data.Success) {
-        console.log(data.Success);
-      }
+      const productId = data.product_id;
+      navigator(`/products/${productId}`);
     },
     onError: (error) => {
       console.log(error);
@@ -55,8 +57,6 @@ export default function ProductMakePage() {
     formData.append("shipping_fee", shippingFee);
     formData.append("stock", stock);
     formData.append("product_info", "앞접시나 반찬접시");
-
-    console.log(formData);
 
     createMutation.mutate({ token, formData });
   };

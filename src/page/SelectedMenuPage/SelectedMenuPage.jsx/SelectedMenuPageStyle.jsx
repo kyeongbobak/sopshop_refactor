@@ -20,7 +20,8 @@ export const Contents = styled.div`
   height: 300px;
   margin-top: 10%;
   padding-left: 10.2%;
+  color: var(--gray-color);
   font-size: var(--font-md-size);
-  font-weight: var(--font-light);
+  font-weight: var(--font-medium);
   text-align: center;
 `;
