@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { userToken } from "../../atom/Atom";
 import { getProducts } from "../../api/Product";
 import TopNavBar from "../../components/TopNavBar/TopNavBar";
-import SideMenu from "../../components/SideMenu/SideMenu";
+import SideBar from "../../components/SideBar/SideBar";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import Footer from "../../../src/components/Footer/Footer";
 import * as S from "../MainPage/MainPageStyle";
@@ -34,7 +34,7 @@ export default function MainPage() {
   return (
     <>
       <TopNavBar />
-      <SideMenu />
+      <SideBar />
       <S.ProductList>{memoizedProductList}</S.ProductList>
       <Footer />
     </>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import * as S from "./SideMenuStyle";
+import * as S from "./SideBarStyle";
 
-export default function SideMenu() {
+export default function SideBar() {
   const [selected, setSelected] = useState("FLOPS");
   const [searchKeyword, setSearchKeyword] = useState("");
 

@@ -14,6 +14,7 @@ export const Wrapper = styled.div`
 export const TopSection = styled.section`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 200px 0 22px;
 
   ul {

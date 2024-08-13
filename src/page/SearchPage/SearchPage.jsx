@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { search } from "../../api/Product";
 import TopNavBar from "../../components/TopNavBar/TopNavBar";
-import SideMenu from "../../components/SideMenu/SideMenu";
+import SideBar from "../../components/SideBar/SideBar";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import Footer from "../../components/Footer/Footer";
 import * as S from "./SearchPageStyle";
@@ -25,7 +25,7 @@ export default function SearchProduct() {
     <>
       <TopNavBar />
       <S.Wrapper>
-        <SideMenu />
+        <SideBar />
         <S.ContentsWrapper>
           <p>
             <span>{searchResult.length}</span> 개의 검색결과

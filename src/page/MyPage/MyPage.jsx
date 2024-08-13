@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { userToken } from "../../atom/Atom";
 import { getOrderList } from "../../api/Order";
 import TopNavBar from "../../components/TopNavBar/TopNavBar";
-import SideMenu from "../../components/SideMenu/SideMenu";
+import SideBar from "../../components/SideBar/SideBar";
 import TabTitle from "../../components/TabTitle/TabTitle";
 import Footer from "../../components/Footer/Footer";
 import * as S from "./MyPageStyle";
@@ -35,7 +35,7 @@ export default function MyPage() {
   return (
     <>
       <TopNavBar />
-      <SideMenu />
+      <SideBar />
       <CS.PageTitle>MyPage</CS.PageTitle>
       <TabTitle titles={titles} styles={styles} />
       {orderItem.map((item, index) => (

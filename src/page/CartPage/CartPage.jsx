@@ -1,5 +1,5 @@
 import TopNavBar from "../../components/TopNavBar/TopNavBar";
-import SideMenu from "../../components/SideMenu/SideMenu";
+import SideBar from "../../components/SideBar/SideBar";
 import TabTitle from "../../components/TabTitle/TabTitle";
 import CartContents from "../../components/CartContents/CartContents";
 import Footer from "../../components/Footer/Footer";
@@ -12,7 +12,7 @@ export default function CartPage() {
   return (
     <>
       <TopNavBar />
-      <SideMenu />
+      <SideBar />
       <S.PageTitle>Cart</S.PageTitle>
       <TabTitle titles={titles} showCheckBox={true} styles={styles} />
       <CartContents />

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { getProducts } from "../../api/Product";
 import TopNavBar from "../../components/TopNavBar/TopNavBar";
-import SideMenu from "../../components/SideMenu/SideMenu";
+import SideBar from "../../components/SideBar/SideBar";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import Footer from "../../components/Footer/Footer";
 import * as MS from "../MainPage/MainPageStyle";
@@ -33,7 +33,7 @@ export default function SelectedMenuPage() {
   return (
     <>
       <TopNavBar />
-      <SideMenu />
+      <SideBar />
       <div>
         <S.Wrapper>
           <S.MenuContentsWrapper>

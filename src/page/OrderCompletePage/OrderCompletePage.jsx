@@ -4,7 +4,7 @@ import { userToken } from "../../atom/Atom";
 import useProductDetail from "../../hook/useProductDetail";
 import { getOrderList } from "../../api/Order";
 import TopNavBar from "../../components/TopNavBar/TopNavBar";
-import SideMenu from "../../components/SideMenu/SideMenu";
+import SideBar from "../../components/SideBar/SideBar";
 import Footer from "../../components/Footer/Footer";
 import * as S from "./OrderCompletePageStyle";
 import * as CS from "../CartPage/CartPageStyle";
@@ -29,7 +29,7 @@ export default function OrderCompletePage() {
   return (
     <>
       <TopNavBar />
-      <SideMenu />
+      <SideBar />
       <CS.PageTitle>Order Result</CS.PageTitle>
       <S.Wrapper>
         <S.Section>
