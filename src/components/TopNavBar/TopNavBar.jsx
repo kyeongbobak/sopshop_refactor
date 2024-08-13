@@ -11,7 +11,7 @@ import shoppingBagIcon from "../../assets/img/icon-shopping-bag.png";
 import logo from "../../assets/img/Logo-SopShop.png";
 import menuIcon from "../../assets/img/menu_icon.png";
 
-export default function Header() {
+export default function TopNavBar() {
   const [sideBarState, setSideBarState] = useState(null);
 
   const setIsLogin = useSetRecoilState(isLogin);

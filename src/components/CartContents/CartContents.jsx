@@ -25,6 +25,8 @@ export default function CartContents() {
 
   const navigator = useNavigate();
 
+  console.log(cartList);
+
   const sumProductPrice = productInfo.map((i) => i.price).reduce((acc, cur, i) => acc + cur * count[i], 0);
   const sumShipping = productInfo.map((i) => i.shipping_fee).reduce((acc, cur) => acc + cur, 0);
 
@@ -80,6 +82,13 @@ export default function CartContents() {
     return res;
   };
 
+  const cartOneOrder = async (index) => {
+    console.log(index);
+    const body = {};
+    const res = modifyCartQuantity(token, body, cartList[index].cart_item_id);
+    console.log(res);
+  };
+
   // 응답 데이터에 고유한 키 값이 없어 uuid 라이브러리 사용
   return (
     <>
@@ -107,11 +116,11 @@ export default function CartContents() {
                 </S.CountControlWrapper>
                 <S.ProductPriceWrapper>
                   {cartList[index] && <S.TotalProductPrice>{(cartList[index].quantity * product.price).toLocaleString()} 원</S.TotalProductPrice>}
-                  <S.SelectOrderBtn>Order</S.SelectOrderBtn>
+                  <S.SelectOrderBtn onClick={() => cartOneOrder(index)}>Order</S.SelectOrderBtn>
                 </S.ProductPriceWrapper>
               </S.CartListWrapper>
             ))}
-            <S.ButtonWrapper>
+            <S.ActionBtnWrapper>
               <button
                 onClick={() => {
                   showModal({
@@ -144,7 +153,7 @@ export default function CartContents() {
               >
                 Empty
               </button>
-            </S.ButtonWrapper>
+            </S.ActionBtnWrapper>
             <AlertModal modalState={modalState} />
             <S.TotalPriceCal>
               <span>Sub Total</span>
@@ -155,7 +164,10 @@ export default function CartContents() {
               <span>= Total :</span>
               <p>{(sumProductPrice + sumShipping).toLocaleString()} 원</p>
             </S.TotalPriceCal>
-            <S.AllOrderBtn onClick={() => navigator(`/order`)}>All Order</S.AllOrderBtn>
+            <S.NavigationBtnWrapper>
+              <S.AllOrderBtn onClick={() => navigator(`/order`)}>All Order</S.AllOrderBtn>
+              <S.GoToMainBtn onClick={() => navigator(`/`)}>Go to Shopping</S.GoToMainBtn>
+            </S.NavigationBtnWrapper>
           </S.Wrapper>
         </>
       )}

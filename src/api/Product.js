@@ -1,11 +1,9 @@
 import { Instance } from "./Instance/Instance";
 
 // 상품 전체 불러오기
-export const getProducts = async (token) => {
+export const getProducts = async () => {
   try {
-    const res = await Instance.get(`/api/v1/products/`, {
-      Authorization: `Bearer ${token}`,
-    });
+    const res = await Instance.get(`/api/v1/products/`);
     return res.data;
   } catch (error) {
     console.log(error);

@@ -3,14 +3,12 @@ import { Instance } from "./Instance/Instance";
 
 // 판매하는 상품 불러오기
 export const getSellingProducts = async (token) => {
-  console.log(token);
   try {
     const res = await Instance.get(`/api/v1/seller`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(res);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -19,7 +17,6 @@ export const getSellingProducts = async (token) => {
 
 // 상품 수정하기
 export const modifySellingProduct = async (token, formData, productId) => {
-  console.log(token);
   try {
     const res = await Instance.put(`/api/v1/products/${productId}`, formData, {
       headers: {

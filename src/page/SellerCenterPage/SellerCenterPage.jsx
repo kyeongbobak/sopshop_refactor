@@ -10,7 +10,7 @@ import * as S from "./SellerCenterPageStyle";
 
 export default function SellerCenterPage() {
   const titles = ["상품정보", "판매가격", "수정", "삭제"];
-  const styles = [{ width: 800 }, { width: 300 }, {}];
+  const styles = [{ width: 800 }, { width: 300 }];
   const [sellingProduct, setSellingProduct] = useState([]);
   const [productId, setProductId] = useState([]);
 
@@ -18,10 +18,8 @@ export default function SellerCenterPage() {
 
   const sellingProductList = useCallback(async () => {
     const res = await getSellingProducts(token);
-    console.log(res.results);
     setSellingProduct(res.results);
     const productIds = res.results.map((product) => product.product_id);
-    console.log(productIds);
     setProductId(productIds);
   }, [token]);
 
@@ -41,14 +39,14 @@ export default function SellerCenterPage() {
     formData.append("product_info", "");
     const res = await modifySellingProduct(token, formData, productId[index]);
     sellingProductList();
-    console.log(res);
+    return res;
   };
 
   const deleteProduct = async (index) => {
     console.log(productId[index]);
     const res = await deleteSellingProduct(token, productId[index]);
-    console.log(res);
     sellingProductList();
+    return res;
   };
 
   return (

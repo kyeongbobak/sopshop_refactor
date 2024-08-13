@@ -31,7 +31,7 @@ export const ProductInfoWrapper = styled.div`
   width: 380px;
 `;
 
-export const ButtonWrapper = styled.div`
+export const ActionBtnWrapper = styled.div`
   display: flex;
   gap: 10px;
   margin: 30px 0 30px 0;
@@ -39,6 +39,17 @@ export const ButtonWrapper = styled.div`
 
   button {
     font-size: var(--font-sm-size);
+  }
+`;
+
+export const NavigationBtnWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 50px;
+
+  button {
+    padding: 15px 20px;
   }
 `;
 
@@ -108,8 +119,10 @@ export const SelectOrderBtn = styled.button`
 export const AllOrderBtn = styled.button`
   ${ButtonCommonStyle}
   width: 100px;
-  margin: 50px auto;
-  padding: 15px 20px;
+`;
+
+export const GoToMainBtn = styled.button`
+  ${ButtonCommonStyle}
 `;
 
 export const TotalProductPrice = styled.p`
