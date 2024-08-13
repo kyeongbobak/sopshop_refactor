@@ -12,7 +12,7 @@ import logo from "../../assets/img/Logo-SopShop.png";
 import menuIcon from "../../assets/img/menu_icon.png";
 
 export default function TopNavBar() {
-  const [sideBarState, setSideBarState] = useState(null);
+  const [sideMenuState, setSideMenuState] = useState(null);
 
   const setIsLogin = useSetRecoilState(isLogin);
   const isLoggedIn = useRecoilValue(isLogin);
@@ -84,22 +84,22 @@ export default function TopNavBar() {
               <li>
                 <S.MenuBtn
                   onClick={() => {
-                    setSideBarState("slideIn");
+                    setSideMenuState("slideIn");
                   }}
                 >
                   <img src={menuIcon} alt="open-menu" />
                 </S.MenuBtn>
               </li>
             </S.NavBar>
-            {sideBarState && (
+            {sideMenuState && (
               <>
                 <S.SideNavBarOverlay
-                  className={sideBarState}
+                  className={sideMenuState}
                   onClick={() => {
-                    setSideBarState("slideOut");
+                    setSideMenuState("slideOut");
                   }}
                 ></S.SideNavBarOverlay>
-                <S.SideNavBar className={sideBarState}>
+                <S.SideNavBar className={sideMenuState}>
                   <ul>
                     <li>
                       {isLoggedIn ? (
