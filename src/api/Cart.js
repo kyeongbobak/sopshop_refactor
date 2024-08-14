@@ -8,6 +8,7 @@ export const getCartList = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(res);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -16,14 +17,13 @@ export const getCartList = async (token) => {
 
 // 장바구니 물건 넣기
 export const addToCart = async (token, body) => {
-  console.log(body);
   try {
     const res = await Instance.post(`/api/v1/cart`, body, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(res);
+
     return res.data;
   } catch (error) {
     console.log(error);

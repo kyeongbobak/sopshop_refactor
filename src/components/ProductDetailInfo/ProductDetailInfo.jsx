@@ -23,7 +23,7 @@ export default function ProductDetailInfo() {
 
   const { productId } = useParams();
   const { modalState, showModal, closeModal } = useAlertModal();
-  const { cartList } = useCartList(token, userTypeValue);
+  const { cartList, refetch } = useCartList(token, userTypeValue);
 
   const findCartItem = cartList.find((i) => i.product_id === parseInt(productId));
   const findItemCount = findCartItem ? findCartItem.quantity : 0;
@@ -42,13 +42,12 @@ export default function ProductDetailInfo() {
     getProductDetail();
   }, [productId]);
 
-  console.log(product);
-
   useEffect(() => {
     if (cartList.length === 0) return;
 
     const data = cartList.map((i) => i.product_id);
     const isProductInCart = data.includes(parseInt(productId));
+    console.log(isProductInCart);
     setIsInCart(isProductInCart);
   }, [cartList, productId]);
 
@@ -56,10 +55,10 @@ export default function ProductDetailInfo() {
     const body = {
       product_id: `${parseInt(productId)}`,
       quantity: `${count}`,
-      check: isInCart,
     };
     const res = await addToCart(token, body);
-    return res;
+    console.log(res);
+    // await refetch();
   };
 
   const modifyCount = async () => {
@@ -68,9 +67,10 @@ export default function ProductDetailInfo() {
     const body = {
       product_id: productId,
       quantity: addCount,
+      is_active: false,
     };
     const res = await modifyCartQuantity(token, body, findCartItem.cart_item_id);
-    navigate(`/order`);
+    navigate(`/cart`);
     console.log(res);
     return res;
   };
@@ -139,7 +139,6 @@ export default function ProductDetailInfo() {
                           submitText: "예",
                           onCancel: closeModal,
                           onSubmit: () => {
-                            modifyCount();
                             navigate(`/cart`);
                           },
                           content: "이미 장바구니에 있는 상품입니다. 장바구니로 이동할까요?",
