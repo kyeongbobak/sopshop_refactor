@@ -111,7 +111,7 @@ export default function CartContents() {
                 <S.CheckBox key={uuidv4()} type="checkbox" checked={selected.includes(index)} onChange={() => handleCheckBox(index)} />
                 <S.ProductInfoWrapper>
                   <S.StoreName>{product.store_name}</S.StoreName>
-                  <S.Name>{product.product_name}</S.Name>
+                  <S.StyledLink to={`/products/${product.product_id}`}>{product.product_name}</S.StyledLink>
                   <S.Price>{product.price.toLocaleString()} 원</S.Price>
                   <S.ShippingMethod>{product.shipping_method === "DELIVERY" ? "택배배송" : "무료배송"}</S.ShippingMethod>
                 </S.ProductInfoWrapper>
