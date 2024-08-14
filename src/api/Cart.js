@@ -38,6 +38,7 @@ export const modifyCartQuantity = async (token, body, modifiedCartItemId) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(res);
     return await res.data;
   } catch (error) {
     console.log(error);

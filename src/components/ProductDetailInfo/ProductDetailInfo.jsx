@@ -23,7 +23,7 @@ export default function ProductDetailInfo() {
 
   const { productId } = useParams();
   const { modalState, showModal, closeModal } = useAlertModal();
-  const { cartList, refetch } = useCartList(token, userTypeValue);
+  const { cartList } = useCartList(token, userTypeValue);
 
   const findCartItem = cartList.find((i) => i.product_id === parseInt(productId));
   const findItemCount = findCartItem ? findCartItem.quantity : 0;
@@ -58,7 +58,6 @@ export default function ProductDetailInfo() {
     };
     const res = await addToCart(token, body);
     console.log(res);
-    // await refetch();
   };
 
   const modifyCount = async () => {

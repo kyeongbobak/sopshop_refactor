@@ -82,8 +82,14 @@ export default function CartContents() {
 
   const cartOneOrder = async (index) => {
     console.log(index);
-    const body = {};
+    console.log(cartList);
+    const body = {
+      product_id: cartList[index].product_id,
+      quantity: cartList[index].quantity,
+      is_active: true,
+    };
     const res = modifyCartQuantity(token, body, cartList[index].cart_item_id);
+    navigator("/order");
     console.log(res);
   };
 
