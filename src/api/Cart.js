@@ -8,7 +8,6 @@ export const getCartList = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(res);
     return res.data;
   } catch (error) {
     console.log(error);

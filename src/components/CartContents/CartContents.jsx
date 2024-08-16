@@ -7,6 +7,7 @@ import { deleteCartItem, deleteAllCartItem, modifyCartQuantity } from "../../api
 import useCartList from "../../hook/useCartList";
 import useAlertModal from "../../hook/useAlertModal";
 import useProductDetail from "../../hook/useProductDetail";
+import TabTitle from "../../components/TabTitle/TabTitle";
 import AlertModal from "../../components/Modal/AlertModal/AlertModal";
 import CountControl from "../CountControl/CountControl";
 import * as S from "./CartContentsStyle";
@@ -15,6 +16,9 @@ export default function CartContents() {
   const [productIds, setProductIds] = useState([]);
   const [count, setCount] = useState([]);
   const [selected, setSelected] = useState([]);
+
+  const titles = ["상품정보", "수량", "상품금액"];
+  const styles = [{ width: 600 }];
 
   const token = useRecoilValue(userToken);
   const userTypeValue = useRecoilValue(userType);
@@ -56,8 +60,11 @@ export default function CartContents() {
 
   const handleCheckBox = (index) => {
     setSelected((prevSelected) => {
+      // if (index === 100) {
+      //   return cartList.map((_, i) => i);
+      // } else
       if (!prevSelected.includes(index)) {
-        return [...selected, index];
+        return [...prevSelected, index];
       }
     });
   };
@@ -80,6 +87,7 @@ export default function CartContents() {
     return res;
   };
 
+  // 개별구매
   const cartOneOrder = async (index) => {
     console.log(index);
     console.log(cartList);
@@ -93,12 +101,29 @@ export default function CartContents() {
     console.log(res);
   };
 
+  // 전체 구매
+  const cartAllOrder = async () => {
+    const promises = cartList.map((item) => {
+      const body = {
+        product_id: item.product_id,
+        quantity: item.quantity,
+        is_active: true,
+      };
+      return modifyCartQuantity(token, body, item.cart_item_id);
+    });
+
+    const results = await Promise.all(promises);
+    console.log(results);
+    navigator(`/order`);
+  };
+
   // 응답 데이터에 고유한 키 값이 없어 uuid 라이브러리 사용
   return (
     <>
       {cartList.length === 0 ? (
         <>
           <S.ContentsWrapper>
+            <TabTitle titles={titles} showCheckBox={true} styles={styles} />
             <S.Contents>Empty</S.Contents>
             <button onClick={() => navigator(`/`)}> Go Shopping</button>
           </S.ContentsWrapper>
@@ -106,6 +131,7 @@ export default function CartContents() {
       ) : (
         <>
           <S.Wrapper>
+            <TabTitle titles={titles} showCheckBox={true} styles={styles} handleCheckBox={handleCheckBox} />
             {productInfo.map((product, index) => (
               <S.CartListWrapper key={uuidv4()}>
                 <S.CheckBox key={uuidv4()} type="checkbox" checked={selected.includes(index)} onChange={() => handleCheckBox(index)} />
@@ -169,7 +195,7 @@ export default function CartContents() {
               <p>{(sumProductPrice + sumShipping).toLocaleString()} 원</p>
             </S.TotalPriceCal>
             <S.NavigationBtnWrapper>
-              <S.AllOrderBtn onClick={() => navigator(`/order`)}>All Order</S.AllOrderBtn>
+              <S.AllOrderBtn onClick={() => cartAllOrder()}>All Order</S.AllOrderBtn>
               <S.GoToMainBtn onClick={() => navigator(`/`)}>Go to Shopping</S.GoToMainBtn>
             </S.NavigationBtnWrapper>
           </S.Wrapper>

@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import * as S from "./TabTitleStyle";
 
-export default function TabTitle({ titles, showCheckBox, styles }) {
+export default function TabTitle({ titles, showCheckBox, styles, handleCheckBox }) {
   return (
     <>
       <S.Wrapper>
-        {showCheckBox && <S.CheckBox type="checkbox" />}
+        {showCheckBox && <S.CheckBox type="checkbox" onClick={() => handleCheckBox(100)} />}
         {titles.map((title, index) => (
           <S.TabTitleItem key={index} style={styles[index] || []}>
             {title}

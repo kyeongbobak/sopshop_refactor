@@ -15,6 +15,8 @@ export const LogoImage = styled.img`
 
 export const StyledLink = styled(Link)``;
 
+export const Input = styled;
+
 export const NavBar = styled.ul`
   display: flex;
   gap: 30px;

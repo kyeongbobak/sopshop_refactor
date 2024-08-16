@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { CartListState, isLogin, userToken, userType } from "../../atom/Atom";
-
+import { isLogin, userToken, userType } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../api/LoginOut";
-
 import * as S from "./TopNavBarStyle";
 import shoppingBagIcon from "../../assets/img/icon-shopping-bag.png";
 import logo from "../../assets/img/Logo-SopShop.png";
 import menuIcon from "../../assets/img/menu_icon.png";
+import useCartList from "../../hook/useCartList";
 
 export default function TopNavBar() {
   const [sideMenuState, setSideMenuState] = useState(null);
@@ -18,7 +17,8 @@ export default function TopNavBar() {
   const isLoggedIn = useRecoilValue(isLogin);
   const token = useRecoilValue(userToken);
   const userTypeValue = useRecoilValue(userType);
-  const cartListLength = useRecoilValue(CartListState);
+
+  const { cartList } = useCartList(token, userTypeValue);
 
   const navigator = useNavigate();
 
@@ -77,9 +77,7 @@ export default function TopNavBar() {
             </S.StyledLink>
             <S.NavBar>
               <li>
-                <S.StyledLink to="/cart">
-                  Cart <span>{cartListLength}</span>
-                </S.StyledLink>
+                <S.StyledLink to="/cart">Cart {cartList.length}</S.StyledLink>
               </li>
               <li>
                 <S.MenuBtn
