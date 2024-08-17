@@ -60,11 +60,18 @@ export default function CartContents() {
 
   const handleCheckBox = (index) => {
     setSelected((prevSelected) => {
-      // if (index === 100) {
-      //   return cartList.map((_, i) => i);
-      // } else
-      if (!prevSelected.includes(index)) {
-        return [...prevSelected, index];
+      if (index === 100) {
+        if (prevSelected.length === cartList.length) {
+          return [];
+        } else {
+          return cartList.map((_, i) => i);
+        }
+      } else {
+        if (!prevSelected.includes(index)) {
+          return [...prevSelected, index];
+        } else {
+          return prevSelected.filter((i) => i !== index);
+        }
       }
     });
   };
@@ -74,8 +81,8 @@ export default function CartContents() {
     selected.forEach(async (index) => {
       const cartItemId = cartList[index].cart_item_id;
       const res = await deleteCartItem(token, cartItemId);
-      refetch();
       setSelected([]);
+      refetch();
       return res;
     });
   };
@@ -87,7 +94,7 @@ export default function CartContents() {
     return res;
   };
 
-  // 개별구매
+  // 개별 구매
   const cartOneOrder = async (index) => {
     console.log(index);
     console.log(cartList);

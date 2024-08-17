@@ -25,9 +25,7 @@ export default function OrderList() {
   useEffect(() => {
     const selectedOrderItem = cartList.filter((item) => item.is_active === true);
     const selectedProductId = selectedOrderItem.map((i) => i.product_id);
-
     const cartOrderProduct = productInfo.filter((i) => selectedProductId.includes(i.product_id));
-
     setCartOneOrder(cartOrderProduct);
   }, [cartList, productInfo]);
 

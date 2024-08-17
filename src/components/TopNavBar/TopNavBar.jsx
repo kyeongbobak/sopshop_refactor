@@ -4,11 +4,11 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isLogin, userToken, userType } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../api/LoginOut";
+import useCartList from "../../hook/useCartList";
 import * as S from "./TopNavBarStyle";
 import shoppingBagIcon from "../../assets/img/icon-shopping-bag.png";
 import logo from "../../assets/img/Logo-SopShop.png";
 import menuIcon from "../../assets/img/menu_icon.png";
-import useCartList from "../../hook/useCartList";
 
 export default function TopNavBar() {
   const [sideMenuState, setSideMenuState] = useState(null);
@@ -19,6 +19,8 @@ export default function TopNavBar() {
   const userTypeValue = useRecoilValue(userType);
 
   const { cartList } = useCartList(token, userTypeValue);
+
+  console.log(cartList);
 
   const navigator = useNavigate();
 
@@ -77,7 +79,7 @@ export default function TopNavBar() {
             </S.StyledLink>
             <S.NavBar>
               <li>
-                <S.StyledLink to="/cart">Cart {cartList.length}</S.StyledLink>
+                <S.StyledLink to="/cart">Cart {}</S.StyledLink>
               </li>
               <li>
                 <S.MenuBtn
