@@ -12,7 +12,7 @@ export default function SideBar() {
     setSearchKeyword(e.target.value);
   };
 
-  const onSearchHandle = async (e) => {
+  const onSearchHandle = (e) => {
     e.preventDefault();
     navigator(`/search/${searchKeyword}`);
   };

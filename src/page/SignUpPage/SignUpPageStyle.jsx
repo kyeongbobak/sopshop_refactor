@@ -91,10 +91,10 @@ export const PasswordCheckIcon = styled.img`
 `;
 
 export const PasswordConfirmIcon = styled.img`
-  margin: 153px 0 0 430px;
+  margin: 164px 0 0 430px;
 
   &.active {
-    margin: 179px 0 0 430px;
+    margin: 164px 0 0 430px;
   }
 `;
 
@@ -108,7 +108,8 @@ export const PhoneNumberInput = styled.input`
 `;
 
 export const ConfirmBtn = styled.button`
-  padding: 17px 37px;
+  height: 57px;
+  padding: 0px 37px;
   border-radius: 5px;
   background-color: var(--main-color);
   font-size: var(--font-md-size);

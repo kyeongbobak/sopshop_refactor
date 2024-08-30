@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Tabs = styled.ul`
   display: table;
@@ -12,17 +12,13 @@ export const TabItem = styled.li`
   display: table-cell;
 `;
 
-export const CommonTabItemBtnStyle = css`
+export const TabItemBtn = styled.button`
   width: 100%;
   height: 67px;
   border: 1px solid var(--gray-color);
   z-index: 2;
   background-color: var(--light-gray-color);
   cursor: pointer;
-`;
-
-export const TabItemBtn = styled.button`
-  ${CommonTabItemBtnStyle}
 
   &.active {
     border: 1px solid var(--gray-color);

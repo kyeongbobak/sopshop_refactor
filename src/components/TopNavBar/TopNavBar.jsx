@@ -4,7 +4,6 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isLogin, userToken, userType } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../api/LoginOut";
-import useCartList from "../../hook/useCartList";
 import * as S from "./TopNavBarStyle";
 import shoppingBagIcon from "../../assets/img/icon-shopping-bag.png";
 import logo from "../../assets/img/Logo-SopShop.png";
@@ -17,10 +16,6 @@ export default function TopNavBar() {
   const isLoggedIn = useRecoilValue(isLogin);
   const token = useRecoilValue(userToken);
   const userTypeValue = useRecoilValue(userType);
-
-  const { cartList } = useCartList(token, userTypeValue);
-
-  console.log(cartList);
 
   const navigator = useNavigate();
 

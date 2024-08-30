@@ -36,8 +36,6 @@ export const Input = styled.input`
 
 export const ErrorMessage = styled.p`
   color: red;
-  text-align: left;
-
   font-family: "Pretendard";
   font-weight: var(--font-medium);
   font-size: var(--font-sm-size);
