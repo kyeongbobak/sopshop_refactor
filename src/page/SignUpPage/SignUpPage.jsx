@@ -38,7 +38,7 @@ export default function SignUpPage() {
   console.log(errors.passwordConfirm);
   // watch 함수를 활용하여 실시간으로 비밀번호 일치 여부 확인하여 사용자 경험 개선
   const password = watch("password", "");
-  const passwordConfirm = watch("password2", "");
+  const passwordConfirm = watch("passwordConfirm", "");
   const frontNumber = watch("frontNumber", "");
   const secondNumber = watch("secondNumber", "");
   const lastNumber = watch("lastNumber", "");
@@ -75,7 +75,7 @@ export default function SignUpPage() {
 
   // 비밀번호 유효성검사
   useEffect(() => {
-    if (password !== passwordConfirm && passwordConfirm) {
+    if (password !== passwordConfirm) {
       // setError를 사용한 이유는 컴포넌트 전체를 다시 렌더링할 필요없이 해당 부분만 업데이트가 가능하기 때문에
       setError("passwordConfirm", {
         type: "password-mismatch",
@@ -97,7 +97,7 @@ export default function SignUpPage() {
         message: "비밀번호는 한개 이상의 숫자가 필수적으로 들어가야 합니다.",
       });
     } else {
-      clearErrors("password");
+      clearErrors("passwordConfirm");
     }
   }, [setError, clearErrors, password, passwordConfirm]);
 
@@ -176,7 +176,7 @@ export default function SignUpPage() {
           <S.PasswordInputWrapper>
             <S.Label>비밀번호</S.Label>
             <S.Input
-              type="password"
+              type="text"
               {...register("password", {
                 required: "비밀번호를 입력해주세요",
               })}
@@ -184,15 +184,10 @@ export default function SignUpPage() {
             {password ? <S.PasswordCheckIcon src={checkOnIcon} alt="checkIcon" /> : <S.PasswordCheckIcon src={checkOffIcon} alt="checkIcon" />}
             {errors.password && <LS.ErrorMessage>{errors.password.message}</LS.ErrorMessage>}
             <S.Label>비밀번호 확인</S.Label>
-            <S.Input type="password" {...register("password2")} />
-            {password === passwordConfirm && passwordConfirm ? (
-              <S.PasswordConfirmIcon src={checkOnIcon} alt="checkOn" />
-            ) : (
-              <S.PasswordConfirmIcon className={errors.password || errors.passwordConfirm ? "active" : ""} src={checkOffIcon} alt="checkIcon" />
-            )}
+            <S.Input type="text" {...register("passwordConfirm")} />
+            {passwordConfirm ? <S.PasswordConfirmIcon src={checkOnIcon} alt="checkIcon" /> : <S.PasswordConfirmIcon src={checkOffIcon} alt="checkIcon" />}
           </S.PasswordInputWrapper>
-          {password !== passwordConfirm && <LS.ErrorMessage>{errors.passwordConfirm?.message}</LS.ErrorMessage>}
-          {errors.password && <LS.ErrorMessage>{errors.password.message}</LS.ErrorMessage>}
+          {errors.passwordConfirm && <LS.ErrorMessage>{errors.passwordConfirm.message}</LS.ErrorMessage>}
           <S.Label>이름</S.Label>
           <S.Input {...register("name")} />
           <S.Label>휴대폰 번호</S.Label>
