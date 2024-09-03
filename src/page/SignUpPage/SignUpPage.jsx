@@ -72,7 +72,7 @@ export default function SignUpPage() {
     await verifyUsernameMutation.mutate(username);
   };
 
-  // 비밀번호 유효성검사
+  // 비밀번호 유효성 검사
   useEffect(() => {
     if (userPassword && userPasswordConfirm) {
       if (userPassword !== userPasswordConfirm) {
@@ -102,9 +102,9 @@ export default function SignUpPage() {
     }
   }, [setError, clearErrors, userPassword, userPasswordConfirm]);
 
-  // 휴대폰 번호 검증하기
+  // 휴대폰 번호 유효성 검사
   useEffect(() => {
-    if (phoneNumber.length > 9 && !/^\d{10,11}$/.test(phoneNumber)) {
+    if (!/^\d{11}$/.test(phoneNumber) && phoneNumber) {
       setError("phoneNumber", { type: "phoneNumber-Pattern", message: "휴대폰 번호는 10자리 또는 11자리 숫자여야 합니다." });
     } else {
       clearErrors();
