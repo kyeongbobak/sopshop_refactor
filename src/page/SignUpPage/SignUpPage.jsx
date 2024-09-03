@@ -35,10 +35,9 @@ export default function SignUpPage() {
     formState: { errors },
   } = useForm();
 
-  console.log(errors.passwordConfirm);
   // watch 함수를 활용하여 실시간으로 비밀번호 일치 여부 확인하여 사용자 경험 개선
-  const password = watch("password", "");
-  const passwordConfirm = watch("passwordConfirm", "");
+  const userPassword = watch("password", "");
+  const userPasswordConfirm = watch("passwordConfirm", "");
   const frontNumber = watch("frontNumber", "");
   const secondNumber = watch("secondNumber", "");
   const lastNumber = watch("lastNumber", "");
@@ -75,31 +74,33 @@ export default function SignUpPage() {
 
   // 비밀번호 유효성검사
   useEffect(() => {
-    if (password !== passwordConfirm) {
-      // setError를 사용한 이유는 컴포넌트 전체를 다시 렌더링할 필요없이 해당 부분만 업데이트가 가능하기 때문에
-      setError("passwordConfirm", {
-        type: "password-mismatch",
-        message: "비밀번호가 일치하지 않습니다",
-      });
-    } else if (password.length < 8) {
-      setError("passwordConfirm", {
-        type: "password-maxlength",
-        message: "비밀번호는 8자 이상이어야 합니다.",
-      });
-    } else if (password.search(/[a-z]/gi) < 0) {
-      setError("passwordConfirm", {
-        type: "password-Pattern",
-        message: "비밀번호는 한개 이상의 영소문자가 필수적으로 들어가야 합니다.",
-      });
-    } else if (password.search(/[0-9]/gi) < 0) {
-      setError("passwordConfirm", {
-        type: "password-Pattern",
-        message: "비밀번호는 한개 이상의 숫자가 필수적으로 들어가야 합니다.",
-      });
+    if (userPassword && userPasswordConfirm) {
+      if (userPassword !== userPasswordConfirm) {
+        // setError를 사용한 이유는 컴포넌트 전체를 다시 렌더링할 필요없이 해당 부분만 업데이트가 가능하기 때문에
+        setError("passwordConfirm", {
+          type: "password-mismatch",
+          message: "비밀번호가 일치하지 않습니다",
+        });
+      } else if (userPassword.length < 8) {
+        setError("passwordConfirm", {
+          type: "password-maxlength",
+          message: "비밀번호는 8자 이상이어야 합니다.",
+        });
+      } else if (userPassword.search(/[a-z]/gi) < 0) {
+        setError("passwordConfirm", {
+          type: "password-Pattern",
+          message: "비밀번호는 한개 이상의 영소문자가 필수적으로 들어가야 합니다.",
+        });
+      } else if (userPassword.search(/[0-9]/gi) < 0) {
+        setError("passwordConfirm", {
+          type: "password-Pattern",
+          message: "비밀번호는 한개 이상의 숫자가 필수적으로 들어가야 합니다.",
+        });
+      }
     } else {
       clearErrors("passwordConfirm");
     }
-  }, [setError, clearErrors, password, passwordConfirm]);
+  }, [setError, clearErrors, userPassword, userPasswordConfirm]);
 
   // 휴대폰 번호 검증하기
   useEffect(() => {
@@ -176,16 +177,16 @@ export default function SignUpPage() {
           <S.PasswordInputWrapper>
             <S.Label>비밀번호</S.Label>
             <S.Input
-              type="text"
+              type="password"
               {...register("password", {
                 required: "비밀번호를 입력해주세요",
               })}
             />
-            {password ? <S.PasswordCheckIcon src={checkOnIcon} alt="checkIcon" /> : <S.PasswordCheckIcon src={checkOffIcon} alt="checkIcon" />}
+            {userPassword ? <S.PasswordCheckIcon src={checkOnIcon} alt="checkIcon" /> : <S.PasswordCheckIcon src={checkOffIcon} alt="checkIcon" />}
             {errors.password && <LS.ErrorMessage>{errors.password.message}</LS.ErrorMessage>}
             <S.Label>비밀번호 확인</S.Label>
-            <S.Input type="text" {...register("passwordConfirm")} />
-            {passwordConfirm ? <S.PasswordConfirmIcon src={checkOnIcon} alt="checkIcon" /> : <S.PasswordConfirmIcon src={checkOffIcon} alt="checkIcon" />}
+            <S.Input type="password" {...register("passwordConfirm")} />
+            {userPasswordConfirm ? <S.PasswordConfirmIcon src={checkOnIcon} alt="checkIcon" /> : <S.PasswordConfirmIcon src={checkOffIcon} alt="checkIcon" />}
           </S.PasswordInputWrapper>
           {errors.passwordConfirm && <LS.ErrorMessage>{errors.passwordConfirm.message}</LS.ErrorMessage>}
           <S.Label>이름</S.Label>
