@@ -13,6 +13,7 @@ export const PasswordInputWrapper = styled.div`
   img {
     width: 28px;
     position: absolute;
+    margin: 55px 0px 0px 440px;
   }
 `;
 
@@ -84,18 +85,6 @@ export const Input = styled.input`
   ${CommonIntputStyle}
   flex-grow: 1;
   font-size: var(--font-md-size);
-`;
-
-export const PasswordCheckIcon = styled.img`
-  margin: 55px 0 0 430px;
-`;
-
-export const PasswordConfirmIcon = styled.img`
-  margin: 164px 0 0 430px;
-
-  &.active {
-    margin: 164px 0 0 430px;
-  }
 `;
 
 export const FrontNumberInput = styled.input`

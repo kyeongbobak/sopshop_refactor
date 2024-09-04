@@ -159,8 +159,10 @@ export default function SignUpPage() {
                 },
               })}
             />
-            {userPassword ? <S.PasswordCheckIcon src={checkOnIcon} alt="checkIcon" /> : <S.PasswordCheckIcon src={checkOffIcon} alt="checkIcon" />}
-            {errors.password && <LS.ErrorMessage>{errors.password.message}</LS.ErrorMessage>}
+            {userPassword ? <img src={checkOnIcon} alt="checkIcon" /> : <img src={checkOffIcon} alt="checkIcon" />}
+          </S.PasswordInputWrapper>
+          {errors.password && <LS.ErrorMessage>{errors.password.message}</LS.ErrorMessage>}
+          <S.PasswordInputWrapper>
             <S.Label>비밀번호 확인</S.Label>
             <S.Input
               type="password"
@@ -174,7 +176,7 @@ export default function SignUpPage() {
                 },
               })}
             />
-            {userPasswordConfirm ? <S.PasswordConfirmIcon src={checkOnIcon} alt="checkIcon" /> : <S.PasswordConfirmIcon src={checkOffIcon} alt="checkIcon" />}
+            {userPasswordConfirm ? <img src={checkOnIcon} alt="checkIcon" /> : <img src={checkOffIcon} alt="checkIcon" />}
           </S.PasswordInputWrapper>
           {errors.passwordConfirm && <LS.ErrorMessage>{errors.passwordConfirm.message}</LS.ErrorMessage>}
           <S.Label>이름</S.Label>
