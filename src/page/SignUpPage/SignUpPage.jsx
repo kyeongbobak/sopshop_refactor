@@ -230,7 +230,7 @@ export default function SignUpPage() {
                 </S.ConfirmBtn>
               </S.Wrapper>
               {errors.companyNumber && <LS.ErrorMessage>{errors.companyNumber.message}</LS.ErrorMessage>}
-              <LS.ErrorMessage>{validationMessage}</LS.ErrorMessage>
+              {validationMessage && <LS.ErrorMessage>{validationMessage}</LS.ErrorMessage>}
               <S.Label>스토어 이름</S.Label>
               <S.Input />
             </S.SellerInputSection>
