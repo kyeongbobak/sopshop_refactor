@@ -17,6 +17,7 @@ import checkOnIcon from "../../assets/img/icon-check-on.png";
 export default function SignUpPage() {
   const [isBuyer, setIsBuyer] = useState(true);
   const [duplicateMessage, setDuplicateMessage] = useState("");
+  const [validationMessage, setValidationMessage] = useState("");
   const [activeOption, setActiveOption] = useState(false);
 
   const setUserType = useSetRecoilState(userType);
@@ -107,9 +108,9 @@ export default function SignUpPage() {
     onSuccess: (data) => {
       console.log(data);
       if (data.Success) {
-        setDuplicateMessage(data.Success);
+        setValidationMessage(data.Success);
       } else if (data.FAIL_Message) {
-        setDuplicateMessage(data.FAIL_Message);
+        setValidationMessage(data.FAIL_Message);
       }
     },
     onError: () => {
@@ -229,7 +230,7 @@ export default function SignUpPage() {
                 </S.ConfirmBtn>
               </S.Wrapper>
               {errors.companyNumber && <LS.ErrorMessage>{errors.companyNumber.message}</LS.ErrorMessage>}
-              <LS.ErrorMessage>{duplicateMessage}</LS.ErrorMessage>
+              <LS.ErrorMessage>{validationMessage}</LS.ErrorMessage>
               <S.Label>스토어 이름</S.Label>
               <S.Input />
             </S.SellerInputSection>
