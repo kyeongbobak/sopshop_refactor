@@ -14,14 +14,14 @@ export const signUp = async (body) => {
 // 계정 검증하기
 export const validateAccount = async (userId) => {
   console.log(userId);
-  const res = await Instance.post(`/accounts/signup/valid/username/`, { username: userId });
+  const res = await Instance.post(`api/v1/accounts/signup/valid/username/`, { username: userId });
   return res.data;
 };
 
 // 사업자 등록번호 검증하기
 export const validateCompanyNumber = async (companyNumber) => {
   console.log(companyNumber);
-  const res = await Instance.post(`/accounts/signup/valid/company_registration_number/`, { company_registration_number: companyNumber });
+  const res = await Instance.post(`api/v1/accounts/signup/valid/company_registration_number/`, { company_registration_number: companyNumber });
   console.log(res);
   return res.data;
 };

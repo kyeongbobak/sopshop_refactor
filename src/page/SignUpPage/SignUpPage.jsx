@@ -39,10 +39,10 @@ export default function SignUpPage() {
   const userPassword = watch("password", "");
   const userPasswordConfirm = watch("passwordConfirm", "");
   const frontNumber = watch("frontNumber", "");
-  const secondNumber = watch("secondNumber", "");
-  const lastNumber = watch("lastNumber", "");
+  const middleNumber = watch("middleNumber", "");
+  const endNumber = watch("endNumber", "");
 
-  const phoneNumber = [frontNumber, secondNumber, lastNumber].join("");
+  const phoneNumber = [frontNumber, middleNumber, endNumber].join("");
 
   // 계정 검증하기
   const verifyUsernameMutation = useMutation({
@@ -72,44 +72,16 @@ export default function SignUpPage() {
     await verifyUsernameMutation.mutate(username);
   };
 
-  // 비밀번호 유효성 검사
-  useEffect(() => {
-    if (userPassword && userPasswordConfirm) {
-      if (userPassword !== userPasswordConfirm) {
-        // setError를 사용한 이유는 컴포넌트 전체를 다시 렌더링할 필요없이 해당 부분만 업데이트가 가능하기 때문에
-        setError("passwordConfirm", {
-          type: "password-mismatch",
-          message: "비밀번호가 일치하지 않습니다",
-        });
-      } else if (userPassword.length < 8) {
-        setError("passwordConfirm", {
-          type: "password-maxlength",
-          message: "비밀번호는 8자 이상이어야 합니다.",
-        });
-      } else if (userPassword.search(/[a-z]/gi) < 0) {
-        setError("passwordConfirm", {
-          type: "password-Pattern",
-          message: "비밀번호는 한개 이상의 영소문자가 필수적으로 들어가야 합니다.",
-        });
-      } else if (userPassword.search(/[0-9]/gi) < 0) {
-        setError("passwordConfirm", {
-          type: "password-Pattern",
-          message: "비밀번호는 한개 이상의 숫자가 필수적으로 들어가야 합니다.",
-        });
-      }
-    } else {
-      clearErrors("passwordConfirm");
-    }
-  }, [setError, clearErrors, userPassword, userPasswordConfirm]);
-
   // 휴대폰 번호 유효성 검사
   useEffect(() => {
-    if (!/^\d{11}$/.test(phoneNumber) && phoneNumber) {
-      setError("phoneNumber", { type: "phoneNumber-Pattern", message: "휴대폰 번호는 10자리 또는 11자리 숫자여야 합니다." });
-    } else {
-      clearErrors();
+    if (middleNumber || endNumber) {
+      if (!/^\d{11}$/.test(phoneNumber)) {
+        setError("phoneNumber", { type: "phoneNumber-Pattern", message: "휴대폰 번호는 10자리 또는 11자리 숫자여야 합니다." });
+      } else {
+        clearErrors("phoneNumber");
+      }
     }
-  }, [setError, clearErrors, phoneNumber]);
+  }, [setError, clearErrors, phoneNumber, frontNumber, middleNumber, endNumber]);
 
   const SingUpMutation = useMutation({
     mutationFn: signUp,
@@ -180,12 +152,27 @@ export default function SignUpPage() {
               type="password"
               {...register("password", {
                 required: "비밀번호를 입력해주세요",
+                validate: {
+                  hasLowCase: (value) => /[a-z]/.test(value) || "비밀번호는 한 개 이상의 영소문자가 포함되어야 합니다.",
+                  hasNumber: (value) => /[0-9]/.test(value) || "비밀번호는 한 개 이상의 숫자가 포함되어야 합니다.",
+                },
               })}
             />
             {userPassword ? <S.PasswordCheckIcon src={checkOnIcon} alt="checkIcon" /> : <S.PasswordCheckIcon src={checkOffIcon} alt="checkIcon" />}
             {errors.password && <LS.ErrorMessage>{errors.password.message}</LS.ErrorMessage>}
             <S.Label>비밀번호 확인</S.Label>
-            <S.Input type="password" {...register("passwordConfirm")} />
+            <S.Input
+              type="password"
+              {...register("passwordConfirm", {
+                required: "비밀번호를 확인해주세요.",
+                validate: {
+                  matchPassword: (value) => {
+                    const { password } = getValues();
+                    return password === value || "비밀번호가 일치하지 않습니다.";
+                  },
+                },
+              })}
+            />
             {userPasswordConfirm ? <S.PasswordConfirmIcon src={checkOnIcon} alt="checkIcon" /> : <S.PasswordConfirmIcon src={checkOffIcon} alt="checkIcon" />}
           </S.PasswordInputWrapper>
           {errors.passwordConfirm && <LS.ErrorMessage>{errors.passwordConfirm.message}</LS.ErrorMessage>}
@@ -213,17 +200,17 @@ export default function SignUpPage() {
               )}
             </div>
             <S.PhoneNumberInput
-              {...register("secondNumber", {
+              {...register("middleNumber", {
                 required: "휴대폰 번호를 입력해주세요",
               })}
             />
             <S.PhoneNumberInput
-              {...register("lastNumber", {
+              {...register("endNumber", {
                 required: "휴대폰 번호를 입력해주세요",
               })}
             />
           </S.PhoneInputWrapper>
-          {(errors.secondNumber || errors.lastNumber) && <LS.ErrorMessage>{errors.secondNumber.message}</LS.ErrorMessage>}
+          {(errors.middleNumber || errors.endNumber) && <LS.ErrorMessage>{errors.middleNumber?.message || errors.endNumber?.message}</LS.ErrorMessage>}
           {errors.phoneNumber && <LS.ErrorMessage>{errors.phoneNumber.message}</LS.ErrorMessage>}
           {!isBuyer && (
             <S.SellerInputSection>
