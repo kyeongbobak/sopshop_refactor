@@ -24,6 +24,7 @@ export default function CartContents() {
   const userTypeValue = useRecoilValue(userType);
 
   const { cartList, refetch } = useCartList(token, userTypeValue);
+  console.log(cartList);
   const { productInfo } = useProductDetail(token, productIds);
   const { modalState, showModal, closeModal } = useAlertModal();
 
@@ -152,7 +153,7 @@ export default function CartContents() {
                   <CountControl key={index} count={count[index]} onCountChange={(newCount) => handleCountChange(index, newCount)} />
                 </S.CountControlWrapper>
                 <S.ProductPriceWrapper>
-                  {cartList[index] && <S.TotalProductPrice>{(cartList[index].quantity * product.price).toLocaleString()} 원</S.TotalProductPrice>}
+                  <S.TotalProductPrice>{(product.price * count).toLocaleString()} 원</S.TotalProductPrice>
                   <S.SelectOrderBtn onClick={() => cartOneOrder(index)}>Order</S.SelectOrderBtn>
                 </S.ProductPriceWrapper>
               </S.CartListWrapper>

@@ -1,4 +1,4 @@
-const { useState } = require("react");
+import { useState } from "react";
 
 // 커스텀 훅 useAlertModal 정의
 const useAlertModal = () => {

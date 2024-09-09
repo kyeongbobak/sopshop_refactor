@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import { getProductDetails } from "../api/Product";
 
 // 커스텀 훅 useProductDetail 정의
-const useProductDetail = (token, productId) => {
-  console.log(productId);
+const useProductDetail = (token, productIds) => {
+  console.log(productIds);
   const [productInfo, setProductInfo] = useState([]);
   useEffect(() => {
     const getProductInfo = async () => {
-      const promises = productId.map((i) => getProductDetails(i));
+      const promises = productIds.map((i) => getProductDetails(i));
       const results = await Promise.all(promises);
       setProductInfo(results);
     };
     getProductInfo();
-  }, [productId, token]);
+  }, [productIds, token]);
 
   return { productInfo };
 };

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCartList } from "../api/Cart";
 
+// 커스텀 훅 useCartList 정의
 const useCartList = (token, userTypeValue) => {
   const [cartList, setCartList] = useState([]);
 
