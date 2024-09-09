@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userToken, userType } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import { deleteCartItem, deleteAllCartItem, modifyCartQuantity } from "../../api/Cart";
 import useCartList from "../../hook/useCartList";
 import useAlertModal from "../../hook/useAlertModal";
@@ -125,7 +124,6 @@ export default function CartContents() {
     navigator(`/order`);
   };
 
-  // 응답 데이터에 고유한 키 값이 없어 uuid 라이브러리 사용
   return (
     <>
       {cartList.length === 0 ? (
@@ -141,8 +139,8 @@ export default function CartContents() {
           <S.Wrapper>
             <TabTitle titles={titles} showCheckBox={true} styles={styles} handleCheckBox={handleCheckBox} />
             {productInfo.map((product, index) => (
-              <S.CartListWrapper key={uuidv4()}>
-                <S.CheckBox key={uuidv4()} type="checkbox" checked={selected.includes(index)} onChange={() => handleCheckBox(index)} />
+              <S.CartListWrapper key={index}>
+                <S.CheckBox key={index} type="checkbox" checked={selected.includes(index)} onChange={() => handleCheckBox(index)} />
                 <S.ProductInfoWrapper>
                   <S.StoreName>{product.store_name}</S.StoreName>
                   <S.StyledLink to={`/products/${product.product_id}`}>{product.product_name}</S.StyledLink>
@@ -153,7 +151,7 @@ export default function CartContents() {
                   <CountControl key={index} count={count[index]} onCountChange={(newCount) => handleCountChange(index, newCount)} />
                 </S.CountControlWrapper>
                 <S.ProductPriceWrapper>
-                  <S.TotalProductPrice>{(product.price * count).toLocaleString()} 원</S.TotalProductPrice>
+                  <S.TotalProductPrice>{(product.price * count[index]).toLocaleString()} 원</S.TotalProductPrice>
                   <S.SelectOrderBtn onClick={() => cartOneOrder(index)}>Order</S.SelectOrderBtn>
                 </S.ProductPriceWrapper>
               </S.CartListWrapper>
