@@ -83,7 +83,7 @@ export default function OrderList() {
             <span>+</span>
             <span>Total Shipping Fee</span>
             <p>{sumShipping.toLocaleString()} 원</p>
-            <span>= Total Order Price :</span>
+            <span> Total Order Price :</span>
             <p>{(sumProductPrice + sumShipping).toLocaleString()} 원</p>
           </CS.TotalPriceCal>
         </S.Wrapper>

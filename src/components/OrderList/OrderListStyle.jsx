@@ -43,7 +43,7 @@ export const ProductInfo = styled.div`
 
 export const Image = styled.img`
   width: 104px;
-  height: 104px;
+  height: 120px;
   object-fit: cover;
 `;
 
