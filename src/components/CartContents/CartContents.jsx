@@ -12,7 +12,6 @@ import CountControl from "../CountControl/CountControl";
 import * as S from "./CartContentsStyle";
 
 export default function CartContents() {
-  const [productIds, setProductIds] = useState([]);
   const [count, setCount] = useState([]);
   const [selected, setSelected] = useState([]);
 
@@ -22,9 +21,8 @@ export default function CartContents() {
   const token = useRecoilValue(userToken);
   const userTypeValue = useRecoilValue(userType);
 
-  const { cartList, refetch } = useCartList(token, userTypeValue);
-  console.log(cartList);
-  const { productInfo } = useProductDetail(token, productIds);
+  const { cartList, refetch, cartProducts } = useCartList(token, userTypeValue);
+  const { productInfo } = useProductDetail(token, cartProducts);
   const { modalState, showModal, closeModal } = useAlertModal();
 
   const navigator = useNavigate();
@@ -33,9 +31,7 @@ export default function CartContents() {
   const sumShipping = productInfo.map((i) => i.shipping_fee).reduce((acc, cur) => acc + cur, 0);
 
   useEffect(() => {
-    const productId = cartList.map((i) => i.product_id);
     const quantity = cartList.map((i) => i.quantity);
-    setProductIds(productId);
     setCount(quantity);
   }, [cartList]);
 
@@ -79,6 +75,7 @@ export default function CartContents() {
   // 장바구니 개별 삭제하기
   const deleteCartList = async () => {
     selected.forEach(async (index) => {
+      console.log(index);
       const cartItemId = cartList[index].cart_item_id;
       const res = await deleteCartItem(token, cartItemId);
       setSelected([]);

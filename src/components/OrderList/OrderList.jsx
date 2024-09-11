@@ -7,15 +7,14 @@ import * as S from "./OrderListStyle";
 import * as CS from "../CartContents/CartContentsStyle";
 
 export default function OrderList() {
-  const [productIds, setProductIds] = useState([]);
   const [count, setCount] = useState([]);
   const [cartOneOrder, setCartOneOrder] = useState([]);
 
   const token = useRecoilValue(userToken);
   const userTypeValue = useRecoilValue(userType);
 
-  const { cartList } = useCartList(token, userTypeValue);
-  const { productInfo } = useProductDetail(token, productIds);
+  const { cartList, cartProducts } = useCartList(token, userTypeValue);
+  const { productInfo } = useProductDetail(token, cartProducts);
 
   console.log(cartList);
 
@@ -30,9 +29,8 @@ export default function OrderList() {
   }, [cartList, productInfo]);
 
   useEffect(() => {
-    const productId = cartList.map((i) => i.product_id);
     const quantity = cartList.map((i) => i.quantity);
-    setProductIds(productId);
+
     setCount(quantity);
   }, [cartList]);
 
