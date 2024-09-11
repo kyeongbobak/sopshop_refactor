@@ -11,7 +11,7 @@ const useCartList = (token, userTypeValue) => {
       if (token && userTypeValue === "BUYER") {
         const res = await getCartList(token);
         setCartList(res.results);
-        const productId = res.results.map((list) => list.product_id);
+        const productId = res.results.map((item) => item.product_id);
         setCartProducts(productId);
       }
     };
