@@ -27,8 +27,10 @@ export default function CartContents() {
 
   const navigator = useNavigate();
 
-  const sumProductPrice = productInfo.reduce((acc, cur, i) => acc + cur.price * count[i], 0);
-  const sumShipping = productInfo.reduce((acc, cur) => acc + cur.shopping_fee, 0);
+  console.log(productInfo);
+
+  const sumProductPrice = productInfo.reduce((acc, cur, index) => acc + cur.price * cartList[index].quantity, 0);
+  const sumShipping = productInfo.reduce((acc, cur) => acc + cur.shipping_fee, 0);
 
   useEffect(() => {
     const quantity = cartList.map((i) => i.quantity);

@@ -16,10 +16,8 @@ export default function OrderList() {
   const { cartList, cartProducts } = useCartList(token, userTypeValue);
   const { productInfo } = useProductDetail(token, cartProducts);
 
-  console.log(cartList);
-
-  const sumProductPrice = productInfo.map((i, index) => i.price * count[index]).reduce((acc, cur) => acc + cur, 0);
-  const sumShipping = productInfo.map((i) => i.shipping_fee).reduce((acc, cur) => acc + cur, 0);
+  const sumProductPrice = productInfo.reduce((acc, cur, i) => acc + cur.price * count[i], 0);
+  const sumShipping = productInfo.reduce((acc, cur) => acc + cur.shipping_fee, 0);
 
   useEffect(() => {
     const selectedOrderItem = cartList.filter((item) => item.is_active === true);
