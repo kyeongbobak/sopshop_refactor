@@ -94,6 +94,7 @@ export const ProductInfo = styled.p`
 
 export const ProductStoreName = styled.p`
   ${ProductInfoCommonStyle}
+  margin-top: 30px;
 `;
 
 export const StyledLink = styled(Link)`
