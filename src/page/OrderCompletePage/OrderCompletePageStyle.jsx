@@ -31,6 +31,7 @@ export const ProductInfoWrapper = styled.div`
   margin-top: 10px;
   p {
     font-family: "Pretendard";
+    padding-bottom: 10px;
   }
 `;
 

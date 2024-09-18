@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { orderType, userToken, userType } from "../../atom/Atom";
 import { useForm } from "react-hook-form";
@@ -24,8 +24,10 @@ export default function OrderForm() {
   const orderState = useRecoilValue(orderType);
   const userTypeValue = useRecoilValue(userType);
 
-  const { cartList } = useCartList(token, userTypeValue);
-  const { productInfo } = useProductDetail(token, productIds);
+  console.log(orderState);
+
+  const { cartList, cartProducts } = useCartList(token, userTypeValue);
+  const { productInfo } = useProductDetail(token, cartProducts);
 
   useEffect(() => {
     const productIdArray = cartList.map((i) => i.product_id);
@@ -38,15 +40,10 @@ export default function OrderForm() {
   const productId = productIds.join("");
   const quantity = counts.join("");
 
-  const { totalShippingFee, totalProductPrice } = useMemo(() => {
-    const totalShippingFee = productInfo.map((i) => i.shipping_fee).reduce((acc, cur) => acc + cur, 0);
-    const totalProductPrice = productInfo.map((i) => i.price).reduce((acc, cur) => acc + cur, 0);
+  const sumProductPrice = productInfo.reduce((acc, cur, index) => acc + cur.price * cartList[index].quantity, 0);
+  const sumShipping = productInfo.reduce((acc, cur) => acc + cur.shipping_fee, 0);
 
-    return {
-      totalShippingFee,
-      totalProductPrice,
-    };
-  }, [productInfo]);
+  const totalProductPrice = sumProductPrice + sumShipping;
 
   const {
     register,
@@ -79,8 +76,9 @@ export default function OrderForm() {
     setStreetAddress(data.address);
   };
 
-  const submitPayMent = async () => {
+  const submitPayMent = async (data) => {
     const { receiver, receiverFrontNumber, receiverSecondNumber, receiverLastNumber, detailAddress, deliveryMessage } = getValues();
+    console.log(data);
 
     const phoneNumber = [receiverFrontNumber, receiverSecondNumber, receiverLastNumber].join("");
     const address = [zipCode, streetAddress, detailAddress].join("");
@@ -97,6 +95,8 @@ export default function OrderForm() {
       payment_method: paymentMethod,
       total_price: `${totalProductPrice}`,
     };
+
+    console.log(orderState);
 
     const res = await order(directOrder, token);
 
@@ -188,7 +188,7 @@ export default function OrderForm() {
               <S.PayMentWrapper>
                 <p>
                   - 상품 금액
-                  <span>46,500 원</span>
+                  <span>{sumProductPrice.toLocaleString()} 원</span>
                 </p>
                 <p>
                   - 할인 금액
@@ -196,11 +196,11 @@ export default function OrderForm() {
                 </p>
                 <S.ShippingFee>
                   - 베송비
-                  <span>{totalShippingFee.toLocaleString()} 원</span>
+                  <span>{sumShipping.toLocaleString()} 원</span>
                 </S.ShippingFee>
                 <S.PayMentPrice>
                   - 결제
-                  <span>46,500 원</span>
+                  <span>{totalProductPrice.toLocaleString()} 원</span>
                 </S.PayMentPrice>
                 <S.AgreeMentWrapper>
                   <S.AgreeMentInput type="checkbox" />

@@ -23,8 +23,12 @@ export default function OrderCompletePage() {
   }, [token]);
 
   const productId = orderList.length > 0 ? orderList[0].order_items : [];
-  const { productInfo } = useProductDetail(productId, token);
+  const { productInfo } = useProductDetail(token, productId);
   const product = productInfo.length > 0 ? productInfo[0] : null;
+
+  console.log(orderList);
+  console.log(productInfo);
+  console.log(product);
 
   return (
     <>
@@ -40,7 +44,7 @@ export default function OrderCompletePage() {
                 <S.ProductName>{product.product_name}</S.ProductName>
                 <S.ProductPrice>{product.price.toLocaleString()} 원</S.ProductPrice>
                 <S.ProductInfo>
-                  <span>제품 상세정보 : </span>
+                  <p>제품 상세정보 : </p>
                   {product.products_info}
                 </S.ProductInfo>
                 <S.ProductStoreName>

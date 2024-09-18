@@ -57,7 +57,7 @@ export default function ProductDetailInfo() {
       quantity: `${count}`,
     };
     const res = await addToCart(token, body);
-    console.log(res);
+    return res;
   };
 
   const modifyCount = async () => {
