@@ -10,13 +10,18 @@ export const ProductInfoWrapper = styled.div`
   width: 600px;
   display: flex;
   gap: 30px;
-  justify-content: center;
+
   align-items: center;
   padding: 20px 0;
+
+  div {
+    flex-grow: 1;
+  }
 `;
 
 export const ProductImage = styled.img`
-  width: 300px;
+  width: 200px;
+  padding-left: 50px;
 `;
 
 export const ProductInfoCommonStyle = css`

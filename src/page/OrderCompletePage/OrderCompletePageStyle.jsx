@@ -87,7 +87,7 @@ export const ProductPrice = styled.p`
   color: #d24139;
 `;
 
-export const ProductInfo = styled.p`
+export const ProductInfo = styled.div`
   ${ProductInfoCommonStyle}
   margin-top: 30px;
 `;
