@@ -119,15 +119,13 @@ export const Section = styled.div`
   display: flex;
 `;
 
-export const Label = styled.label`
-  div {
-    width: 454px;
-    height: 454px;
-    background-color: var(--gray-color);
-    text-align: center;
-    padding-top: 202px;
-    box-sizing: border-box;
-  }
+export const PreviewImage = styled.div`
+  width: 454px;
+  height: 454px;
+  background-color: var(--gray-color);
+  text-align: center;
+  padding-top: 202px;
+  box-sizing: border-box;
 `;
 
 export const ProductImage = styled.img`

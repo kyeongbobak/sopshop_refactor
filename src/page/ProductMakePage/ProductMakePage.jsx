@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import SellerCenterHeader from "../../components/SellerCenterHeader/SellerCenterHeader";
 import SellerCenterSideMenu from "../../components/SellerCenterSideMenu/SellerCenterSideMenu";
@@ -17,9 +17,17 @@ export default function ProductMakePage() {
 
   const token = useRecoilValue(userToken);
 
+  const fileInputRef = useRef(null);
+
   const { register, handleSubmit, getValues } = useForm();
 
   const navigator = useNavigate();
+
+  const handleUploadImage = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -69,16 +77,14 @@ export default function ProductMakePage() {
         <S.Form onSubmit={handleSubmit(handleCreateProduct)}>
           <S.Section>
             <S.ProductImageWrapper>
-              <S.Label htmlFor="file-input">
-                {imagePreview ? (
-                  <S.ProductImage src={imagePreview} alt="상품 이미지 미리보기" />
-                ) : (
-                  <div>
-                    <S.IconImage src={uploadImage} alt="uploadImage" />
-                  </div>
-                )}
-              </S.Label>
-              <input id="file-input" type="file" hidden onChange={handleImageChange} />
+              {imagePreview ? (
+                <S.ProductImage src={imagePreview} alt="상품 이미지 미리보기" />
+              ) : (
+                <S.PreviewImage>
+                  <S.IconImage src={uploadImage} alt="uploadImage" onClick={handleUploadImage} />
+                </S.PreviewImage>
+              )}
+              <input id="file-input" type="file" hidden ref={fileInputRef} onChange={handleImageChange} />
             </S.ProductImageWrapper>
             <S.ProductDetailWrapper>
               <S.ProductNameWrapper>
