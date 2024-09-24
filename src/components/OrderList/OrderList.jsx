@@ -3,6 +3,7 @@ import { userToken, userType } from "../../atom/Atom";
 import { useRecoilValue } from "recoil";
 import useCartList from "../../hook/useCartList";
 import useProductDetail from "../../hook/useProductDetail";
+import { totalProductPrice, totalShippingPrice } from "../../utils/calculate";
 import * as S from "./OrderListStyle";
 import * as CS from "../CartContents/CartContentsStyle";
 
@@ -16,8 +17,8 @@ export default function OrderList() {
   const { cartList, cartProducts } = useCartList(token, userTypeValue);
   const { productInfo } = useProductDetail(token, cartProducts);
 
-  const sumProductPrice = productInfo.reduce((acc, cur, i) => acc + cur.price * count[i], 0);
-  const sumShipping = productInfo.reduce((acc, cur) => acc + cur.shipping_fee, 0);
+  const sumProductPrice = totalProductPrice(productInfo, cartList);
+  const sumShipping = totalShippingPrice(productInfo);
 
   useEffect(() => {
     const selectedOrderItem = cartList.filter((item) => item.is_active === true);

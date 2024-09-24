@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { userToken, userType } from "../../atom/Atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { orderType, userToken, userType } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
 import { deleteCartItem, deleteAllCartItem, modifyCartQuantity } from "../../api/Cart";
+import { totalProductPrice, totalShippingPrice } from "../../utils/calculate";
 import useCartList from "../../hook/useCartList";
 import useAlertModal from "../../hook/useAlertModal";
 import useProductDetail from "../../hook/useProductDetail";
@@ -20,6 +21,7 @@ export default function CartContents() {
 
   const token = useRecoilValue(userToken);
   const userTypeValue = useRecoilValue(userType);
+  const setOrderType = useSetRecoilState(orderType);
 
   const { cartList, refetch, cartProducts } = useCartList(token, userTypeValue);
   const { productInfo } = useProductDetail(token, cartProducts);
@@ -27,10 +29,8 @@ export default function CartContents() {
 
   const navigator = useNavigate();
 
-  console.log(productInfo);
-
-  const sumProductPrice = productInfo.reduce((acc, cur, index) => acc + cur.price * cartList[index].quantity, 0);
-  const sumShipping = productInfo.reduce((acc, cur) => acc + cur.shipping_fee, 0);
+  const sumProductPrice = totalProductPrice(productInfo, cartList);
+  const sumShipping = totalShippingPrice(productInfo);
 
   useEffect(() => {
     const quantity = cartList.map((i) => i.quantity);
@@ -95,16 +95,15 @@ export default function CartContents() {
 
   // 개별 구매
   const cartOneOrder = async (index) => {
-    console.log(index);
-    console.log(cartList);
     const body = {
       product_id: cartList[index].product_id,
       quantity: cartList[index].quantity,
       is_active: true,
     };
     const res = modifyCartQuantity(token, body, cartList[index].cart_item_id);
+    setOrderType("direct_order");
     navigator("/order");
-    console.log(res);
+    return res;
   };
 
   // 전체 구매
@@ -118,9 +117,11 @@ export default function CartContents() {
       return modifyCartQuantity(token, body, item.cart_item_id);
     });
 
-    const results = await Promise.all(promises);
-    console.log(results);
+    const res = await Promise.all(promises);
+
+    setOrderType("cart_order");
     navigator(`/order`);
+    return res;
   };
 
   return (

@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 import { orderType, userToken, userType } from "../../atom/Atom";
 import { useForm } from "react-hook-form";
 import { order } from "../../api/Order";
+import { totalProductPrice, totalShippingPrice } from "../../utils/calculate";
 import useCartList from "../../hook/useCartList";
 import useProductDetail from "../../hook/useProductDetail";
 import ZipCodeSearchModal from "../../components/Modal/ZipCodeSearchModal/ZipCodeSearchModal";
@@ -24,8 +25,6 @@ export default function OrderForm() {
   const orderState = useRecoilValue(orderType);
   const userTypeValue = useRecoilValue(userType);
 
-  console.log(orderState);
-
   const { cartList, cartProducts } = useCartList(token, userTypeValue);
   const { productInfo } = useProductDetail(token, cartProducts);
 
@@ -40,10 +39,10 @@ export default function OrderForm() {
   const productId = productIds.join("");
   const quantity = counts.join("");
 
-  const sumProductPrice = productInfo.reduce((acc, cur, index) => acc + cur.price * cartList[index].quantity, 0);
-  const sumShipping = productInfo.reduce((acc, cur) => acc + cur.shipping_fee, 0);
+  const sumProductPrice = totalProductPrice(productInfo, cartList);
+  const sumShipping = totalShippingPrice(productInfo);
 
-  const totalProductPrice = sumProductPrice + sumShipping;
+  const totalOrderProductPrice = sumProductPrice + sumShipping;
 
   const {
     register,
@@ -76,15 +75,24 @@ export default function OrderForm() {
     setStreetAddress(data.address);
   };
 
-  const submitPayMent = async (data) => {
+  const submitPayMent = async () => {
     const { receiver, receiverFrontNumber, receiverSecondNumber, receiverLastNumber, detailAddress, deliveryMessage } = getValues();
-    console.log(data);
 
     const phoneNumber = [receiverFrontNumber, receiverSecondNumber, receiverLastNumber].join("");
     const address = [zipCode, streetAddress, detailAddress].join("");
 
     // 바로 구매하기
-    const directOrder = {
+    const cartAllOrder = {
+      order_kind: orderState,
+      receiver: receiver,
+      receiver_phone_number: phoneNumber,
+      address: address,
+      address_message: deliveryMessage,
+      payment_method: paymentMethod,
+      total_price: totalOrderProductPrice,
+    };
+
+    const cartOneOrder = {
       product_id: productId,
       quantity: quantity,
       order_kind: orderState,
@@ -93,12 +101,12 @@ export default function OrderForm() {
       address: address,
       address_message: deliveryMessage,
       payment_method: paymentMethod,
-      total_price: `${totalProductPrice}`,
+      total_price: totalOrderProductPrice,
     };
 
-    console.log(orderState);
+    const body = orderState === "cart_order" ? cartAllOrder : cartOneOrder;
 
-    const res = await order(directOrder, token);
+    const res = await order(body, token);
 
     if (res) {
       navigator(`/`);
@@ -171,15 +179,15 @@ export default function OrderForm() {
             <S.PayMentMethodSection>
               <S.SectionTitle>결제 수단</S.SectionTitle>
               <S.PayOptionWrapper>
-                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("신용/체크카드")} checked={paymentMethod === "신용/체크카드"} readOnly />
+                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("CARD")} checked={paymentMethod === "CARD"} readOnly />
                 <p>신용 / 체크카드</p>
-                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("무통장 입금")} checked={paymentMethod === "무통장 입금"} readOnly />
+                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("DEPOSIT")} checked={paymentMethod === "DEPOSIT"} readOnly />
                 <p>무통장 입금</p>
-                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("휴대폰 결제")} checked={paymentMethod === "휴대폰 결제"} readOnly />
+                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("PHONE_PAYMENT")} checked={paymentMethod === "PHONE_PAYMENT"} readOnly />
                 <p>휴대폰 결제</p>
-                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("네이버 페이")} checked={paymentMethod === "네이버 페이"} readOnly />
+                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("NAVERPAY")} checked={paymentMethod === "NAVERPAY"} readOnly />
                 <p>네이버페이</p>
-                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("카카오 페이")} checked={paymentMethod === "카카오 페이"} readOnly />
+                <S.PayOptionInput type="radio" onClick={() => setPayMentMethod("KAKAOPAY")} checked={paymentMethod === "KAKAOPAY"} readOnly />
                 <p>카카오페이</p>
               </S.PayOptionWrapper>
             </S.PayMentMethodSection>
@@ -200,7 +208,7 @@ export default function OrderForm() {
                 </S.ShippingFee>
                 <S.PayMentPrice>
                   - 결제
-                  <span>{totalProductPrice.toLocaleString()} 원</span>
+                  <span>{totalOrderProductPrice.toLocaleString()} 원</span>
                 </S.PayMentPrice>
                 <S.AgreeMentWrapper>
                   <S.AgreeMentInput type="checkbox" />
