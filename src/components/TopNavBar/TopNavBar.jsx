@@ -108,14 +108,10 @@ export default function TopNavBar() {
                       )}
                     </li>
                     <li>
-                      <S.StyledLink to={`/signUp`}>Join</S.StyledLink>
+                      <S.StyledLink to={`/signUp`}>Join</S.StyledLink>{" "}
                     </li>
-                    <li>
-                      <S.StyledLink to={`/myPage`}>My Page</S.StyledLink>
-                    </li>
-                    <li>
-                      <S.StyledLink to={`/order`}>Order</S.StyledLink>
-                    </li>
+                    <li>{isLoggedIn ? <S.StyledLink to={`/myPage`}>My Page</S.StyledLink> : <S.StyledLink to={`/login`}>My Page</S.StyledLink>}</li>
+                    <li>{isLoggedIn ? <S.StyledLink to={`/order`}>Order</S.StyledLink> : <S.StyledLink to={`/login`}>Order</S.StyledLink>}</li>
                   </ul>
                 </S.SideNavBar>
               </>
