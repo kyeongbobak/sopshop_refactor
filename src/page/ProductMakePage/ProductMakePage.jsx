@@ -1,27 +1,54 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { createProduct, getSellingProducts, modifySellingProduct } from "../../api/SellingProduct";
+import { useRecoilValue } from "recoil";
+import { userToken } from "../../atom/Atom";
+import { useNavigate } from "react-router-dom";
 import SellerCenterHeader from "../../components/SellerCenterHeader/SellerCenterHeader";
 import SellerCenterSideMenu from "../../components/SellerCenterSideMenu/SellerCenterSideMenu";
 import uploadImage from "../../assets/img/image.png";
 import * as S from "./ProductMakeStyle";
-import { useMutation } from "@tanstack/react-query";
-import { createProduct } from "../../api/SellingProduct";
-import { useRecoilValue } from "recoil";
-import { userToken } from "../../atom/Atom";
-import { useNavigate } from "react-router-dom";
 
 export default function ProductMakePage() {
   const [imagePreview, setImagePreview] = useState(null);
   const [selectImage, setSelectImage] = useState(null);
   const [deliveryMethod, setDeliveryMethod] = useState("");
+  const [modifyingProduct, setModifyingProduct] = useState();
 
   const token = useRecoilValue(userToken);
 
   const fileInputRef = useRef(null);
 
-  const { register, handleSubmit, getValues } = useForm();
+  const { register, handleSubmit, getValues, setValue } = useForm();
 
   const navigator = useNavigate();
+
+  const { action, productId } = useParams();
+
+  useEffect(() => {
+    const selectedProduct = async () => {
+      const res = await getSellingProducts(token);
+      const product = res.results.find((_, index) => index === Number(productId));
+
+      setModifyingProduct(product);
+
+      if (product) {
+        setValue("productName", product.product_name);
+        setValue("price", product.price);
+        setDeliveryMethod(product.shipping_method);
+        setValue("shippingFee", product.shipping_fee);
+        setValue("stock", product.stock);
+        setImagePreview(product.image);
+      }
+
+      return res;
+    };
+    if (action === "modify") {
+      selectedProduct();
+    }
+  }, [token, action, setValue, productId]);
 
   const handleUploadImage = () => {
     if (fileInputRef.current) {
@@ -31,7 +58,7 @@ export default function ProductMakePage() {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-
+    console.log(file);
     setSelectImage(file);
 
     if (file) {
@@ -54,6 +81,7 @@ export default function ProductMakePage() {
     },
   });
 
+  // 상품 등록하기
   const handleCreateProduct = () => {
     const { productName, price, shippingFee, stock } = getValues();
 
@@ -69,6 +97,25 @@ export default function ProductMakePage() {
     createMutation.mutate({ token, formData });
   };
 
+  // 판매 상품 수정하기
+  const modifyProduct = async () => {
+    const { productName, price, shippingFee, stock } = getValues();
+
+    const formData = new FormData();
+    formData.append("product_name", productName);
+    formData.append("image", selectImage);
+    formData.append("price", price);
+    formData.append("shipping_method", `${modifyingProduct.shipping_method}`);
+    formData.append("shipping_fee", shippingFee);
+    formData.append("stock", stock);
+    formData.append("product_info", "");
+    const res = await modifySellingProduct(token, formData, modifyingProduct.product_id);
+
+    navigator(`/sellerCenter`);
+
+    return res;
+  };
+
   return (
     <>
       <SellerCenterHeader />
@@ -78,7 +125,7 @@ export default function ProductMakePage() {
           <S.Section>
             <S.ProductImageWrapper>
               {imagePreview ? (
-                <S.ProductImage src={imagePreview} alt="상품 이미지 미리보기" />
+                <S.ProductImage src={imagePreview} alt="상품 이미지 미리보기" onClick={handleUploadImage} />
               ) : (
                 <S.PreviewImage>
                   <S.IconImage src={uploadImage} alt="uploadImage" onClick={handleUploadImage} />
@@ -138,7 +185,17 @@ export default function ProductMakePage() {
               <S.InfoContents>Editor</S.InfoContents>
               <S.BtnWrapper>
                 <S.CancelBtn>취소</S.CancelBtn>
-                <S.SavedBtn type="submit">저장하기</S.SavedBtn>
+                {action === "modify" ? (
+                  <>
+                    <S.SavedBtn type="button" onClick={() => modifyProduct()}>
+                      수정하기
+                    </S.SavedBtn>
+                  </>
+                ) : (
+                  <>
+                    <S.SavedBtn type="submit">저장하기</S.SavedBtn>
+                  </>
+                )}
               </S.BtnWrapper>
             </S.ProductDetailInfoWrapper>
           </S.Section>

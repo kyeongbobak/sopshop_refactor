@@ -24,7 +24,7 @@ export default function SellerCenterSideMenu() {
             <S.StyledLink>스토어 설정</S.StyledLink>
           </li>
           <li onClick={() => setSelected("AddProduct")} className={selected === "AddProduct" ? "active" : ""}>
-            <S.StyledLink to={`/productMakePage`}>상품 등록</S.StyledLink>
+            <S.StyledLink to={`/productMakePage/make/0`}>상품 등록</S.StyledLink>
           </li>
         </ul>
       </S.Wrapper>

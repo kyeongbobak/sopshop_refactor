@@ -27,7 +27,7 @@ export default function Router() {
         <Route path="/orderComplete" element={<OrderCompletePage />}></Route>
         <Route path="/myPage" element={<MyPage />}></Route>
         <Route path="/sellerCenter" element={<SellerCenter />}></Route>
-        <Route path="/productMakePage" element={<ProductMakePage />}></Route>
+        <Route path="/productMakePage/:action/:productId" element={<ProductMakePage />}></Route>
       </Routes>
     </>
   );

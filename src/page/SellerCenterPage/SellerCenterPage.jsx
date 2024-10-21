@@ -2,7 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 
 import { useRecoilValue } from "recoil";
 import { userToken } from "../../atom/Atom";
-import { getSellingProducts, modifySellingProduct, deleteSellingProduct } from "../../api/SellingProduct";
+import { getSellingProducts, deleteSellingProduct } from "../../api/SellingProduct";
+import { useNavigate } from "react-router-dom";
 import TabTitle from "../../components/TabTitle/TabTitle";
 import SellerCenterHeader from "../../components/SellerCenterHeader/SellerCenterHeader";
 import SellerCenterSideMenu from "../../components/SellerCenterSideMenu/SellerCenterSideMenu";
@@ -15,9 +16,11 @@ export default function SellerCenterPage() {
   const [productId, setProductId] = useState([]);
 
   const token = useRecoilValue(userToken);
+  const navigator = useNavigate();
 
   const sellingProductList = useCallback(async () => {
     const res = await getSellingProducts(token);
+    console.log(res);
     setSellingProduct(res.results);
     const productIds = res.results.map((product) => product.product_id);
     setProductId(productIds);
@@ -26,21 +29,6 @@ export default function SellerCenterPage() {
   useEffect(() => {
     sellingProductList();
   }, [sellingProductList]);
-
-  const modifyProduct = async (index) => {
-    const product = sellingProduct[index];
-    const formData = new FormData();
-    formData.append("product_name", `${product.product_name}`);
-    formData.append("image", `${product.image}`);
-    formData.append("price", `${product.price}`);
-    formData.append("shipping_method", `${product.shipping_method}`);
-    formData.append("shipping_fee", `${product.shipping_fee}`);
-    formData.append("stock", 30);
-    formData.append("product_info", "");
-    const res = await modifySellingProduct(token, formData, productId[index]);
-    sellingProductList();
-    return res;
-  };
 
   const deleteProduct = async (index) => {
     console.log(productId[index]);
@@ -69,7 +57,7 @@ export default function SellerCenterPage() {
             </S.ProductInfoWrapper>
             <S.ProductPrice>{product.price.toLocaleString()} 원</S.ProductPrice>
             <S.ButtonWrapper>
-              <S.ModifyBtn onClick={() => modifyProduct(index)}>수정</S.ModifyBtn>
+              <S.ModifyBtn onClick={() => navigator(`/productMakePage/modify/${index}`)}>수정</S.ModifyBtn>
             </S.ButtonWrapper>
             <S.ButtonWrapper>
               <S.DeleteBtn onClick={() => deleteProduct(index)}>삭제</S.DeleteBtn>
