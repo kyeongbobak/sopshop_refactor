@@ -18,7 +18,7 @@ export default function LoginPage() {
   const setUserType = useSetRecoilState(userType);
   const navigate = useNavigate();
 
-  //유효성 검사를 더 간단하게 처리하기 위해 useForm 사용
+  //유효성 검사를 더 간단하게 처리하기 위해 react-hook-form 사용
   const {
     register,
     handleSubmit,
@@ -39,9 +39,9 @@ export default function LoginPage() {
     },
   });
 
-  // 데이터 변경이나 업데이트를 위해 useMutation 사용
+  // 데이터 변경이나 업데이트를 좀 더 간단하게 하기 위해 useMutation 사용
   const handleOnLogin = (data) => {
-    data.login_type = isBuyer ? "BUYER" : "SELLER";
+    data.login_type = isBuyer ? "BUYER" : "SELLER"; // 로그인 타입을 설정
     LoginMutation.mutate(data);
   };
 

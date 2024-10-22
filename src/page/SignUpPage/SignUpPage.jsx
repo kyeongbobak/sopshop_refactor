@@ -36,7 +36,6 @@ export default function SignUpPage() {
     formState: { errors },
   } = useForm();
 
-  // watch 함수를 활용하여 실시간으로 비밀번호 일치 여부 확인하여 사용자 경험 개선
   const userPassword = watch("password", "");
   const userPasswordConfirm = watch("passwordConfirm", "");
   const frontNumber = watch("frontNumber", "");
@@ -82,9 +81,17 @@ export default function SignUpPage() {
         clearErrors("phoneNumber");
       }
     }
-  }, [setError, clearErrors, phoneNumber, frontNumber, middleNumber, endNumber]);
 
-  const SingUpMutation = useMutation({
+    if (userPassword && userPasswordConfirm) {
+      if (userPassword !== userPasswordConfirm) {
+        setError("passwordConfirm", { type: "matched-password", message: "비밀번호가 일치하지 않습니다." });
+      } else {
+        clearErrors("passwordConfirm");
+      }
+    }
+  }, [setError, clearErrors, phoneNumber, frontNumber, middleNumber, endNumber, userPassword, userPasswordConfirm]);
+
+  const SingUpMutation = {
     mutationFn: signUp,
     onSuccess: (data) => {
       console.log(data);
@@ -95,7 +102,7 @@ export default function SignUpPage() {
     onError: (errors) => {
       console.log(errors);
     },
-  });
+  };
 
   const handleOnSignUp = (data) => {
     data.phone_number = phoneNumber;
@@ -168,12 +175,6 @@ export default function SignUpPage() {
               type="password"
               {...register("passwordConfirm", {
                 required: "비밀번호를 확인해주세요.",
-                validate: {
-                  matchPassword: (value) => {
-                    const { password } = getValues();
-                    return password === value || "비밀번호가 일치하지 않습니다.";
-                  },
-                },
               })}
             />
             {userPasswordConfirm ? <img src={checkOnIcon} alt="checkIcon" /> : <img src={checkOffIcon} alt="checkIcon" />}
