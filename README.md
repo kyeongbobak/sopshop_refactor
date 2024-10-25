@@ -167,7 +167,7 @@
   import { useEffect, useState } from "react";
   import { getCartList } from "../api/Cart";
 
-  // 카트에 담긴 상품 ID 리스트를 추출하는 커스텀 훅 useCartList 정의
+  // 카트에 담긴 상품 ID를 추출하는 커스텀 훅 useCartList 정의
   const useCartList = (token, userTypeValue) => {
     const [cartList, setCartList] = useState([]);
     const [cartProducts, setCartProducts] = useState([]);
