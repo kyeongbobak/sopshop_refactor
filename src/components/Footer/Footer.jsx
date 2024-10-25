@@ -1,7 +1,7 @@
-import * as S from "./FooterStyle";
 import insta from "../../assets/img/icon-insta.png";
 import fb from "../../assets/img/icon-fb.png";
 import yt from "../../assets/img/icon-yt.png";
+import * as S from "./FooterStyle";
 
 export default function Footer() {
   return (

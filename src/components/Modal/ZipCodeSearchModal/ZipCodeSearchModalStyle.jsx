@@ -9,6 +9,6 @@ export const Wrapper = styled.div`
   padding: 20px;
   z-index: 1000;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 400px; /* 모달 너비 */
-  height: 500px; /* 모달 높이 */
+  width: 400px;
+  height: 500px;
 `;

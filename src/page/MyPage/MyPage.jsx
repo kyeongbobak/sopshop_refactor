@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userToken } from "../../atom/Atom";
 import { getOrderList } from "../../api/Order";
+import useProductDetail from "../../hook/useProductDetail";
 import TopNavBar from "../../components/TopNavBar/TopNavBar";
 import SideBar from "../../components/SideBar/SideBar";
 import TabTitle from "../../components/TabTitle/TabTitle";
 import Footer from "../../components/Footer/Footer";
 import * as S from "./MyPageStyle";
 import * as CS from "../../page/CartPage/CartPageStyle";
-import useProductDetail from "../../hook/useProductDetail";
 
 export default function MyPage() {
   const titles = ["상품정보", "수량", "주문금액", "결제 방법", "주문처리 상태"];

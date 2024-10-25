@@ -4,15 +4,15 @@ import { useMutation } from "@tanstack/react-query";
 import { useSetRecoilState } from "recoil";
 import { userType } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
-import { signUp, validateAccount, validateCompanyNumber } from "../../api/Account";
+import { sellerSignUp, signUp, validateAccount, validateCompanyNumber } from "../../api/Account";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
-import * as LS from "../LoginPage/LoginPageStyle";
-import * as S from "./SignUpPageStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
 import upArrow from "../../assets/img/icon-up-arrow.png";
 import downArrow from "../../assets/img/icon-down-arrow.png";
 import checkOffIcon from "../../assets/img/icon-check-off.png";
 import checkOnIcon from "../../assets/img/icon-check-on.png";
+import * as LS from "../LoginPage/LoginPageStyle";
+import * as S from "./SignUpPageStyle";
 
 export default function SignUpPage() {
   const [isBuyer, setIsBuyer] = useState(true);
@@ -21,6 +21,7 @@ export default function SignUpPage() {
   const [activeOption, setActiveOption] = useState(false);
 
   const setUserType = useSetRecoilState(userType);
+
   const navigate = useNavigate();
 
   const frontNumberList = ["010", "011", "016", "017", "018", "019"];
@@ -37,7 +38,7 @@ export default function SignUpPage() {
   } = useForm();
 
   const userPassword = watch("password", "");
-  const userPasswordConfirm = watch("passwordConfirm", "");
+  const userPasswordConfirm = watch("password2", "");
   const frontNumber = watch("frontNumber", "");
   const middleNumber = watch("middleNumber", "");
   const endNumber = watch("endNumber", "");
@@ -81,18 +82,18 @@ export default function SignUpPage() {
         clearErrors("phoneNumber");
       }
     }
-
+    // 비밀번호 일치 여부 검사
     if (userPassword && userPasswordConfirm) {
       if (userPassword !== userPasswordConfirm) {
-        setError("passwordConfirm", { type: "matched-password", message: "비밀번호가 일치하지 않습니다." });
+        setError("password2", { type: "matched-password", message: "비밀번호가 일치하지 않습니다." });
       } else {
-        clearErrors("passwordConfirm");
+        clearErrors("password2");
       }
     }
   }, [setError, clearErrors, phoneNumber, frontNumber, middleNumber, endNumber, userPassword, userPasswordConfirm]);
 
-  const SingUpMutation = {
-    mutationFn: signUp,
+  const SingUpMutation = useMutation({
+    mutationFn: isBuyer ? signUp : sellerSignUp,
     onSuccess: (data) => {
       console.log(data);
       setUserType(data.type);
@@ -102,7 +103,7 @@ export default function SignUpPage() {
     onError: (errors) => {
       console.log(errors);
     },
-  };
+  });
 
   const handleOnSignUp = (data) => {
     data.phone_number = phoneNumber;
@@ -113,7 +114,6 @@ export default function SignUpPage() {
   const verifyCompanyNumberMutation = useMutation({
     mutationFn: validateCompanyNumber,
     onSuccess: (data) => {
-      console.log(data);
       if (data.Success) {
         setValidationMessage(data.Success);
       } else if (data.FAIL_Message) {
@@ -121,13 +121,13 @@ export default function SignUpPage() {
       }
     },
     onError: () => {
-      setDuplicateMessage("유효하지 않은 사업자 등록번호입니다. 10자리를 입력해 주세요.");
+      setValidationMessage("유효하지 않은 사업자 등록번호입니다. 10자리를 입력해 주세요.");
     },
   });
 
   const verifyCompanyNumber = async () => {
-    const { companyNumber } = getValues();
-    await verifyCompanyNumberMutation.mutate(companyNumber);
+    const { company_registration_number } = getValues();
+    await verifyCompanyNumberMutation.mutate(company_registration_number);
   };
 
   return (
@@ -173,13 +173,13 @@ export default function SignUpPage() {
             <S.Label>비밀번호 확인</S.Label>
             <S.Input
               type="password"
-              {...register("passwordConfirm", {
+              {...register("password2", {
                 required: "비밀번호를 확인해주세요.",
               })}
             />
             {userPasswordConfirm ? <img src={checkOnIcon} alt="checkIcon" /> : <img src={checkOffIcon} alt="checkIcon" />}
           </S.PasswordInputWrapper>
-          {errors.passwordConfirm && <LS.ErrorMessage>{errors.passwordConfirm.message}</LS.ErrorMessage>}
+          {errors.password2 && <LS.ErrorMessage>{errors.password2.message}</LS.ErrorMessage>}
           <S.Label>이름</S.Label>
           <S.Input {...register("name")} />
           <S.Label>휴대폰 번호</S.Label>
@@ -221,9 +221,9 @@ export default function SignUpPage() {
               <S.Label htmlFor="id">사업자 등록번호</S.Label>
               <S.Wrapper>
                 <S.Input
-                  id="companyNumber"
+                  id="company_registration_number"
                   type="text"
-                  {...register("companyNumber", {
+                  {...register("company_registration_number", {
                     required: "사업자 등록번호를 추가해주세요.",
                   })}
                   onFocus={() => setDuplicateMessage("")}
@@ -235,7 +235,7 @@ export default function SignUpPage() {
               {errors.companyNumber && <LS.ErrorMessage>{errors.companyNumber.message}</LS.ErrorMessage>}
               {validationMessage && <LS.ErrorMessage>{validationMessage}</LS.ErrorMessage>}
               <S.Label>스토어 이름</S.Label>
-              <S.Input />
+              <S.Input id="store_name" {...register("store_name")} />
             </S.SellerInputSection>
           )}
           <S.Section>

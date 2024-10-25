@@ -2,10 +2,23 @@ import { Instance } from "./Instance/Instance";
 
 // 계정 만들기
 export const signUp = async (body) => {
+  console.log(body);
   try {
-    const res = await Instance.post(`/accounts/signup/`, body);
+    const res = await Instance.post(`api/v1/accounts/signup/`, body);
     console.log(res);
     return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// 판매자 계정 만들기
+export const sellerSignUp = async (body) => {
+  console.log(body);
+  try {
+    const res = await Instance.post(`api/v1/accounts/signup_seller`, body);
+    console.log(res);
+    return res;
   } catch (error) {
     console.log(error);
   }

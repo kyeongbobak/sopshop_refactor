@@ -1,7 +1,6 @@
-import React from "react";
-import * as S from "./CountControlStyle";
 import MinusIcon from "../../assets/img/icon-minus-line.png";
 import PlusIcon from "../../assets/img/icon-plus-line.png";
+import * as S from "./CountControlStyle";
 
 // 수량 조절하는 부분 컴포넌트 분리
 export default function CountControl({ count, isStock, onCountChange }) {

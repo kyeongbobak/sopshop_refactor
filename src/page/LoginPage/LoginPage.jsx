@@ -6,8 +6,8 @@ import { userToken, isLogin, userType } from "../../atom/Atom";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../api/LoginOut";
 import TabBtnMenu from "../../components/TabBtnMenu/TabBtnMenu";
-import * as S from "./LoginPageStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
+import * as S from "./LoginPageStyle";
 
 export default function LoginPage() {
   const [isBuyer, setIsBuyer] = useState(true);
@@ -39,7 +39,7 @@ export default function LoginPage() {
     },
   });
 
-  // 데이터 변경이나 업데이트를 좀 더 간단하게 하기 위해 useMutation 사용
+  // 조건에 따라 동적으로 데이터를 구성한 후 비동기 요청을 보낼 때 좀 더 간결하게 처리
   const handleOnLogin = (data) => {
     data.login_type = isBuyer ? "BUYER" : "SELLER"; // 로그인 타입을 설정
     LoginMutation.mutate(data);

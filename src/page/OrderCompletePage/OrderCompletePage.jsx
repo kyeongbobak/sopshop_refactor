@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userToken } from "../../atom/Atom";
-import useProductDetail from "../../hook/useProductDetail";
 import { getOrderList } from "../../api/Order";
+import useProductDetail from "../../hook/useProductDetail";
 import TopNavBar from "../../components/TopNavBar/TopNavBar";
 import SideBar from "../../components/SideBar/SideBar";
 import Footer from "../../components/Footer/Footer";
@@ -25,10 +25,6 @@ export default function OrderCompletePage() {
   const productId = orderList.length > 0 ? orderList[0].order_items : [];
   const { productInfo } = useProductDetail(token, productId);
   const product = productInfo.length > 0 ? productInfo[0] : null;
-
-  console.log(orderList);
-  console.log(productInfo);
-  console.log(product);
 
   return (
     <>

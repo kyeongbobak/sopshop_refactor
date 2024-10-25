@@ -1,30 +1,36 @@
-import styled from "styled-components";
+import { useState } from "react";
+import * as S from "./DetailPageTabsStyle";
 
-export const Tabs = styled.ul`
-  display: flex;
-  width: 1250px;
-  margin-top: 141px;
-`;
+// 상세페이지 하단 탭 부분 컴포넌트 분리
+export default function DetailPageTabs() {
+  const [isClicked, setIsClicked] = useState("Review");
+  const [menuContents, setMenuContents] = useState("Review");
 
-export const TabItem = styled.li`
-  width: 100%;
-  text-align: center;
-  font-size: var(--font-sm-size);
-`;
+  const handleTabClick = (TabTitle) => {
+    setIsClicked(TabTitle);
+    setMenuContents(TabTitle);
+  };
 
-export const TabItemBtn = styled.button`
-  width: 100%;
-  padding: 19px 0;
-  cursor: pointer;
-  border-bottom: 6px solid #e0e0e0;
-
-  &.active {
-    border-bottom: 6px solid var(--black-color);
-  }
-`;
-
-export const Contents = styled.div`
-  height: 300px;
-  font-size: var(--font-md-size);
-  padding: 20px;
-`;
+  return (
+    <>
+      <S.Tabs>
+        <S.TabItem>
+          <S.TabItemBtn className={isClicked === "Review" ? "active" : ""} onClick={() => handleTabClick("Review")}>
+            Review
+          </S.TabItemBtn>
+        </S.TabItem>
+        <S.TabItem>
+          <S.TabItemBtn className={isClicked === "Q&A" ? "active" : ""} onClick={() => handleTabClick("Q&A")}>
+            Q&A
+          </S.TabItemBtn>
+        </S.TabItem>
+        <S.TabItem>
+          <S.TabItemBtn className={isClicked === "Returns / Refund" ? "active" : ""} onClick={() => handleTabClick("Returns / Refund")}>
+            Returns / Refund
+          </S.TabItemBtn>
+        </S.TabItem>
+      </S.Tabs>
+      <S.Contents>{menuContents}</S.Contents>
+    </>
+  );
+}

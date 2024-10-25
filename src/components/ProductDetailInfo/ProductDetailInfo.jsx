@@ -47,7 +47,7 @@ export default function ProductDetailInfo() {
 
     const data = cartList.map((i) => i.product_id);
     const isProductInCart = data.includes(parseInt(productId));
-    console.log(isProductInCart);
+
     setIsInCart(isProductInCart);
   }, [cartList, productId]);
 

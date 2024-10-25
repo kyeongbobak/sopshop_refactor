@@ -1,5 +1,5 @@
-import * as S from "./SellerCenterHeaderStyle";
 import logo from "../../assets/img/Logo-SopShop.png";
+import * as S from "./SellerCenterHeaderStyle";
 
 export default function SellerCenterHeader() {
   return (
