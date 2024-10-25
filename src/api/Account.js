@@ -13,16 +13,16 @@ export const signUp = async (body) => {
 };
 
 // 판매자 계정 만들기
-export const sellerSignUp = async (body) => {
-  console.log(body);
-  try {
-    const res = await Instance.post(`api/v1/accounts/signup_seller`, body);
-    console.log(res);
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const sellerSignUp = async (body) => {
+//   console.log(body);
+//   try {
+//     const res = await Instance.post(`api/v1/accounts/signup_seller`, body);
+//     console.log(res);
+//     return res;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 // 계정 검증하기
 export const validateAccount = async (userId) => {
