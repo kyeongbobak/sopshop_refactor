@@ -27,28 +27,28 @@ export default function ProductMakePage() {
 
   const { action, productId } = useParams();
 
-  // useEffect(() => {
-  //   const selectedProduct = async () => {
-  //     const res = await getSellingProducts(token);
-  //     const product = res.results.find((_, index) => index === Number(productId));
+  useEffect(() => {
+    const selectedProduct = async () => {
+      const res = await getSellingProducts(token);
+      const product = res.results.find((_, index) => index === Number(productId));
 
-  //     setModifyingProduct(product);
+      setModifyingProduct(product);
 
-  //     if (product) {
-  //       setValue("productName", product.product_name);
-  //       setValue("price", product.price);
-  //       setDeliveryMethod(product.shipping_method);
-  //       setValue("shippingFee", product.shipping_fee);
-  //       setValue("stock", product.stock);
-  //       setImagePreview(product.image);
-  //     }
+      if (product) {
+        setValue("productName", product.product_name);
+        setValue("price", product.price);
+        setDeliveryMethod(product.shipping_method);
+        setValue("shippingFee", product.shipping_fee);
+        setValue("stock", product.stock);
+        setImagePreview(product.image);
+      }
 
-  //     return res;
-  //   };
-  //   if (action === "modify") {
-  //     selectedProduct();
-  //   }
-  // }, [token, action, setValue, productId]);
+      return res;
+    };
+    if (action === "modify") {
+      selectedProduct();
+    }
+  }, [token, action, setValue, productId]);
 
   const handleUploadImage = () => {
     if (fileInputRef.current) {
