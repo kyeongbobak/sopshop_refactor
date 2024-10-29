@@ -109,7 +109,7 @@ export default function OrderForm() {
     const res = await order(body, token);
 
     if (res) {
-      navigator(`/`);
+      navigator(`/orderComplete`);
     }
     return res;
   };
