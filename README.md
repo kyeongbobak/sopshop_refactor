@@ -7,11 +7,18 @@
 - React Query, Recoil을 도입하여 상태관리를 효율적으로 개선하고, 불필요한 렌더링을 방지하여 애플리케이션 성능 최적화
 - 실시간 유효성 검사, 상품 상세 내용 자동 등록 등 구체적인 기능 최적화를 통해 사용자 경험 향상
 
-## [SopShop]()
+## [SopShop](https://sop-shop.netlify.app/)
 
-**서비스 이용을 위한 테스트 계정** <br/>
+**서비스 이용을 위한 계정** <br/>
+
+**구매자 계정**
 
 - ID : buyer1 <br/>
+- PASSWORD : hodu0910
+
+**판매자 계정**
+
+- ID : seller1 <br/>
 - PASSWORD : hodu0910
 
 ## 리팩토링 기간
